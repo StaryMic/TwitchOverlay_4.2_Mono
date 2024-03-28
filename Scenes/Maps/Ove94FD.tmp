@@ -1,0 +1,261 @@
+[gd_scene load_steps=19 format=3 uid="uid://dfh3v2a1vt4cu"]
+
+[ext_resource type="Script" path="res://Scripts/Utility/OptionsWindow.gd" id="1_cfpg0"]
+[ext_resource type="PackedScene" uid="uid://bcpx57c6escym" path="res://Scenes/Objects/2D/PredictionSlider.tscn" id="1_et36m"]
+[ext_resource type="Script" path="res://Scripts/Utility/GlobalActions.gd" id="2_wg44c"]
+[ext_resource type="Script" path="res://Scripts/Networking/WebsocketClient.gd" id="3_qm8ys"]
+[ext_resource type="Script" path="res://Scripts/EventScripts/EventHandler.gd" id="5_0y51c"]
+[ext_resource type="Script" path="res://Scripts/Networking/APICaller.gd" id="5_x3v8q"]
+[ext_resource type="Script" path="res://Scripts/EventScripts/Events/BanSounds.gd" id="6_2yy5c"]
+[ext_resource type="AudioStream" uid="uid://bhlseaspgg0o4" path="res://Audio/SFX/EnergyballKill.wav" id="6_4ssyi"]
+[ext_resource type="Script" path="res://Scripts/EventScripts/Events/AudienceManager.gd" id="7_2h1j1"]
+[ext_resource type="AudioStream" uid="uid://dcovgd1whonge" path="res://Audio/SFX/357_fire3.wav" id="8_yvc4a"]
+[ext_resource type="AudioStream" uid="uid://oawmiy7cojlg" path="res://Audio/SFX/616975__trp__210701-american-crows-caws-calling-sparrows-robin-urban-residential-toronto-7am.wav" id="9_xu6tg"]
+[ext_resource type="PackedScene" uid="uid://b7axn3oiav56e" path="res://Scenes/Objects/3D/NotificationDisplay.tscn" id="10_tcghh"]
+[ext_resource type="Script" path="res://Scripts/EventScripts/Events/PointRedeemHandler.gd" id="12_fgmep"]
+[ext_resource type="PackedScene" uid="uid://b4xyhoqdhu2g8" path="res://Scenes/Objects/2D/PlaceholderAudienceMan.tscn" id="14_bde21"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pr7u8"]
+sun_angle_max = 79.93
+
+[sub_resource type="Sky" id="Sky_j8nb6"]
+sky_material = SubResource("ProceduralSkyMaterial_pr7u8")
+
+[sub_resource type="Environment" id="Environment_l2438"]
+background_color = Color(0.145098, 0.145098, 0.145098, 1)
+sky = SubResource("Sky_j8nb6")
+reflected_light_source = 2
+ssil_intensity = 0.0
+sdfgi_use_occlusion = true
+glow_intensity = 2.93
+glow_strength = 2.0
+volumetric_fog_anisotropy = -0.9
+volumetric_fog_length = 0.01
+
+[sub_resource type="BoxMesh" id="BoxMesh_6x25u"]
+size = Vector3(0.1, 0.1, 0.1)
+
+[node name="Overlay" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_l2438")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.450564, -0.831647, 0.324586, 0.65214, 0.554906, 0.51652, -0.609677, -0.0210497, 0.792371, 1.99344, 2.20506, 0)
+
+[node name="OptionsWindow" type="Window" parent="."]
+unique_name_in_owner = true
+initial_position = 1
+size = Vector2i(500, 500)
+always_on_top = true
+
+[node name="Control" type="Control" parent="OptionsWindow"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsWindow/Control"]
+layout_mode = 0
+offset_right = 96.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="OptionsWindow/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Auth" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Authorize App"
+
+[node name="CloseButton" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Close App"
+
+[node name="HidePanelButton" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Hide This Panel"
+
+[node name="Reconnect" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Reconnect"
+
+[node name="VSeparator" type="VSeparator" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer3" type="VBoxContainer" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+text = "Output Device"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AudioDeviceList" type="ItemList" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer3"]
+layout_mode = 2
+allow_search = false
+auto_height = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="OptionsWindow/Control/VBoxContainer"]
+layout_mode = 2
+
+[node name="WSEventTests" type="ScrollContainer" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(117.6, 200)
+layout_mode = 2
+size_flags_horizontal = 0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests"]
+custom_minimum_size = Vector2(100, 100)
+layout_mode = 2
+
+[node name="Follow" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer"]
+layout_mode = 2
+text = "Follow"
+
+[node name="Subscribe" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer"]
+layout_mode = 2
+text = "Subscribe"
+
+[node name="Giftsub" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer"]
+layout_mode = 2
+text = "Giftsub"
+
+[node name="Submessage" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer"]
+layout_mode = 2
+text = "Submessage"
+
+[node name="Cheer" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer"]
+layout_mode = 2
+text = "Cheer"
+
+[node name="Raid" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer"]
+layout_mode = 2
+text = "Raid"
+
+[node name="Ban" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer"]
+layout_mode = 2
+text = "Ban"
+
+[node name="RedeemTests" type="VBoxContainer" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="MoveOpila" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/RedeemTests"]
+layout_mode = 2
+text = "MoveOpila"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+current = true
+
+[node name="EventObjects" type="Node" parent="."]
+editor_description = "penis"
+
+[node name="Ban" type="Node" parent="EventObjects"]
+script = ExtResource("6_2yy5c")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="EventObjects/Ban"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.2951, 0, -28.6884)
+stream = ExtResource("6_4ssyi")
+attenuation_model = 2
+volume_db = 28.65
+unit_size = 2.8
+max_polyphony = 10
+bus = &"Gunshot"
+
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="EventObjects/Ban"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.67635, -1.19209e-07, -30.4579)
+stream = ExtResource("8_yvc4a")
+attenuation_model = 2
+volume_db = 8.798
+max_polyphony = 5
+bus = &"Gunshot"
+doppler_tracking = 1
+
+[node name="Crowsounds" type="Node" parent="EventObjects/Ban"]
+
+[node name="Crow" type="AudioStreamPlayer" parent="EventObjects/Ban/Crowsounds"]
+stream = ExtResource("9_xu6tg")
+volume_db = -21.123
+max_polyphony = 10
+bus = &"Birds"
+
+[node name="NotificationDisplay" parent="EventObjects" instance=ExtResource("10_tcghh")]
+scale = Vector2(0.362008, 0.362008)
+
+[node name="PredictionSlider" parent="EventObjects" instance=ExtResource("1_et36m")]
+
+[node name="AudienceManager" type="Node2D" parent="EventObjects"]
+script = ExtResource("7_2h1j1")
+AreaBounds = PackedVector2Array(120, 1000, 1780, 1080)
+SpawnableMen = ["res://Scenes/Objects/2D/PlaceholderAudienceMan.tscn"]
+
+[node name="PlaceholderAudienceMan" parent="EventObjects/AudienceManager" instance=ExtResource("14_bde21")]
+z_index = -1
+position = Vector2(256, 1336)
+
+[node name="GlobalSceneScripts" type="Node" parent="."]
+
+[node name="OptionsWindow" type="Node" parent="GlobalSceneScripts"]
+script = ExtResource("1_cfpg0")
+
+[node name="GlobalActions" type="Node" parent="GlobalSceneScripts"]
+script = ExtResource("2_wg44c")
+
+[node name="WebsocketClient" type="Node" parent="GlobalSceneScripts"]
+script = ExtResource("3_qm8ys")
+
+[node name="APICaller" type="Node" parent="GlobalSceneScripts"]
+process_mode = 4
+script = ExtResource("5_x3v8q")
+
+[node name="HTTPRequest" type="HTTPRequest" parent="GlobalSceneScripts/APICaller"]
+unique_name_in_owner = true
+
+[node name="EventHandler" type="Node" parent="GlobalSceneScripts"]
+script = ExtResource("5_0y51c")
+
+[node name="NotificationTimer" type="Timer" parent="GlobalSceneScripts/EventHandler"]
+wait_time = 2.0
+autostart = true
+
+[node name="GoalHandler" type="Node" parent="GlobalSceneScripts/EventHandler"]
+
+[node name="HypeHandler" type="Node" parent="GlobalSceneScripts/EventHandler"]
+
+[node name="PollHandler" type="Node" parent="GlobalSceneScripts/EventHandler"]
+
+[node name="PointRedeemHandler" type="Node" parent="GlobalSceneScripts/EventHandler"]
+script = ExtResource("12_fgmep")
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.532963, -0.362455, -2.2494)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Node3D"]
+mesh = SubResource("BoxMesh_6x25u")
+
+[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer/Auth" to="GlobalSceneScripts/OptionsWindow" method="_on_auth_pressed"]
+[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer/CloseButton" to="GlobalSceneScripts/OptionsWindow" method="_on_close_button_pressed"]
+[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer/HidePanelButton" to="GlobalSceneScripts/OptionsWindow" method="_on_hide_panel_button_pressed"]
+[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer/Reconnect" to="GlobalSceneScripts/APICaller" method="_on_reconnect_pressed"]
+[connection signal="item_selected" from="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer3/AudioDeviceList" to="GlobalSceneScripts/OptionsWindow" method="_on_audio_device_list_item_selected"]
+[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer/Follow" to="GlobalSceneScripts/OptionsWindow" method="_on_follow_pressed"]
+[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer/Subscribe" to="GlobalSceneScripts/OptionsWindow" method="_on_subscribe_pressed"]
+[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer/Giftsub" to="GlobalSceneScripts/OptionsWindow" method="_on_giftsub_pressed"]
+[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer/Submessage" to="GlobalSceneScripts/OptionsWindow" method="_on_submessage_pressed"]
+[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer/Cheer" to="GlobalSceneScripts/OptionsWindow" method="_on_cheer_pressed"]
+[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer/Raid" to="GlobalSceneScripts/OptionsWindow" method="_on_raid_pressed"]
+[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer/Ban" to="GlobalSceneScripts/OptionsWindow" method="_on_ban_pressed"]
+[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/RedeemTests/MoveOpila" to="GlobalSceneScripts/OptionsWindow" method="_on_move_opila_pressed"]
+[connection signal="send_notification_to_event_handler" from="GlobalSceneScripts/WebsocketClient" to="GlobalSceneScripts/EventHandler" method="_on_websocket_client_send_notification_to_event_handler"]
+[connection signal="send_sub_session_id" from="GlobalSceneScripts/WebsocketClient" to="GlobalSceneScripts/APICaller" method="_on_websocket_client_send_sub_session_id"]
+[connection signal="request_completed" from="GlobalSceneScripts/APICaller/HTTPRequest" to="GlobalSceneScripts/APICaller" method="_on_http_request_request_completed"]
+[connection signal="ban" from="GlobalSceneScripts/EventHandler" to="EventObjects/Ban" method="_on_event_handler_ban"]
+[connection signal="cheer" from="GlobalSceneScripts/EventHandler" to="EventObjects/NotificationDisplay" method="_on_event_handler_cheer"]
+[connection signal="follow" from="GlobalSceneScripts/EventHandler" to="EventObjects/NotificationDisplay" method="_on_follow"]
+[connection signal="giftsub" from="GlobalSceneScripts/EventHandler" to="EventObjects/NotificationDisplay" method="_on_giftsub"]
+[connection signal="pointredeem" from="GlobalSceneScripts/EventHandler" to="GlobalSceneScripts/EventHandler/PointRedeemHandler" method="_on_event_handler_pointredeem"]
+[connection signal="prediction" from="GlobalSceneScripts/EventHandler" to="EventObjects/PredictionSlider" method="_on_event_handler_prediction"]
+[connection signal="raid" from="GlobalSceneScripts/EventHandler" to="EventObjects/NotificationDisplay" method="_on_event_handler_raid"]
+[connection signal="submessage" from="GlobalSceneScripts/EventHandler" to="EventObjects/NotificationDisplay" method="_on_event_handler_submessage"]
+[connection signal="subscribe" from="GlobalSceneScripts/EventHandler" to="EventObjects/NotificationDisplay" method="_on_event_handler_subscribe"]
+[connection signal="timeout" from="GlobalSceneScripts/EventHandler/NotificationTimer" to="GlobalSceneScripts/EventHandler" method="_on_timer_timeout"]

@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://ceoakmt8rexa7"]
+
+[ext_resource type="Script" path="res://Scenes/Maps/2DBezierCurve_Test.gd" id="1_dekp2"]
+[ext_resource type="Shader" uid="uid://mosr5o6rumh5" path="res://ColorReplacer.tres" id="2_chp4h"]
+[ext_resource type="Texture2D" uid="uid://llapgnpfrdqn" path="res://Images/TestingSprites/BodyEyeColorTest.png" id="3_juhlf"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ddb6a"]
+shader = ExtResource("2_chp4h")
+shader_parameter/EyeColor = Color(0.05814, 0.0476, 0.68, 1)
+shader_parameter/BodyColor = Color(0.490349, 0.272294, 0.035539, 1)
+
+[node name="2dBezierCurveTest" type="Node2D"]
+script = ExtResource("1_dekp2")
+Points = Array[Vector2]([Vector2(117.57, 65.7), Vector2(200, 445), Vector2(750, 199)])
+
+[node name="Panel" type="Panel" parent="."]
+z_index = -595
+custom_minimum_size = Vector2(1920, 1080)
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 2
+
+[node name="Icon" type="Sprite2D" parent="."]
+texture_repeat = 1
+material = SubResource("ShaderMaterial_ddb6a")
+texture = ExtResource("3_juhlf")

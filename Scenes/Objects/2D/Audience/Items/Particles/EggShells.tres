@@ -1,0 +1,19 @@
+[gd_resource type="ParticleProcessMaterial" format=3 uid="uid://vhbb721mmlji"]
+
+[resource]
+particle_flag_align_y = true
+particle_flag_rotate_y = true
+particle_flag_disable_z = true
+emission_shape = 6
+emission_ring_axis = Vector3(0, 0, 1)
+emission_ring_height = 1.0
+emission_ring_radius = 1.0
+emission_ring_inner_radius = 0.0
+spread = 180.0
+flatness = 0.4
+initial_velocity_min = 141.89
+initial_velocity_max = 262.75
+gravity = Vector3(0, 250, 0)
+attractor_interaction_enabled = false
+scale_min = 0.5
+scale_max = 0.5

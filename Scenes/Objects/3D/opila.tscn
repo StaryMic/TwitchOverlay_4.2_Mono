@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://mjl2dxb3y77f"]
+
+[ext_resource type="PackedScene" uid="uid://cheks2rihtnh1" path="res://Models/Opila/Opila.glb" id="1_wembx"]
+
+[node name="Opila" instance=ExtResource("1_wembx")]

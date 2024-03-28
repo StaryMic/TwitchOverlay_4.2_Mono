@@ -1,0 +1,25 @@
+[gd_resource type="Resource" load_steps=12 format=3 uid="uid://cayxxrq8ja7ww"]
+
+[ext_resource type="Texture2D" uid="uid://6j1suaacmq6u" path="res://Scenes/Objects/2D/Audience/Avatars/StickFigure/Bark.PNG" id="1_ahgs8"]
+[ext_resource type="AudioStream" uid="uid://dcovgd1whonge" path="res://Audio/SFX/357_fire3.wav" id="2_bqf5x"]
+[ext_resource type="Texture2D" uid="uid://cli3oyk1my6os" path="res://Scenes/Objects/2D/Audience/Avatars/StickFigure/Falling.PNG" id="2_jqaut"]
+[ext_resource type="AudioStream" uid="uid://cpxc7e67ra2f8" path="res://Audio/SFX/partyhorn.wav" id="3_la38q"]
+[ext_resource type="Texture2D" uid="uid://eop31xwqreop" path="res://Scenes/Objects/2D/Audience/Avatars/StickFigure/Jeering.PNG" id="3_myuwq"]
+[ext_resource type="AudioStream" uid="uid://v6r2emsy03eo" path="res://Audio/SFX/petergrifin.wav" id="4_epifa"]
+[ext_resource type="Texture2D" uid="uid://cjg1l7gy22n7r" path="res://Scenes/Objects/2D/Audience/Avatars/StickFigure/Standing.PNG" id="4_yvxmw"]
+[ext_resource type="Texture2D" uid="uid://dr0e16nh03cij" path="res://Scenes/Objects/2D/Audience/Avatars/StickFigure/Splat.PNG" id="5_46d0j"]
+[ext_resource type="Texture2D" uid="uid://dsgpt57e7fmyv" path="res://Scenes/Objects/2D/Audience/Avatars/StickFigure/Sliding.PNG" id="5_et78w"]
+[ext_resource type="Texture2D" uid="uid://4o5x7jj5h5d5" path="res://Scenes/Objects/2D/Audience/Avatars/StickFigure/Thrown.PNG" id="6_5e0nf"]
+[ext_resource type="Script" path="res://Scenes/Objects/2D/Audience/AvatarData.gd" id="7_fbu34"]
+
+[resource]
+script = ExtResource("7_fbu34")
+Standing = ExtResource("4_yvxmw")
+Bark = ExtResource("1_ahgs8")
+Thrown = ExtResource("6_5e0nf")
+Splat = ExtResource("5_46d0j")
+Sliding = ExtResource("5_et78w")
+Falling = ExtResource("2_jqaut")
+Jeering = ExtResource("3_myuwq")
+BarkSounds = Array[AudioStream]([ExtResource("2_bqf5x"), ExtResource("3_la38q"), ExtResource("4_epifa")])
+JeeringSounds = Array[AudioStream]([])

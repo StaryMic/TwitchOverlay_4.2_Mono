@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://bjyk5aq3v2q2w"]
+
+[ext_resource type="Script" path="res://Scripts/TestingScripts/DictInArrayTest.gd" id="1_kv7bx"]
+[ext_resource type="Script" path="res://Scripts/Utility/GlobalActions.gd" id="2_obaa7"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hi85n"]
+font_size = 42
+
+[node name="ArrayDictStoreTest" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+scale = Vector2(2.52, 2.52)
+color = Color(1, 0.533333, 0.47451, 1)
+
+[node name="SplitContainer" type="SplitContainer" parent="."]
+offset_left = -1280.0
+offset_top = -720.0
+offset_right = -910.0
+offset_bottom = -327.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="SplitContainer"]
+layout_mode = 2
+
+[node name="AddButton" type="Button" parent="SplitContainer/VBoxContainer"]
+layout_mode = 2
+text = "AddDictToArray"
+
+[node name="RemoveButton" type="Button" parent="SplitContainer/VBoxContainer"]
+layout_mode = 2
+text = "Remove From Array"
+
+[node name="LoopButton" type="Button" parent="SplitContainer/VBoxContainer"]
+layout_mode = 2
+text = "LoopTest"
+
+[node name="Label" type="Label" parent="SplitContainer"]
+layout_mode = 2
+text = "no display atm"
+label_settings = SubResource("LabelSettings_hi85n")
+
+[node name="Scripts" type="Node" parent="."]
+
+[node name="StoreDictInArray" type="Node" parent="Scripts"]
+script = ExtResource("1_kv7bx")
+
+[node name="GlobalActions" type="Node" parent="Scripts"]
+script = ExtResource("2_obaa7")
+
+[connection signal="pressed" from="SplitContainer/VBoxContainer/AddButton" to="Scripts/StoreDictInArray" method="_on_add_button_pressed"]
+[connection signal="pressed" from="SplitContainer/VBoxContainer/RemoveButton" to="Scripts/StoreDictInArray" method="_on_remove_button_pressed"]
+[connection signal="pressed" from="SplitContainer/VBoxContainer/LoopButton" to="Scripts/StoreDictInArray" method="_on_loop_button_pressed"]

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://caxs0mlaej8hl"]
+
+[ext_resource type="Material" uid="uid://vhbb721mmlji" path="res://Scenes/Objects/2D/Audience/Items/Particles/EggShells.tres" id="1_jpx4a"]
+[ext_resource type="Texture2D" uid="uid://bgd8wnt1t82rj" path="res://Scenes/Objects/2D/Audience/Items/EggShell.png" id="2_tb0g0"]
+
+[node name="EggShells" type="GPUParticles2D"]
+emitting = false
+amount = 2
+process_material = ExtResource("1_jpx4a")
+texture = ExtResource("2_tb0g0")
+lifetime = 10.0
+one_shot = true
+explosiveness = 1.0

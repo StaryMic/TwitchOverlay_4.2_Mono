@@ -1,0 +1,21 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://cd3b42esobuo0"]
+
+[ext_resource type="PackedScene" uid="uid://cl2vhw66eak6s" path="res://Scenes/Objects/2D/Audience/Items/Particles/Spray.tscn" id="1_m86sn"]
+[ext_resource type="Texture2D" uid="uid://mvdej3yanggd" path="res://Scenes/Objects/2D/Audience/Items/ItemBatch/SprayBottle.png" id="2_gqj7i"]
+[ext_resource type="Script" path="res://Scenes/Objects/2D/Audience/Items/ItemResourceScript.gd" id="3_xqx4j"]
+
+[resource]
+script = ExtResource("3_xqx4j")
+ItemImage = ExtResource("2_gqj7i")
+BreakSounds = Array[AudioStream]([])
+ImpactSounds = Array[AudioStream]([])
+HandheldObject = true
+CanBreak = false
+CanImpact = false
+SlideOnBreak = false
+StretchWhenSlide = false
+BreakAtApex = false
+CallOnBreak = ""
+CallOnImpact = ""
+HandheldActionParticleSystem = ExtResource("1_m86sn")
+HandheldParticlePosition = Vector2(-40, -49)

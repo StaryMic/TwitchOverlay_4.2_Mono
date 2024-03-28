@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://bgqg1v6mi21o4"]
+
+[ext_resource type="Script" path="res://Scenes/Maps/ArrayInDict.gd" id="1_6r8cs"]
+[ext_resource type="Script" path="res://Scripts/Utility/GlobalActions.gd" id="2_7fa7q"]
+
+[node name="ArrayWithinDictLoop" type="Node2D"]
+
+[node name="TestScript" type="Node" parent="."]
+script = ExtResource("1_6r8cs")
+
+[node name="Index" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 18.0
+
+[node name="IncrementIndex" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+
+[node name="Output" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 18.0
+
+[node name="Node" type="Node" parent="."]
+script = ExtResource("2_7fa7q")
+
+[connection signal="pressed" from="IncrementIndex" to="TestScript" method="_on_increment_index_pressed"]

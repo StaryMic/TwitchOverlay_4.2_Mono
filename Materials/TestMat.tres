@@ -1,0 +1,21 @@
+[gd_resource type="StandardMaterial3D" load_steps=4 format=3 uid="uid://cnads8h7i3v3t"]
+
+[sub_resource type="Gradient" id="Gradient_5lgc5"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_dtqbt"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kr0l1"]
+color_ramp = SubResource("Gradient_5lgc5")
+noise = SubResource("FastNoiseLite_dtqbt")
+
+[resource]
+diffuse_mode = 3
+specular_mode = 1
+albedo_texture = SubResource("NoiseTexture2D_kr0l1")
+metallic = 0.11
+backlight_enabled = true
+backlight = Color(0.788235, 0, 0.886275, 1)
+billboard_keep_scale = true
+grow_amount = -0.646
+distance_fade_min_distance = 5.0
+distance_fade_max_distance = 15.0

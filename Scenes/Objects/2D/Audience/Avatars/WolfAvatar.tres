@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://l0qp4dbithqf"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/2D/Audience/AvatarData.gd" id="1_rh5e7"]
+[ext_resource type="AudioStream" uid="uid://ck40g5rkbkk08" path="res://Audio/SFX/MinecraftDogBark.mp3" id="1_ymx3n"]
+[ext_resource type="Texture2D" uid="uid://cgpoka1sultm0" path="res://Images/Avatarset/WolfSideOutline.png" id="2_pncun"]
+
+[resource]
+script = ExtResource("1_rh5e7")
+Standing = ExtResource("2_pncun")
+BarkSounds = Array[AudioStream]([ExtResource("1_ymx3n")])
+JeeringSounds = Array[AudioStream]([])

@@ -1,0 +1,13 @@
+[gd_resource type="VisualShader" format=3 uid="uid://d1q1gvnutrofb"]
+
+[resource]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_never, cull_back, diffuse_lambert, specular_schlick_ggx, shadows_disabled;
+
+
+
+"
+graph_offset = Vector2(-603.315, 115.475)
+modes/depth_draw = 2
+flags/shadows_disabled = true
+nodes/fragment/0/position = Vector2(200, 180)

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://bb0sgqvy6njol"]
+
+[ext_resource type="Script" path="res://Scripts/TestingScripts/NotificationTester.gd" id="1_sca6r"]
+
+[node name="NotificationDisplayTester" type="Node3D"]
+script = ExtResource("1_sca6r")
+
+[node name="Target Position" type="Node3D" parent="."]
+
+[node name="Label3D" type="Label3D" parent="."]
+text = "Monofur"

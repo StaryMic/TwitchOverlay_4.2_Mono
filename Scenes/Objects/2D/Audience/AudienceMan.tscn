@@ -1,0 +1,131 @@
+[gd_scene load_steps=17 format=3 uid="uid://b4xyhoqdhu2g8"]
+
+[ext_resource type="Script" path="res://Scenes/Objects/2D/Audience/PlaceholderAudienceMan.gd" id="1_pe47n"]
+[ext_resource type="AudioStream" uid="uid://dpitmp6s87gqe" path="res://Audio/SFX/Pops/pop1.wav" id="2_6j5fr"]
+[ext_resource type="AudioStream" uid="uid://cb0knq577ulvb" path="res://Audio/SFX/snowball_hit_window.wav" id="2_vf5r4"]
+[ext_resource type="AudioStream" uid="uid://cix1pka854wbv" path="res://Audio/SFX/Pops/pop2.wav" id="3_rguni"]
+[ext_resource type="AudioStream" uid="uid://uctcithjxj22" path="res://Audio/SFX/Pops/pop3.wav" id="4_bfnj0"]
+[ext_resource type="AudioStream" uid="uid://cogscadt31ek" path="res://Audio/SFX/Pops/pop4.wav" id="5_t6b75"]
+[ext_resource type="AudioStream" uid="uid://cp38ekvis2t2i" path="res://Audio/SFX/Pops/pop5.wav" id="6_27dyn"]
+[ext_resource type="AudioStream" uid="uid://0ppxxxp0m1pk" path="res://Audio/SFX/Pops/pop6.wav" id="7_y4xea"]
+[ext_resource type="AudioStream" uid="uid://wtuup8rkfjdx" path="res://Audio/SFX/Pops/pop7.wav" id="8_4k1yq"]
+[ext_resource type="AudioStream" uid="uid://d3fmpl5pv5aib" path="res://Audio/SFX/Pops/pop8.wav" id="9_2bpeu"]
+[ext_resource type="Shader" uid="uid://mosr5o6rumh5" path="res://ColorReplacer.tres" id="10_rdq7p"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6jjkf"]
+shader = ExtResource("10_rdq7p")
+shader_parameter/EyeColor = Color(0.0588235, 0.0470588, 0.678431, 1)
+shader_parameter/BodyColor = Color(0.262745, 0.858824, 0.917647, 1)
+
+[sub_resource type="Animation" id="Animation_yruoq"]
+resource_name = "Bark"
+length = 5.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"values": [{
+"args": [],
+"method": &"TweenIn"
+}, {
+"args": [],
+"method": &"Bark"
+}, {
+"args": [],
+"method": &"TweenOut"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_7cxq5"]
+resource_name = "SummonItemTest"
+length = 5.0
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 5),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"TweenIn"
+}, {
+"args": [],
+"method": &"TweenOut"
+}]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.1, 1.6),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": ["egg"],
+"method": &"SummonItem"
+}, {
+"args": [],
+"method": &"ThrowItem"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_s2m4b"]
+resource_name = "Throw"
+tracks/0/type = "method"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [1.0, true, Vector2(0, 0), Vector2(0, 0)],
+"method": &"StartThrow"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_icgfq"]
+_data = {
+"Bark": SubResource("Animation_yruoq"),
+"SummonItemTest": SubResource("Animation_7cxq5"),
+"Throw": SubResource("Animation_s2m4b")
+}
+
+[node name="AudienceMan" type="Node2D"]
+script = ExtResource("1_pe47n")
+PopSounds = Array[AudioStream]([ExtResource("2_6j5fr"), ExtResource("3_rguni"), ExtResource("4_bfnj0"), ExtResource("5_t6b75"), ExtResource("6_27dyn"), ExtResource("7_y4xea"), ExtResource("8_4k1yq"), ExtResource("9_2bpeu")])
+
+[node name="BoundingBoxVisualiserNoStealPls" type="Polygon2D" parent="."]
+visible = false
+position = Vector2(-255, -255)
+color = Color(0, 0, 0, 0.407843)
+polygon = PackedVector2Array(0, 0, 512, 0, 512, 512, 0, 512)
+vertex_colors = PackedColorArray(0.815686, 0.282353, 0.764706, 1, 0.0901961, 0.34902, 0.65098, 1)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_6jjkf")
+scale = Vector2(0.5, 0.5)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_vf5r4")
+max_distance = 355.0
+max_polyphony = 5
+panning_strength = 1.15
+bus = &"AudAvatarSounds"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_icgfq")
+}

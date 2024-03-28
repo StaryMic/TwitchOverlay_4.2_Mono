@@ -1,0 +1,17 @@
+[gd_resource type="Resource" load_steps=4 format=3 uid="uid://bw4kgia1gafqr"]
+
+[ext_resource type="Texture2D" uid="uid://llapgnpfrdqn" path="res://Images/TestingSprites/BodyEyeColorTest.png" id="1_xsakm"]
+[ext_resource type="AudioStream" uid="uid://dcovgd1whonge" path="res://Audio/SFX/357_fire3.wav" id="2_oyyxh"]
+[ext_resource type="Script" path="res://Scenes/Objects/2D/Audience/AvatarData.gd" id="3_5o01c"]
+
+[resource]
+script = ExtResource("3_5o01c")
+Standing = ExtResource("1_xsakm")
+Bark = ExtResource("1_xsakm")
+Thrown = ExtResource("1_xsakm")
+Splat = ExtResource("1_xsakm")
+Sliding = ExtResource("1_xsakm")
+Falling = ExtResource("1_xsakm")
+Jeering = ExtResource("1_xsakm")
+BarkSounds = Array[AudioStream]([ExtResource("2_oyyxh")])
+JeeringSounds = Array[AudioStream]([])

@@ -1,0 +1,10 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dtbkij77abac2"]
+
+[ext_resource type="FontFile" uid="uid://cg43prlk76r7" path="res://Fonts/UbuntuMono-Regular.ttf" id="1_hhd04"]
+
+[resource]
+font = ExtResource("1_hhd04")
+font_size = 45
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 15
+shadow_color = Color(0, 0, 0, 1)

@@ -1,0 +1,24 @@
+[gd_resource type="Resource" load_steps=6 format=3 uid="uid://cnldefgy7ra5p"]
+
+[ext_resource type="Texture2D" uid="uid://dq7bgh54ftgwo" path="res://Scenes/Objects/2D/Audience/Items/Egg.PNG" id="1_eiv7s"]
+[ext_resource type="Texture2D" uid="uid://iml8yalmawk2" path="res://Scenes/Objects/2D/Audience/Items/EggYolk.png" id="1_gmku8"]
+[ext_resource type="PackedScene" uid="uid://caxs0mlaej8hl" path="res://Scenes/Objects/2D/Audience/Items/Particles/EggParticles.tscn" id="1_pcdjo"]
+[ext_resource type="Script" path="res://Scenes/Objects/2D/Audience/Items/ItemResourceScript.gd" id="1_q6uts"]
+[ext_resource type="AudioStream" uid="uid://cgox30feb334r" path="res://Audio/SFX/amongus_imposter-kill_dw4gj648sd.mp3" id="3_tr88u"]
+
+[resource]
+script = ExtResource("1_q6uts")
+ItemImage = ExtResource("1_eiv7s")
+BreakImage = ExtResource("1_gmku8")
+BreakSounds = Array[AudioStream]([ExtResource("3_tr88u")])
+ImpactSounds = Array[AudioStream]([])
+HandheldObject = false
+CanBreak = true
+CanImpact = false
+SlideOnBreak = true
+StretchWhenSlide = true
+BreakAtApex = true
+CallOnBreak = ""
+CallOnImpact = ""
+BreakParticleSystem = ExtResource("1_pcdjo")
+HandheldParticlePosition = Vector2(0, 0)

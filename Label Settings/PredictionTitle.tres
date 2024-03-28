@@ -1,0 +1,9 @@
+[gd_resource type="LabelSettings" load_steps=2 format=3 uid="uid://dxo0iav1cp1k5"]
+
+[ext_resource type="FontFile" uid="uid://cg43prlk76r7" path="res://Fonts/UbuntuMono-Regular.ttf" id="1_qnckd"]
+
+[resource]
+font = ExtResource("1_qnckd")
+font_size = 50
+outline_size = 12
+outline_color = Color(0, 0, 0, 1)
