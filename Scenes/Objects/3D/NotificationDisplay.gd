@@ -39,7 +39,7 @@ func RandomizeTopMessage():
 		3:
 			ChosenMessage = "[center]I can't thank you enough!"
 		4:
-			ChosenMessage - "[center]Thank you for your support!"
+			ChosenMessage = "[center]Thank you for your support!"
 
 func _on_event_handler_cheer(username, message, bits):
 	RandomizeTopMessage()

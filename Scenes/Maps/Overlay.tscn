@@ -1,9 +1,10 @@
-[gd_scene load_steps=30 format=3 uid="uid://dfh3v2a1vt4cu"]
+[gd_scene load_steps=34 format=3 uid="uid://dfh3v2a1vt4cu"]
 
 [ext_resource type="Script" path="res://Mono/WebcamServer/WebcamServer.cs" id="1_42u1a"]
 [ext_resource type="Script" path="res://Scripts/Utility/OptionsWindow.gd" id="1_cfpg0"]
 [ext_resource type="PackedScene" uid="uid://bcpx57c6escym" path="res://Scenes/Objects/2D/PredictionSlider.tscn" id="1_et36m"]
 [ext_resource type="Script" path="res://Scripts/Utility/GlobalActions.gd" id="2_wg44c"]
+[ext_resource type="Script" path="res://Mono/WebcamServer/OpenCVEffect/FaceTracking.cs" id="2_xbwt4"]
 [ext_resource type="Script" path="res://Scripts/Networking/WebsocketClient.gd" id="3_qm8ys"]
 [ext_resource type="Script" path="res://Scripts/EventScripts/EventHandler.gd" id="5_0y51c"]
 [ext_resource type="Script" path="res://Scripts/Networking/APICaller.gd" id="5_x3v8q"]
@@ -26,6 +27,7 @@
 [ext_resource type="AudioStream" uid="uid://0ppxxxp0m1pk" path="res://Audio/SFX/Pops/pop6.wav" id="21_6v7va"]
 [ext_resource type="AudioStream" uid="uid://wtuup8rkfjdx" path="res://Audio/SFX/Pops/pop7.wav" id="22_10cml"]
 [ext_resource type="AudioStream" uid="uid://d3fmpl5pv5aib" path="res://Audio/SFX/Pops/pop8.wav" id="23_grddk"]
+[ext_resource type="PackedScene" uid="uid://dgw8waof5r1gt" path="res://Mono/WebcamServer/sprite_2d_ignorethisshit.tscn" id="27_x65qk"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pr7u8"]
 sun_angle_max = 79.93
@@ -44,13 +46,51 @@ glow_strength = 2.0
 volumetric_fog_anisotropy = -0.9
 volumetric_fog_length = 0.01
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6t6ft"]
+size = Vector2(1044, 2186)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e540e"]
+size = Vector2(532, 4012)
+
 [node name="Overlay" type="Node3D"]
 
-[node name="WebcamServer" type="Node" parent="."]
+[node name="WebcamServer" type="Node" parent="." node_paths=PackedStringArray("_cvEffects")]
 script = ExtResource("1_42u1a")
+_cvEffects = []
+
+[node name="EffectsStorage" type="Node" parent="WebcamServer"]
+
+[node name="FaceTracking" type="Node" parent="WebcamServer/EffectsStorage"]
+script = ExtResource("2_xbwt4")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_l2438")
+
+[node name="2DScreenBoundaries" type="Node2D" parent="."]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="2DScreenBoundaries"]
+
+[node name="WallR" type="CollisionShape2D" parent="2DScreenBoundaries/StaticBody2D"]
+position = Vector2(2442, 607)
+shape = SubResource("RectangleShape2D_6t6ft")
+
+[node name="WallL" type="CollisionShape2D" parent="2DScreenBoundaries/StaticBody2D"]
+position = Vector2(-522, 607)
+shape = SubResource("RectangleShape2D_6t6ft")
+
+[node name="WallUp" type="CollisionShape2D" parent="2DScreenBoundaries/StaticBody2D"]
+position = Vector2(960, -266)
+rotation = 1.57079
+shape = SubResource("RectangleShape2D_e540e")
+
+[node name="WallDown" type="CollisionShape2D" parent="2DScreenBoundaries/StaticBody2D"]
+position = Vector2(960, 1346)
+rotation = 1.57079
+shape = SubResource("RectangleShape2D_e540e")
+
+[node name="Webcam" parent="." instance=ExtResource("27_x65qk")]
+z_index = -1
+position = Vector2(1151, 452)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.450564, -0.831647, 0.324586, 0.65214, 0.554906, 0.51652, -0.609677, -0.0210497, 0.792371, 1.99344, 2.20506, 0)

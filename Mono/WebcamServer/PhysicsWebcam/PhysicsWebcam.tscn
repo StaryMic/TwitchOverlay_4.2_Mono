@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://cx4iihjo1uk0h"]
+
+[ext_resource type="Script" path="res://Mono/WebcamServer/Sprite2D_TextureGrabTest.cs" id="1_13oyu"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rgfd7"]
+radius = 136.059
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_sygp8"]
+size = Vector2(960, 540)
+
+[node name="PhysicsWebcam" type="RigidBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rgfd7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.5, 0.5)
+texture = SubResource("PlaceholderTexture2D_sygp8")
+script = ExtResource("1_13oyu")
+
+[node name="PhysicsWebcam" type="Node2D" parent="."]

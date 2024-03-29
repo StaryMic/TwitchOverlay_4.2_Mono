@@ -15,9 +15,6 @@ var TimeProcessed
 var ThrowMidPoint : Vector2
 var ThrowEndPoint : Vector2
 
-@onready var BreakCallable = Callable(self,ItemPropertyFile.CallOnBreak)
-@onready var ImpactCallable = Callable(self,ItemPropertyFile.CallOnImpact)
-
 var BreakParticleScene
 var ImpactParticleScene
 var HandheldParticleSystem

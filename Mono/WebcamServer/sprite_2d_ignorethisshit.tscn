@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgw8waof5r1gt"]
+
+[ext_resource type="Script" path="res://Mono/WebcamServer/Sprite2D_TextureGrabTest.cs" id="1_wlopf"]
+
+[node name="Sprite2D" type="Sprite2D"]
+script = ExtResource("1_wlopf")

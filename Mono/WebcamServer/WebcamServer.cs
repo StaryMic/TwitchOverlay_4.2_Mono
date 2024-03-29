@@ -1,9 +1,7 @@
 using System.Runtime.InteropServices;
 using Godot;
+using Godot.Collections;
 using OpenCvSharp;
-using OpenCvSharp.Tracking;
-using OpenCvSharp.Face;
-using OpenCvSharp.XImgProc;
 
 namespace TwitchOverlay.Mono.WebcamServer;
 [GlobalClass]
@@ -24,6 +22,11 @@ public partial class WebcamServer : Node
         CamTexture = new ImageTexture();
     }
 
+    public override void _ExitTree()
+    {
+        _capture.Release();
+    }
+
     public override void _Process(double delta)
     {
         if (_capture.IsOpened())
@@ -32,10 +35,11 @@ public partial class WebcamServer : Node
             {
                 if (_capture.Read(_image))
                 {
-                    ByteData = new byte[_image.Width * _image.Height * _image.Channels()];
-                    GD.Print($"Depth: {_capture.RetrieveMat().Depth()}");
-                    GD.Print(_image.Channels());
-                    Marshal.Copy(_image.CvtColor(ColorConversionCodes.BGR2RGB).Data, ByteData, 0, ByteData.Length);
+                    Mat appliedEffectsMat = ProcessEffectList(_image); //Apply effects
+                    
+                    ByteData = new byte[appliedEffectsMat.Width * appliedEffectsMat.Height * appliedEffectsMat.Channels()];
+                    GD.Print(_image.Width,"X",_image.Height);
+                    Marshal.Copy(appliedEffectsMat.CvtColor(ColorConversionCodes.BGR2RGB).Data, ByteData, 0, ByteData.Length);
                     CameraImage.SetData(_capture.FrameWidth, _capture.FrameHeight, false, Image.Format.Rgb8, ByteData);
                     
                     CamTexture.SetImage(CameraImage);
@@ -47,5 +51,21 @@ public partial class WebcamServer : Node
     public ImageTexture GetWebcamTexture()
     {
         return CamTexture;
+    }
+
+
+
+    [Export] private Array<OpenCVEffect.OpenCVEffect> _cvEffects;
+    
+    private Mat ProcessEffectList(Mat _inputMat)
+    {
+        Mat _storedMat = _inputMat; //Store the input Mat.
+        // _storedMat is used for every effect, acting as the output of the effect, passing it onto the next effect that needs it
+        foreach (OpenCVEffect.OpenCVEffect effect in _cvEffects)
+        {
+            _storedMat = effect.ProcessEffect(_storedMat);
+        }
+
+        return _storedMat; //This will be the culmination of every effect put into one Mat.
     }
 }
