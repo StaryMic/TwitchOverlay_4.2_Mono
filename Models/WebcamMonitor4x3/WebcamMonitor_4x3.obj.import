@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://cbculnu5x4gbi"
+path="res://.godot/imported/WebcamMonitor_4x3.obj-ecc7dc112abeb1181448e94c8aa5aa3f.mesh"
+
+[deps]
+
+files=["res://.godot/imported/WebcamMonitor_4x3.obj-ecc7dc112abeb1181448e94c8aa5aa3f.mesh"]
+
+source_file="res://Models/WebcamMonitor4x3/WebcamMonitor_4x3.obj"
+dest_files=["res://.godot/imported/WebcamMonitor_4x3.obj-ecc7dc112abeb1181448e94c8aa5aa3f.mesh", "res://.godot/imported/WebcamMonitor_4x3.obj-ecc7dc112abeb1181448e94c8aa5aa3f.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false

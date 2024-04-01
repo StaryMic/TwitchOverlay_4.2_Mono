@@ -1,0 +1,41 @@
+[gd_scene load_steps=13 format=3 uid="uid://csstqqxgmhfgx"]
+
+[ext_resource type="Script" path="res://Mono/RigidBodyPlus/RigidBodyPlus.cs" id="1_bigsy"]
+[ext_resource type="AudioStream" uid="uid://dc6li7boibrh4" path="res://Mono/RigidBodyPlus/Audio/Weapon/weapon_impact_hard1.wav" id="2_l8yof"]
+[ext_resource type="ArrayMesh" uid="uid://cbculnu5x4gbi" path="res://Models/WebcamMonitor4x3/WebcamMonitor_4x3.obj" id="2_ttdhs"]
+[ext_resource type="AudioStream" uid="uid://chmhkd2s8d30w" path="res://Mono/RigidBodyPlus/Audio/Weapon/weapon_impact_hard2.wav" id="3_4n0ua"]
+[ext_resource type="Script" path="res://Mono/Webcam3DMonitor/WebcamMonitor.cs" id="3_xtgdo"]
+[ext_resource type="AudioStream" uid="uid://cr6lwevcxcn7s" path="res://Mono/RigidBodyPlus/Audio/Weapon/weapon_impact_hard3.wav" id="4_2shr3"]
+[ext_resource type="Texture2D" uid="uid://dru1ma3xk14ff" path="res://Images/Effects/TVStatic/TVStatic.tres" id="4_lo5rl"]
+[ext_resource type="AudioStream" uid="uid://bg7x3cv3xp7pu" path="res://Mono/RigidBodyPlus/Audio/Weapon/weapon_impact_soft1.wav" id="5_xcttx"]
+[ext_resource type="AudioStream" uid="uid://ui5f8xc1obis" path="res://Mono/RigidBodyPlus/Audio/Weapon/weapon_impact_soft2.wav" id="6_osm3s"]
+[ext_resource type="AudioStream" uid="uid://dqfoe0tptjc7v" path="res://Mono/RigidBodyPlus/Audio/Weapon/weapon_impact_soft3.wav" id="7_rn8sb"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_iuss2"]
+diffuse_mode = 3
+specular_mode = 2
+albedo_color = Color(0, 0, 0, 1)
+roughness = 0.2
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_operator = 1
+emission_texture = ExtResource("4_lo5rl")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_qt3hy"]
+points = PackedVector3Array(1.34513, 1.06933, 0.207091, 1.34513, 1.05412, 0.219089, 1.3846, 1.04754, 0.216919, 1.39337, 1.05412, 0.207091, 1.34513, 1.06933, -0.458811, -1.3181, 1.06933, 0.207091, 1.34513, 1.01794, 0.224195, -1.3181, 1.05412, 0.219089, 1.39337, 1.01794, 0.219089, 1.41338, 1.01794, 0.207091, 1.39337, 1.05412, -0.458811, 1.03926, 0.788536, -1.04213, -1.3181, 1.06933, -0.458811, -1.36662, 1.05412, 0.207091, -1.35757, 1.04754, 0.216919, 0.013377, 0.207829, 0.258658, 0.264982, 0.207829, 0.255722, 0.264982, 0.0191255, 0.258658, 1.34513, -0.979485, 0.224195, -1.3181, 1.01794, 0.224195, 1.39337, -0.979485, 0.219089, 1.41338, 1.01794, -0.458811, 1.41338, -0.979485, 0.207091, 1.03926, -0.75008, -1.04213, -1.01223, 0.788536, -1.04213, -1.36662, 1.05412, -0.458811, -1.38635, 1.01794, 0.207091, -1.36662, 1.01794, 0.219089, 0.013377, 0.0191255, 0.261849, -0.237954, 0.207829, 0.255722, 0.264982, -0.169373, 0.255722, 1.34513, -1.01587, 0.219089, 1.3846, -1.00909, 0.216919, 0.013377, -0.169373, 0.258658, -1.3181, -0.979485, 0.224195, -0.237954, 0.0191255, 0.258658, 1.41338, -0.979485, -0.458811, 1.39337, -1.01587, 0.207091, 1.39337, -1.01587, -0.458811, 1.34513, -1.03067, -0.458811, -1.01223, -0.75008, -1.04213, -1.38635, 1.01794, -0.458811, -1.38635, -0.979485, 0.207091, -1.36662, -0.979485, 0.219089, -0.237954, -0.169373, 0.255722, 1.34513, -1.03067, 0.207091, -1.3181, -1.01587, 0.219089, -1.35757, -1.00909, 0.216919, -1.3181, -1.03067, -0.458811, -1.36662, -1.01587, -0.458811, -1.38635, -0.979485, -0.458811, -1.36662, -1.01587, 0.207091, -1.3181, -1.03067, 0.207091)
+
+[node name="WebcamMonitor4x3" type="RigidBody3D"]
+mass = 3.5
+continuous_cd = true
+max_contacts_reported = 2
+contact_monitor = true
+script = ExtResource("1_bigsy")
+_ImpactSounds = Array[AudioStream]([ExtResource("2_l8yof"), ExtResource("3_4n0ua"), ExtResource("4_2shr3"), ExtResource("5_xcttx"), ExtResource("6_osm3s"), ExtResource("7_rn8sb")])
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_ttdhs")
+surface_material_override/1 = SubResource("StandardMaterial3D_iuss2")
+script = ExtResource("3_xtgdo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_qt3hy")

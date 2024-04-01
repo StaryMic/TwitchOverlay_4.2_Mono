@@ -25,10 +25,10 @@ public partial class WebcamMonitor : MeshInstance3D
 	public override void _Ready()
 	{
 		// Get Nodes
-		GlobalSignalRef = GetTree().Root.GetNode<GlobalSceneSignals>("./Overlay/GlobalSceneSignals");
-		_webcam = GetTree().Root.GetNode<WebcamServer>("./Overlay/WebcamServer");
+		GlobalSignalRef = GetTree().Root.GetChild<Node3D>(0).GetNode<GlobalSceneSignals>("./GlobalSceneSignals");
+		_webcam = GetTree().Root.GetChild<Node3D>(0).GetNode<WebcamServer>("./WebcamServer");
 		_rigidBody = GetParent<RigidBody3D>();
-		_collision = GetNode<CollisionShape3D>("../Collision");
+		_collision = GetParent().GetNode<CollisionShape3D>("./CollisionShape3D");
 		
 		// Get starting position and rotation and store it.
 		_startingPosition = _rigidBody.Position;
@@ -71,13 +71,13 @@ public partial class WebcamMonitor : MeshInstance3D
 
 	private void PrepareForTween()
 	{
-		_collision.Disabled = true;
+		// _collision.;
 		_rigidBody.Freeze = true;
 	}
 
 	private void RestorePhysicsAfterTween()
 	{
-		_collision.Disabled = false;
+		// _collision.Disabled = false;
 		_rigidBody.Freeze = false;
 	}
 }

@@ -1,0 +1,22 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://de2l634opd2de"
+path="res://.godot/imported/WebcamMonitor_4x3_collision.obj-52d1ad3455f0f923d513864373cea839.mesh"
+
+[deps]
+
+files=["res://.godot/imported/WebcamMonitor_4x3_collision.obj-52d1ad3455f0f923d513864373cea839.mesh"]
+
+source_file="res://Models/WebcamMonitor4x3/WebcamMonitor_4x3_collision.obj"
+dest_files=["res://.godot/imported/WebcamMonitor_4x3_collision.obj-52d1ad3455f0f923d513864373cea839.mesh", "res://.godot/imported/WebcamMonitor_4x3_collision.obj-52d1ad3455f0f923d513864373cea839.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true
+force_disable_mesh_compression=false
