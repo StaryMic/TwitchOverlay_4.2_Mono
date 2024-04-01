@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://1l87md8rmpei"
+path="res://.godot/imported/ceiling_tile_impact_soft3.wav-b036e5f6f23da149ed1e1dd83491e851.sample"
+
+[deps]
+
+source_file="res://Mono/RigidBodyPlus/Audio/Ceiling Tile/ceiling_tile_impact_soft3.wav"
+dest_files=["res://.godot/imported/ceiling_tile_impact_soft3.wav-b036e5f6f23da149ed1e1dd83491e851.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

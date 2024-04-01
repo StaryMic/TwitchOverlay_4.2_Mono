@@ -1,10 +1,10 @@
-[gd_scene load_steps=34 format=3 uid="uid://dfh3v2a1vt4cu"]
+[gd_scene load_steps=36 format=3 uid="uid://dfh3v2a1vt4cu"]
 
+[ext_resource type="Script" path="res://Mono/GlobalSceneSignals.cs" id="1_2e12k"]
 [ext_resource type="Script" path="res://Mono/WebcamServer/WebcamServer.cs" id="1_42u1a"]
 [ext_resource type="Script" path="res://Scripts/Utility/OptionsWindow.gd" id="1_cfpg0"]
 [ext_resource type="PackedScene" uid="uid://bcpx57c6escym" path="res://Scenes/Objects/2D/PredictionSlider.tscn" id="1_et36m"]
 [ext_resource type="Script" path="res://Scripts/Utility/GlobalActions.gd" id="2_wg44c"]
-[ext_resource type="Script" path="res://Mono/WebcamServer/OpenCVEffect/FaceTracking.cs" id="2_xbwt4"]
 [ext_resource type="Script" path="res://Scripts/Networking/WebsocketClient.gd" id="3_qm8ys"]
 [ext_resource type="Script" path="res://Scripts/EventScripts/EventHandler.gd" id="5_0y51c"]
 [ext_resource type="Script" path="res://Scripts/Networking/APICaller.gd" id="5_x3v8q"]
@@ -27,7 +27,7 @@
 [ext_resource type="AudioStream" uid="uid://0ppxxxp0m1pk" path="res://Audio/SFX/Pops/pop6.wav" id="21_6v7va"]
 [ext_resource type="AudioStream" uid="uid://wtuup8rkfjdx" path="res://Audio/SFX/Pops/pop7.wav" id="22_10cml"]
 [ext_resource type="AudioStream" uid="uid://d3fmpl5pv5aib" path="res://Audio/SFX/Pops/pop8.wav" id="23_grddk"]
-[ext_resource type="PackedScene" uid="uid://dgw8waof5r1gt" path="res://Mono/WebcamServer/sprite_2d_ignorethisshit.tscn" id="27_x65qk"]
+[ext_resource type="PackedScene" uid="uid://bovt0mfcbrukx" path="res://Mono/Webcam3DMonitor/webcam_monitor.tscn" id="28_cxy0h"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pr7u8"]
 sun_angle_max = 79.93
@@ -46,6 +46,12 @@ glow_strength = 2.0
 volumetric_fog_anisotropy = -0.9
 volumetric_fog_length = 0.01
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_7pl8u"]
+size = Vector3(16.1416, 1, 17.189)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1ygrn"]
+size = Vector3(1, 17.6097, 17.2966)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6t6ft"]
 size = Vector2(1044, 2186)
 
@@ -54,17 +60,43 @@ size = Vector2(532, 4012)
 
 [node name="Overlay" type="Node3D"]
 
+[node name="GlobalSceneSignals" type="Node" parent="."]
+script = ExtResource("1_2e12k")
+
 [node name="WebcamServer" type="Node" parent="." node_paths=PackedStringArray("_cvEffects")]
 script = ExtResource("1_42u1a")
 _cvEffects = []
 
-[node name="EffectsStorage" type="Node" parent="WebcamServer"]
-
-[node name="FaceTracking" type="Node" parent="WebcamServer/EffectsStorage"]
-script = ExtResource("2_xbwt4")
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_l2438")
+
+[node name="3DBoundaries" type="Node3D" parent="."]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="3DBoundaries"]
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="3DBoundaries/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.0263, -8)
+shape = SubResource("BoxShape3D_7pl8u")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="3DBoundaries/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -8)
+shape = SubResource("BoxShape3D_7pl8u")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="3DBoundaries/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 6.21997, -8)
+shape = SubResource("BoxShape3D_1ygrn")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="3DBoundaries/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 3.7129, -8)
+shape = SubResource("BoxShape3D_1ygrn")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="3DBoundaries/StaticBody3D"]
+transform = Transform3D(-3.07709e-06, 0, -1, 0, 1, 0, 1, 0, -3.07709e-06, 0, 2, -16)
+shape = SubResource("BoxShape3D_1ygrn")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="3DBoundaries/StaticBody3D"]
+transform = Transform3D(-3.07709e-06, 0, -1, 0, 1, 0, 1, 0, -3.07709e-06, 0, 2, -1.58745)
+shape = SubResource("BoxShape3D_1ygrn")
 
 [node name="2DScreenBoundaries" type="Node2D" parent="."]
 
@@ -88,12 +120,12 @@ position = Vector2(960, 1346)
 rotation = 1.57079
 shape = SubResource("RectangleShape2D_e540e")
 
-[node name="Webcam" parent="." instance=ExtResource("27_x65qk")]
-z_index = -1
-position = Vector2(1151, 452)
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.450564, -0.831647, 0.324586, 0.65214, 0.554906, 0.51652, -0.609677, -0.0210497, 0.792371, 1.99344, 2.20506, 0)
+transform = Transform3D(-0.351837, -0.888586, -0.294322, 0.838242, -0.439029, 0.323423, -0.416605, -0.132921, 0.899318, 1.99344, 2.20506, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.31874, 2.419)
+current = true
 
 [node name="OptionsWindow" type="Window" parent="."]
 unique_name_in_owner = true
@@ -192,12 +224,13 @@ text = "Ban"
 [node name="RedeemTests" type="VBoxContainer" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 
-[node name="MoveOpila" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/RedeemTests"]
+[node name="ToggleCamera" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/RedeemTests"]
 layout_mode = 2
-text = "MoveOpila"
+text = "Toggle Webcam"
 
-[node name="Camera3D" type="Camera3D" parent="."]
-current = true
+[node name="ResetPhysicsObjects" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/RedeemTests"]
+layout_mode = 2
+text = "ResetPhysicsObjects"
 
 [node name="EventObjects" type="Node" parent="."]
 editor_description = "penis"
@@ -287,6 +320,9 @@ script = ExtResource("15_eerj3")
 stream = ExtResource("17_yp4ob")
 max_polyphony = 10
 
+[node name="WebcamMonitor" parent="." instance=ExtResource("28_cxy0h")]
+transform = Transform3D(0.937172, 0.348866, 0, -0.348866, 0.937172, 0, 0, 0, 1, 0, 3.26827, -9.00004)
+
 [connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer/Auth" to="GlobalSceneScripts/OptionsWindow" method="_on_auth_pressed"]
 [connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer/CloseButton" to="GlobalSceneScripts/OptionsWindow" method="_on_close_button_pressed"]
 [connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer/HidePanelButton" to="GlobalSceneScripts/OptionsWindow" method="_on_hide_panel_button_pressed"]
@@ -299,7 +335,8 @@ max_polyphony = 10
 [connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer/Cheer" to="GlobalSceneScripts/OptionsWindow" method="_on_cheer_pressed"]
 [connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer/Raid" to="GlobalSceneScripts/OptionsWindow" method="_on_raid_pressed"]
 [connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer/Ban" to="GlobalSceneScripts/OptionsWindow" method="_on_ban_pressed"]
-[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/RedeemTests/MoveOpila" to="GlobalSceneScripts/OptionsWindow" method="_on_move_opila_pressed"]
+[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/RedeemTests/ToggleCamera" to="GlobalSceneScripts/OptionsWindow" method="_on_toggle_camera_pressed"]
+[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/RedeemTests/ResetPhysicsObjects" to="GlobalSceneScripts/OptionsWindow" method="_on_reset_physics_objects_pressed"]
 [connection signal="SummonAvatar" from="EventObjects/AudienceManager" to="EventObjects/AudienceManager" method="_on_summon_avatar"]
 [connection signal="send_notification_to_event_handler" from="GlobalSceneScripts/WebsocketClient" to="GlobalSceneScripts/EventHandler" method="_on_websocket_client_send_notification_to_event_handler"]
 [connection signal="send_sub_session_id" from="GlobalSceneScripts/WebsocketClient" to="GlobalSceneScripts/APICaller" method="_on_websocket_client_send_sub_session_id"]

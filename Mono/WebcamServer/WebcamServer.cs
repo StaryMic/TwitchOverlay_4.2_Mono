@@ -1,3 +1,4 @@
+using System;
 using System.Runtime.InteropServices;
 using Godot;
 using Godot.Collections;
@@ -15,6 +16,7 @@ public partial class WebcamServer : Node
     public Image CameraImage = new Image();
     public ImageTexture CamTexture;
 
+    private bool statustracker;
     public override void _Ready()
     {
         _capture.ConvertRgb = true;
@@ -27,10 +29,25 @@ public partial class WebcamServer : Node
         _capture.Release();
     }
 
+    public void ToggleCamera()
+    {
+        if (_capture.IsOpened())
+        {
+            _capture.Release();
+        }
+        else
+        {
+            _capture.Open(1, VideoCaptureAPIs.DSHOW);
+        }
+    }
+
     public override void _Process(double delta)
     {
         if (_capture.IsOpened())
         {
+            // Send signals to appropriate places.
+            ChangeWebcamStatus(true);
+            
             if (_image != null)
             {
                 if (_capture.Read(_image))
@@ -38,13 +55,32 @@ public partial class WebcamServer : Node
                     Mat appliedEffectsMat = ProcessEffectList(_image); //Apply effects
                     
                     ByteData = new byte[appliedEffectsMat.Width * appliedEffectsMat.Height * appliedEffectsMat.Channels()];
-                    GD.Print(_image.Width,"X",_image.Height);
+                    // GD.Print(_image.Width,"X",_image.Height);
                     Marshal.Copy(appliedEffectsMat.CvtColor(ColorConversionCodes.BGR2RGB).Data, ByteData, 0, ByteData.Length);
                     CameraImage.SetData(_capture.FrameWidth, _capture.FrameHeight, false, Image.Format.Rgb8, ByteData);
                     
                     CamTexture.SetImage(CameraImage);
                 }
             }
+        }
+
+        if (!_capture.IsOpened())
+        {
+            ChangeWebcamStatus(false);
+        }
+    }
+    
+    //Signal stuff
+    
+    [Signal]
+    public delegate void WebcamConnectionStatusChangeEventHandler(bool status);
+
+    private void ChangeWebcamStatus(bool Status)
+    {
+        if (statustracker != Status)
+        {
+            EmitSignal(SignalName.WebcamConnectionStatusChange, Status);
+            statustracker = Status;
         }
     }
 

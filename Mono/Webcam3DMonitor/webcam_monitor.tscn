@@ -1,0 +1,44 @@
+[gd_scene load_steps=8 format=3 uid="uid://bovt0mfcbrukx"]
+
+[ext_resource type="ArrayMesh" uid="uid://bgegpvsoo77dc" path="res://Models/WebcamMonitor/WebcamMonitor.obj" id="1_ch4ea"]
+[ext_resource type="Texture2D" uid="uid://dru1ma3xk14ff" path="res://Images/Effects/TVStatic/TVStatic.tres" id="2_xpc2e"]
+[ext_resource type="Script" path="res://Mono/Webcam3DMonitor/WebcamMonitor.cs" id="3_jf4af"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xigem"]
+bounce = 0.08
+absorbent = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8y70v"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jpsx2"]
+diffuse_mode = 3
+albedo_color = Color(0.0509804, 0.0509804, 0.0509804, 1)
+metallic = 0.12
+metallic_specular = 0.7
+roughness = 0.87
+grow_amount = 0.314
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_73p4s"]
+shading_mode = 2
+diffuse_mode = 3
+specular_mode = 2
+albedo_color = Color(0, 0, 0, 1)
+roughness = 0.21
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_operator = 1
+emission_texture = ExtResource("2_xpc2e")
+texture_filter = 0
+
+[node name="WebcamMonitor" type="RigidBody3D"]
+physics_material_override = SubResource("PhysicsMaterial_xigem")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_8y70v")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_ch4ea")
+surface_material_override/0 = SubResource("StandardMaterial3D_jpsx2")
+surface_material_override/1 = SubResource("StandardMaterial3D_73p4s")
+script = ExtResource("3_jf4af")

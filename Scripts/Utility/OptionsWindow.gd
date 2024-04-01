@@ -60,11 +60,10 @@ func _on_raid_pressed():
 
 func _on_ban_pressed():
 	eventhandler.ban.emit()
-	
-	
-	
-	
-#Redeem test buttons
 
-func _on_move_opila_pressed():
-	eventhandler.pointredeem.emit("peepee","Display Opila","")
+# Camera Control
+func _on_toggle_camera_pressed():
+	$"../../WebcamServer".call("ToggleCamera")
+
+func _on_reset_physics_objects_pressed():
+	$"../../GlobalSceneSignals".emit_signal("ResetPhysicsObjectsToInitialPosition")

@@ -1,0 +1,35 @@
+[gd_resource type="AnimatedTexture" load_steps=11 format=3 uid="uid://dru1ma3xk14ff"]
+
+[ext_resource type="Texture2D" uid="uid://c7eudt05aylxp" path="res://Images/Effects/TVStatic/TVStatic001.png" id="1_svsox"]
+[ext_resource type="Texture2D" uid="uid://d2ugrnpfbbwub" path="res://Images/Effects/TVStatic/TVStatic002.png" id="2_d57c1"]
+[ext_resource type="Texture2D" uid="uid://d0bd7yolq3qig" path="res://Images/Effects/TVStatic/TVStatic003.png" id="3_qyrbj"]
+[ext_resource type="Texture2D" uid="uid://dfysli8wljvkb" path="res://Images/Effects/TVStatic/TVStatic004.png" id="4_ydghi"]
+[ext_resource type="Texture2D" uid="uid://bwe67xkyncjyc" path="res://Images/Effects/TVStatic/TVStatic005.png" id="5_hkhov"]
+[ext_resource type="Texture2D" uid="uid://oq2q88bjwbo1" path="res://Images/Effects/TVStatic/TVStatic006.png" id="6_hn2ei"]
+[ext_resource type="Texture2D" uid="uid://ms7a4bchtqhu" path="res://Images/Effects/TVStatic/TVStatic007.png" id="7_sltih"]
+[ext_resource type="Texture2D" uid="uid://b2fevey27nj8t" path="res://Images/Effects/TVStatic/TVStatic008.png" id="8_o6hwi"]
+[ext_resource type="Texture2D" uid="uid://dxqe64x3i3bvr" path="res://Images/Effects/TVStatic/TVStatic009.png" id="9_sksj5"]
+[ext_resource type="Texture2D" uid="uid://dvov4shrw0og3" path="res://Images/Effects/TVStatic/TVStatic010.png" id="10_rwcl1"]
+
+[resource]
+frames = 10
+frame_0/texture = ExtResource("1_svsox")
+frame_0/duration = 0.14
+frame_1/texture = ExtResource("2_d57c1")
+frame_1/duration = 0.14
+frame_2/texture = ExtResource("3_qyrbj")
+frame_2/duration = 0.14
+frame_3/texture = ExtResource("4_ydghi")
+frame_3/duration = 0.14
+frame_4/texture = ExtResource("5_hkhov")
+frame_4/duration = 0.14
+frame_5/texture = ExtResource("6_hn2ei")
+frame_5/duration = 0.14
+frame_6/texture = ExtResource("7_sltih")
+frame_6/duration = 0.14
+frame_7/texture = ExtResource("8_o6hwi")
+frame_7/duration = 0.14
+frame_8/texture = ExtResource("9_sksj5")
+frame_8/duration = 0.14
+frame_9/texture = ExtResource("10_rwcl1")
+frame_9/duration = 0.14

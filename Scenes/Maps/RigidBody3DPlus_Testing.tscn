@@ -1,0 +1,65 @@
+[gd_scene load_steps=10 format=3 uid="uid://dvewnp0xqjnsc"]
+
+[ext_resource type="Script" path="res://Mono/RigidBodyPlus/RigidBodyPlus.cs" id="1_3urm2"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_me6ro"]
+sky_top_color = Color(0.580392, 0.647059, 0.741176, 1)
+sky_horizon_color = Color(0.695098, 0.703922, 0.718627, 1)
+ground_bottom_color = Color(0.2, 0.168627, 0.133333, 1)
+ground_horizon_color = Color(0.695098, 0.703922, 0.718627, 1)
+
+[sub_resource type="Sky" id="Sky_04xem"]
+sky_material = SubResource("ProceduralSkyMaterial_me6ro")
+
+[sub_resource type="Environment" id="Environment_adgqh"]
+background_mode = 2
+sky = SubResource("Sky_04xem")
+tonemap_mode = 2
+ssao_enabled = true
+glow_enabled = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_emhkm"]
+size = Vector3(21.1, 1, 20.935)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jy7ww"]
+size = Vector3(20.8728, 1, 20.9099)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_b3ygg"]
+bounce = 0.38
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_87kta"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_8hhe5"]
+
+[node name="RigidBody3dPlusTesting" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_adgqh")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.337095, -0.861408, 0.379926, 0, 0.403545, 0.91496, -0.941471, 0.308429, -0.136033, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.567576, -0.204884, 0.797421, 0.0274561, 0.972713, 0.23038, -0.822863, -0.108864, 0.557714, 5.81095, 3.36007, 3.79628)
+fov = 97.3445
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_emhkm")
+
+[node name="Collision" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Collision"]
+shape = SubResource("BoxShape3D_jy7ww")
+
+[node name="RigidBodyPlus" type="RigidBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.36007, 0)
+physics_material_override = SubResource("PhysicsMaterial_b3ygg")
+script = ExtResource("1_3urm2")
+_ImpactSounds = Array[AudioStream]([])
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBodyPlus"]
+shape = SubResource("SphereShape3D_87kta")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBodyPlus"]
+mesh = SubResource("SphereMesh_8hhe5")
