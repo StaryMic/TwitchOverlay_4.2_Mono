@@ -202,7 +202,7 @@ func ThrowItem():
 	InstancedItem.StartThrow(1,true,Vector2(0,0),Vector2(0,0))
 
 func Thunk():
-	var thunksound = load("res://Audio/SFX/238895__olichite__fx_snowball_hits_window_outside.wav")
+	var thunksound = load("res://Audio/SFX/snowball_hit_window.wav")
 	var impactplayer = AudioStreamPlayer2D.new()
 	impactplayer.pitch_scale = randf_range(.7,1.4)
 	impactplayer.stream = thunksound
@@ -213,7 +213,7 @@ func Thunk():
 	ChangeSprite("Splat")
 
 func WindowSqueak():
-	var SlideSound = load("res://Audio/SFX/148949__deleted_user_2104797__squeak_window_1.wav")
+	var SlideSound = load("res://Audio/SFX/windowsqueak.wav")
 	var impactplayer = AudioStreamPlayer2D.new()
 	impactplayer.pitch_scale = randf_range(.7,1.4)
 	impactplayer.stream = SlideSound

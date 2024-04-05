@@ -11,3 +11,4 @@ Auth.json
 # Mono-specific ignores
 .mono/
 data_*/
+*.db

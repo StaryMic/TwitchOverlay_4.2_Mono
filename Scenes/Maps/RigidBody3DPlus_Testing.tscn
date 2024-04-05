@@ -1,8 +1,7 @@
-[gd_scene load_steps=13 format=3 uid="uid://dvewnp0xqjnsc"]
+[gd_scene load_steps=12 format=3 uid="uid://dvewnp0xqjnsc"]
 
 [ext_resource type="AudioStream" uid="uid://co6sl6h0jvotn" path="res://Mono/RigidBodyPlus/Audio/Metal/metal_barrel_impact_hard1.wav" id="2_f147c"]
 [ext_resource type="Script" path="res://Mono/GlobalSceneSignals.cs" id="2_kebr5"]
-[ext_resource type="PackedScene" uid="uid://csstqqxgmhfgx" path="res://Mono/Webcam3DMonitor/WebcamMonitor4x3.tscn" id="2_p38re"]
 [ext_resource type="Script" path="res://Mono/WebcamServer/WebcamServer.cs" id="6_7j3iq"]
 
 [sub_resource type="GDScript" id="GDScript_5r8c4"]
@@ -127,63 +126,6 @@ panning_strength = 1.4
 bus = &"RigidBodyImpacts"
 attenuation_filter_db = -6.0
 doppler_tracking = 2
-
-[node name="WebcamMonitor4x4" parent="." instance=ExtResource("2_p38re")]
-transform = Transform3D(-0.627404, -0.413831, 0.659627, -0.226355, 0.907439, 0.354004, -0.745069, 0.0727933, -0.663004, -1.12135, 6.4926, 1.27257)
-
-[node name="WebcamMonitor4x5" parent="." instance=ExtResource("2_p38re")]
-transform = Transform3D(0.169384, -0.413831, 0.894457, 0.155318, 0.907438, 0.390425, -0.973234, 0.0727933, 0.217981, -4.71071, 6.7444, -1.27246)
-
-[node name="WebcamMonitor4x6" parent="." instance=ExtResource("2_p38re")]
-transform = Transform3D(0.169384, -0.413831, 0.894457, 0.155318, 0.907438, 0.390425, -0.973234, 0.0727933, 0.217981, -2.31231, 10.888, 4.04488)
-
-[node name="WebcamMonitor4x7" parent="." instance=ExtResource("2_p38re")]
-transform = Transform3D(0.169384, -0.413831, 0.894457, 0.155318, 0.907438, 0.390425, -0.973234, 0.0727933, 0.217981, 3.15366, 10.5844, 4.97055)
-
-[node name="WebcamMonitor4x8" parent="." instance=ExtResource("2_p38re")]
-transform = Transform3D(0.169384, -0.413831, 0.894457, 0.155318, 0.907438, 0.390425, -0.973234, 0.0727933, 0.217981, -6.54024, 14.1735, 4.52038)
-
-[node name="WebcamMonitor4x10" parent="." instance=ExtResource("2_p38re")]
-transform = Transform3D(0.169384, -0.413831, 0.894457, 0.155318, 0.907438, 0.390425, -0.973234, 0.0727933, 0.217981, -4.75356, 7.8772, 0.973984)
-
-[node name="WebcamMonitor4x11" parent="." instance=ExtResource("2_p38re")]
-transform = Transform3D(0.169384, -0.413831, 0.894457, 0.155318, 0.907438, 0.390425, -0.973234, 0.0727933, 0.217981, -3.66865, 13.8109, 2.85586)
-
-[node name="WebcamMonitor4x12" parent="." instance=ExtResource("2_p38re")]
-transform = Transform3D(0.169384, -0.413831, 0.894457, 0.155318, 0.907438, 0.390425, -0.973234, 0.0727933, 0.217981, 0.151549, 9.34394, 3.03295)
-
-[node name="WebcamMonitor4x13" parent="." instance=ExtResource("2_p38re")]
-transform = Transform3D(0.169384, -0.413831, 0.894457, 0.155318, 0.907438, 0.390425, -0.973234, 0.0727933, 0.217981, -2.95458, 11.484, -0.0810713)
-
-[node name="WebcamMonitor4x15" parent="." instance=ExtResource("2_p38re")]
-transform = Transform3D(0.169384, -0.413831, 0.894457, 0.155318, 0.907438, 0.390425, -0.973234, 0.0727933, 0.217981, 4.09041, 9.53541, 0.429995)
-
-[node name="WebcamMonitor4x16" parent="." instance=ExtResource("2_p38re")]
-transform = Transform3D(0.169384, -0.413831, 0.894457, 0.155318, 0.907438, 0.390425, -0.973234, 0.0727933, 0.217981, 2.36918, 13.5074, 5.78232)
-
-[node name="WebcamMonitor4x18" parent="." instance=ExtResource("2_p38re")]
-transform = Transform3D(0.169384, -0.413831, 0.894457, 0.155318, 0.907438, 0.390425, -0.973234, 0.0727933, 0.217981, 0.471081, 12.1245, 2.90167)
-
-[node name="WebcamMonitor4x20" parent="." instance=ExtResource("2_p38re")]
-transform = Transform3D(0.169384, -0.413831, 0.894457, 0.155318, 0.907438, 0.390425, -0.973234, 0.0727933, 0.217981, -2.75073, 5.70649, -3.38553)
-
-[node name="WebcamMonitor4x21" parent="." instance=ExtResource("2_p38re")]
-transform = Transform3D(0.169384, -0.413831, 0.894457, 0.155318, 0.907438, 0.390425, -0.973234, 0.0727933, 0.217981, 2.23872, 8.41454, -3.58412)
-
-[node name="WebcamMonitor4x22" parent="." instance=ExtResource("2_p38re")]
-transform = Transform3D(0.169384, -0.413831, 0.894457, 0.155318, 0.907438, 0.390425, -0.973234, 0.0727933, 0.217981, 0.212673, 8.35134, -2.76125)
-
-[node name="WebcamMonitor4x23" parent="." instance=ExtResource("2_p38re")]
-transform = Transform3D(0.169384, -0.413831, 0.894457, 0.155318, 0.907438, 0.390425, -0.973234, 0.0727933, 0.217981, 0.931371, 8.07377, -6.76842)
-
-[node name="WebcamMonitor4x25" parent="." instance=ExtResource("2_p38re")]
-transform = Transform3D(0.545962, -0.413831, 0.728471, 0.311376, 0.907439, 0.282135, -0.777799, 0.0727934, 0.624284, 0.479996, 10.6766, -0.583069)
-
-[node name="WebcamMonitor4x26" parent="." instance=ExtResource("2_p38re")]
-transform = Transform3D(0.837177, -0.413831, 0.357601, 0.410758, 0.907439, 0.0885049, -0.361127, 0.0727934, 0.929671, -6.48028, 11.0375, -3.13274)
-
-[node name="WebcamMonitor4x3" parent="." instance=ExtResource("2_p38re")]
-transform = Transform3D(0.837177, -0.413831, 0.357601, 0.410758, 0.907439, 0.0885049, -0.361127, 0.0727934, 0.929671, 2.12657, 6.2401, 2.14518)
 
 [connection signal="pressed" from="Window/VBoxContainer/Button" to="Window" method="_on_button_pressed"]
 [connection signal="pressed" from="Window/VBoxContainer/Button2" to="Window" method="_on_button_2_pressed"]

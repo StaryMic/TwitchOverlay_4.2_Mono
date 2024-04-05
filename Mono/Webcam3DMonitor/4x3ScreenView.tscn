@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://xyfkoh2ilcv7"]
+
+[ext_resource type="Shader" uid="uid://crdh0k1a62nnq" path="res://Shaders/GlitchEffect.tres" id="1_4l3c5"]
+[ext_resource type="Texture2D" uid="uid://b7eg2d8lt00ax" path="res://Images/Emotes/Untitled5_20220924230940.png" id="2_37wk4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_55a2r"]
+shader = ExtResource("1_4l3c5")
+shader_parameter/GlitchStrength = 0.0
+
+[node name="4x3ScreenView" type="Control"]
+texture_filter = 1
+custom_minimum_size = Vector2(960, 540)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_55a2r")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_37wk4")
+stretch_mode = 6

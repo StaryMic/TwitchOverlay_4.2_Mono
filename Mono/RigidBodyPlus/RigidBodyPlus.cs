@@ -1,13 +1,17 @@
 using Godot;
-using System;
 using Godot.Collections;
-using TwitchOverlay.Mono;
+
+namespace TwitchOverlay.Mono.RigidBodyPlus;
 
 [GlobalClass]
 [Icon("res://Images/ScriptIcons/RigidBody3DPlus.svg")]
 
 public partial class RigidBodyPlus : RigidBody3D
 {
+	
+	// Debug
+	[Export(PropertyHint.Enum,"None,Collision,LinearVelocity")] public int DebugMode;
+	
 	// Global signal connection
 	private GlobalSceneSignals GlobalSignalRef;
 	
@@ -43,15 +47,48 @@ public partial class RigidBodyPlus : RigidBody3D
 		_startingGlobalRotation = this.GlobalRotation;
 	}
 
+	public override void _Process(double delta)
+	{
+		switch (DebugMode)
+		{
+			case 0: // None
+				break;
+			case 1: // Collision
+				break;
+			case 2: // Linear Velocity
+				GD.Print(this.Name," ",LinearVelocity.ToString());
+				break;
+		}
+	}
+
+	// Physics Array Stuff.
+	public Array<Vector3> _linearVelocityHistory = new Array<Vector3>();
+	public override void _IntegrateForces(PhysicsDirectBodyState3D state)
+	{
+		_linearVelocityHistory.Insert(0,state.LinearVelocity);
+		_linearVelocityHistory.Resize(2);
+
+		if (DebugMode == 2)
+		{
+			GD.Print("==========");
+			GD.Print(_linearVelocityHistory.ToString());
+			GD.Print("==========");
+		}
+	}
+
 	private void OnCollision(Node body)
 	{
-		GD.Print("We collided.");
-		GD.Print(body.Name.ToString());
-		GD.Print(this.LinearVelocity.ToString());
-		GD.Print(this.AngularVelocity.ToString());
+		if (DebugMode == 1)
+		{
+			GD.Print("We collided.");
+			GD.Print(body.Name.ToString());
+			GD.Print(this.LinearVelocity.ToString());
+			GD.Print(this.AngularVelocity.ToString());
+		}
 		
 		// Get velocity on impact and store it.
-		float impactVelocity = Mathf.Abs((LinearVelocity.X + LinearVelocity.Y + LinearVelocity.Z) / 3);
+		// This uses the previous frame's velocity to get the impact speed to work around some collision stuff in Godot.
+		float impactVelocity = Mathf.Abs(((_linearVelocityHistory[1].X + _linearVelocityHistory[1].Y + _linearVelocityHistory[1].Z) / 3) * Mass);
 		GD.Print(impactVelocity);
 
 		if (impactVelocity >= 1) // in Meters per second???
@@ -73,7 +110,7 @@ public partial class RigidBodyPlus : RigidBody3D
 			// Map audio to sound volume
 			// Select the lower value so we don't go over our volume limit
 			newAudioStreamPlayer.VolumeDb = Mathf.Min(MinimumVolume + (impactVelocity / 2), MaximumVolume);
-			GD.Print(newAudioStreamPlayer.VolumeDb);
+			GD.Print("Volume: ",newAudioStreamPlayer.VolumeDb);
 			
 			// Change name so it doesn't complain.
 			newAudioStreamPlayer.Name = "ImpactNoise" + soundsPlayed;

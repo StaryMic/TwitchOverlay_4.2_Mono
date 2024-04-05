@@ -67,3 +67,6 @@ func _on_toggle_camera_pressed():
 
 func _on_reset_physics_objects_pressed():
 	$"../../GlobalSceneSignals".emit_signal("ResetPhysicsObjectsToInitialPosition")
+
+func _on_glitch_tv_pressed():
+	$"../../FreeTVs/4x3WebcamMonitor3".get_node("./Screen/4x3ScreenView").emit_signal("DebugGlitch")
