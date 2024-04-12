@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://c5l3qmjnq8xwc"]
+
+[ext_resource type="FontFile" uid="uid://cg43prlk76r7" path="res://Fonts/UbuntuMono-Regular.ttf" id="1_sqctl"]
+[ext_resource type="FontFile" uid="uid://b2ecdopu50bmw" path="res://Fonts/monof55.ttf" id="2_g3ixp"]
+[ext_resource type="Script" path="res://Mono/Chatbox/ChatMessage.cs" id="2_vwkon"]
+
+[sub_resource type="Theme" id="Theme_gc68d"]
+default_font = ExtResource("1_sqctl")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qdvlq"]
+bg_color = Color(0, 0, 0, 0.45098)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+shadow_color = Color(0, 0, 0, 0.188235)
+shadow_size = 2
+shadow_offset = Vector2(-5, 5)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_gvskj"]
+grow_begin = 0.0
+grow_end = 0.0
+
+[node name="ChatMessage" type="PanelContainer"]
+custom_minimum_size = Vector2(250, 50)
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -132.0
+offset_right = 200.0
+grow_vertical = 0
+theme = SubResource("Theme_gc68d")
+theme_override_styles/panel = SubResource("StyleBoxFlat_qdvlq")
+script = ExtResource("2_vwkon")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="Username" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_g3ixp")
+theme_override_font_sizes/normal_font_size = 23
+text = "UsernameGoesHere"
+fit_content = true
+
+[node name="HSeparator" type="HSeparator" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+theme_override_styles/separator = SubResource("StyleBoxLine_gvskj")
+
+[node name="Message" type="RichTextLabel" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("2_g3ixp")
+theme_override_font_sizes/normal_font_size = 18
+bbcode_enabled = true
+text = "Something something, a bee should not be able to fly blah blah blah bee movie bleh bleh bleh what shirt do I want blank and yellow? ooh yellow and black!"
+fit_content = true
+
+[node name="KillTimer" type="Timer" parent="."]
+wait_time = 15.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="KillTimer" to="." method="_on_kill_timer_timeout"]

@@ -1,5 +1,5 @@
 extends Node
-
+@onready var GlobalSceneSignalRef = $"../../GlobalSceneSignals"
 @onready var QueueTimer = $NotificationTimer
 signal follow(username)
 signal subscribe(username,tier,is_gift)
@@ -36,6 +36,7 @@ func _on_websocket_client_send_notification_to_event_handler(JsonData):
 	ConstructedDictionary.clear() #Clear every call.
 	match CurrentNotificationType:
 		"channel.chat.message":
+			GlobalSceneSignalRef.emit_signal("ChatMessage",JsonData.payload.event.chatter_user_name,JsonData.payload.event.message.text,JsonData.payload.event.chatter_user_id,JsonData.payload.event.message_id)
 			chatmessage.emit(JsonData.payload.event.chatter_user_name,JsonData.payload.event.message.text,JsonData.payload.event.chatter_user_id,JsonData.payload.event.message_id)
 		"channel.follow":
 			ConstructedDictionary.timer_delay = 5
@@ -43,7 +44,14 @@ func _on_websocket_client_send_notification_to_event_handler(JsonData):
 			
 			ConstructedDictionary.user_name = JsonData.payload.event.user_name
 			
-			NotificationQueue.append(ConstructedDictionary)
+			if CheckForRepeatedEvent(ConstructedDictionary.user_name,ConstructedDictionary.type):
+				# If this is a repeated event
+				print("Repeated Event. Ignoring.")
+				return # Do nothing
+			
+			if !CheckForRepeatedEvent(ConstructedDictionary.user_name,ConstructedDictionary.type):
+				NotificationQueue.append(ConstructedDictionary)
+				AddToRepeatList(ConstructedDictionary.user_name,ConstructedDictionary.type)
 		"channel.subscribe":
 			ConstructedDictionary.timer_delay = 5
 			ConstructedDictionary.type = "subscribe"
@@ -97,7 +105,15 @@ func _on_websocket_client_send_notification_to_event_handler(JsonData):
 			ConstructedDictionary.from_broadcaster_user_name = JsonData.payload.event.from_broadcaster_user_name
 			ConstructedDictionary.viewers = JsonData.payload.event.viewers
 			
-			NotificationQueue.append(ConstructedDictionary)
+			if CheckForRepeatedEvent(ConstructedDictionary.user_name,ConstructedDictionary.type):
+				# If this is a repeated event
+				print("Repeated Event. Ignoring.")
+				return # Do nothing
+			
+			if !CheckForRepeatedEvent(ConstructedDictionary.from_broadcaster_user_name,ConstructedDictionary.type):
+				NotificationQueue.append(ConstructedDictionary)
+				AddToRepeatList(ConstructedDictionary.from_broadcaster_user_name,ConstructedDictionary.type)
+			
 		"channel.channel_points_custom_reward_redemption.add":
 			pointredeem.emit(JsonData.payload.event.user_name,JsonData.payload.event.reward.title,JsonData.payload.event.user_input)
 
@@ -173,3 +189,28 @@ func _on_timer_timeout(): #Queue system here.
 				QueueTimer.wait_time = CurrentNotification.timer_delay
 				cheer.emit(CurrentNotification.user_name,CurrentNotification.message,CurrentNotification.bits)
 		NotificationQueue.remove_at(0)
+
+var RepeatList : Array[Dictionary] # List of events we don't want repeats of.
+# This will effect the following events
+# Follows and Raids
+
+func CheckForRepeatedEvent(username,event):
+	var ConstructedDictionary = {
+		"username" = null,
+		"event" = null}
+	ConstructedDictionary.event = event
+	ConstructedDictionary.username = username
+	if RepeatList.has(ConstructedDictionary):
+		return true # REPEATED EVENT
+	if !RepeatList.has(ConstructedDictionary):
+		return false # Not repeated
+
+func AddToRepeatList(username, event):
+	var ConstructedDictionary = {
+		"username" = null,
+		"event" = null
+	}
+	ConstructedDictionary.event = event
+	ConstructedDictionary.username = username
+	RepeatList.append(ConstructedDictionary)
+	

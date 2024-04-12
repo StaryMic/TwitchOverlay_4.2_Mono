@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dfh3v2a1vt4cu"]
+[gd_scene load_steps=33 format=3 uid="uid://dfh3v2a1vt4cu"]
 
 [ext_resource type="Script" path="res://Mono/GlobalSceneSignals.cs" id="1_2e12k"]
 [ext_resource type="Script" path="res://Mono/WebcamServer/WebcamServer.cs" id="1_42u1a"]
@@ -23,7 +23,8 @@
 [ext_resource type="AudioStream" uid="uid://0ppxxxp0m1pk" path="res://Audio/SFX/Pops/pop6.wav" id="21_6v7va"]
 [ext_resource type="AudioStream" uid="uid://wtuup8rkfjdx" path="res://Audio/SFX/Pops/pop7.wav" id="22_10cml"]
 [ext_resource type="AudioStream" uid="uid://d3fmpl5pv5aib" path="res://Audio/SFX/Pops/pop8.wav" id="23_grddk"]
-[ext_resource type="PackedScene" uid="uid://csstqqxgmhfgx" path="res://Mono/Webcam3DMonitor/4x3WebcamMonitor.tscn" id="28_hewqa"]
+[ext_resource type="PackedScene" uid="uid://ceyre6owebw3s" path="res://Mono/Chatbox/ChatboxBase.tscn" id="24_yr45a"]
+[ext_resource type="PackedScene" uid="uid://csstqqxgmhfgx" path="res://Mono/Webcam3DMonitor/4x3WebcamMonitor.tscn" id="25_xsmbu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pr7u8"]
 sun_angle_max = 79.93
@@ -118,7 +119,7 @@ environment = SubResource("Environment_l2438")
 [node name="StaticBody3D" type="StaticBody3D" parent="3DBoundaries"]
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="3DBoundaries/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 48.4656, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.6856, -8)
 shape = SubResource("BoxShape3D_7pl8u")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="3DBoundaries/StaticBody3D"]
@@ -126,11 +127,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -8)
 shape = SubResource("BoxShape3D_7pl8u")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="3DBoundaries/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 6.21997, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2.34997, -8)
 shape = SubResource("BoxShape3D_1ygrn")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="3DBoundaries/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 3.7129, -8)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 2.4529, -8)
 shape = SubResource("BoxShape3D_1ygrn")
 
 [node name="CollisionShape3D5" type="CollisionShape3D" parent="3DBoundaries/StaticBody3D"]
@@ -173,8 +174,9 @@ current = true
 
 [node name="OptionsWindow" type="Window" parent="."]
 unique_name_in_owner = true
-position = Vector2i(35, 128)
+position = Vector2i(35, 36)
 size = Vector2i(500, 500)
+visible = false
 always_on_top = true
 
 [node name="Control" type="Control" parent="OptionsWindow"]
@@ -212,6 +214,7 @@ text = "Reconnect"
 layout_mode = 2
 
 [node name="VBoxContainer3" type="VBoxContainer" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(215, 0)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer3"]
@@ -293,14 +296,15 @@ unique_name_in_owner = true
 script = ExtResource("7_2h1j1")
 AreaBounds = PackedVector2Array(120, 1000, 1780, 1080)
 
-[node name="FreeTVs" type="Node3D" parent="."]
+[node name="ChatboxBase" parent="." instance=ExtResource("24_yr45a")]
 
-[node name="4x3WebcamMonitor3" parent="FreeTVs" instance=ExtResource("28_hewqa")]
-transform = Transform3D(0.982752, 0.184929, 0, -0.184232, 0.979048, 0.0867384, 0.0160405, -0.0852424, 0.996231, 1.12802, 45.0497, -9.01447)
+[node name="4x3WebcamMonitor" parent="." instance=ExtResource("25_xsmbu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.748439, 1.03067, -4.8824)
 
 [connection signal="send_notification_to_event_handler" from="GlobalSceneScripts/WebsocketClient" to="GlobalSceneScripts/EventHandler" method="_on_websocket_client_send_notification_to_event_handler"]
 [connection signal="send_sub_session_id" from="GlobalSceneScripts/WebsocketClient" to="GlobalSceneScripts/APICaller" method="_on_websocket_client_send_sub_session_id"]
 [connection signal="chatmessage" from="GlobalSceneScripts/EventHandler" to="GlobalSceneScripts/EventHandler/ChatHandler" method="_on_event_handler_chatmessage"]
+[connection signal="chatmessage" from="GlobalSceneScripts/EventHandler" to="ChatboxBase" method="_on_event_handler_chatmessage"]
 [connection signal="cheer" from="GlobalSceneScripts/EventHandler" to="EventObjects/NotificationDisplay" method="_on_event_handler_cheer"]
 [connection signal="follow" from="GlobalSceneScripts/EventHandler" to="EventObjects/NotificationDisplay" method="_on_follow"]
 [connection signal="giftsub" from="GlobalSceneScripts/EventHandler" to="EventObjects/NotificationDisplay" method="_on_giftsub"]

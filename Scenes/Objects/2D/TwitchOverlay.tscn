@@ -1,0 +1,49 @@
+[gd_scene load_steps=4 format=3 uid="uid://bpr0emr2iqkp2"]
+
+[ext_resource type="Texture2D" uid="uid://cy1p1iloefkwi" path="res://Images/StreamReferences/20240410102224_1.jpg" id="1_byqcd"]
+[ext_resource type="Texture2D" uid="uid://c8injc51ry6mr" path="res://Images/StreamReferences/WIN_20240331_07_57_26_Pro.jpg" id="2_nrrma"]
+[ext_resource type="PackedScene" uid="uid://b7axn3oiav56e" path="res://Scenes/Objects/3D/NotificationDisplay.tscn" id="3_hw1d7"]
+
+[node name="TwitchOverlay" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+custom_minimum_size = Vector2(1920, 1080)
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+border_width = 2.4
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_right = 1493.0
+offset_bottom = 1081.0
+texture = ExtResource("1_byqcd")
+
+[node name="TextureRect2" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1920.0
+offset_top = -1080.0
+offset_right = -1493.0
+offset_bottom = -840.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("2_nrrma")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="NotificationDisplay" parent="." instance=ExtResource("3_hw1d7")]
+offset_left = 795.0
+offset_top = 891.0
+offset_right = 2331.0
+offset_bottom = 1403.0

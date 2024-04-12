@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://chstpnsed4gwo"]
+
+[ext_resource type="Texture2D" uid="uid://c8injc51ry6mr" path="res://Images/StreamReferences/WIN_20240331_07_57_26_Pro.jpg" id="1_v0a65"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddamn"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_bottom_right = 256
+
+[node name="SimpleWebcam" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+clip_children = 1
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_ddamn")
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer"]
+layout_mode = 2
+texture = ExtResource("1_v0a65")

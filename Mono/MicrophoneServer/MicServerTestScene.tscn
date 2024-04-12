@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://b8ijgkeec0h2g"]
+
+[ext_resource type="Script" path="res://Mono/MicrophoneServer/MicrophoneServer.cs" id="1_xl2wx"]
+
+[sub_resource type="GDScript" id="GDScript_yhmay"]
+resource_name = "MicTestButtons"
+script/source = "extends Node2D
+"
+
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_y44bi"]
+
+[node name="MicServerTestScene" type="Node2D"]
+script = SubResource("GDScript_yhmay")
+
+[node name="MicrophoneServer" type="Node" parent="."]
+script = ExtResource("1_xl2wx")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamMicrophone_y44bi")
+autoplay = true
+bus = &"MICROPHONE"

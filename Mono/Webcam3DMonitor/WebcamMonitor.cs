@@ -121,6 +121,7 @@ public partial class WebcamMonitor : Control
 			glitchTime.ResetCooldown();
 			randomTime = new CooldownTimer(currentRng);
 			randomTime.ResetCooldown();
+			_textureDisplay.Material.Set("shader_parameter/GlitchStrength",1);
 			_isGlitching = true;
 		}
 
@@ -148,6 +149,7 @@ public partial class WebcamMonitor : Control
 			if (glitchTime != null && glitchTime.HasCooldownElapsed()) // Once the time has expired
 			{
 				_isGlitching = false;
+				_textureDisplay.Material.Set("shader_parameter/GlitchStrength",0);
 				_textureDisplay.Texture = _webcam.CamTexture;
 			}
 		}

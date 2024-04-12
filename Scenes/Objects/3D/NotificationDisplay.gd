@@ -46,6 +46,7 @@ func _on_event_handler_cheer(username, message, bits):
 	var message_template = "[center][Rainbow]{username}[/Rainbow] has sent [Rainbow]{bits}[/Rainbow] bits!"
 	var message_fills = {"username":username,"message":message,"bits":bits}
 	BottomLabel.text = message_template.format(message_fills)
+	AnimPlayer.play("Appear")
 
 
 func _on_follow(username):
@@ -53,6 +54,7 @@ func _on_follow(username):
 	var message_template = "[center]Thank you\n[Rainbow]{username}[/Rainbow]\n for the follow!"
 	var message_fills = {"username":username}
 	BottomLabel.text = message_template.format(message_fills)
+	AnimPlayer.play("Appear")
 
 
 func _on_giftsub(username, tier : String, total_gifts):
@@ -60,18 +62,21 @@ func _on_giftsub(username, tier : String, total_gifts):
 	var message_template = "[center][Rainbow]{username}[/Rainbow] has gifted [Rainbow]{gifts}[/Rainbow] subs!"
 	var message_fills = {"username":username,"gifts":total_gifts,"tier":tier}
 	BottomLabel.text = message_template.format(message_fills)
+	AnimPlayer.play("Appear")
 
 func _on_event_handler_raid(username, viewers):
 	TopLabel.text = "[center][Rumble]RAID INCOMING!!!"
 	var message_template = "[center][Rainbow]{username}[/Rainbow] has sent [Rainbow]{viewers}[/Rainbow] viewers to our channel!\nBe kind to them!"
 	var message_fills = {"username":username,"viewers":viewers}
 	BottomLabel.text = message_template.format(message_fills)
+	AnimPlayer.play("Appear")
 
 func _on_event_handler_submessage(username, tier, message, cumulative_months, duration_months):
 	RandomizeTopMessage()
 	var message_template = "[center][Rainbow]{username}[/Rainbow] has subscribed!"
 	var message_fills = {"username":username,"message":message}
 	BottomLabel.text = message_template.format(message_fills)
+	AnimPlayer.play("Appear")
 
 func _on_event_handler_subscribe(username, tier, is_gift):
 	RandomizeTopMessage()
@@ -82,3 +87,4 @@ func _on_event_handler_subscribe(username, tier, is_gift):
 		message_template = "[center][Rainbow]{username}[/Rainbow] has subscribed!"
 	var message_fills = {"username":username,"tier":tier,"gift":is_gift}
 	BottomLabel.text = message_template.format(message_fills)
+	AnimPlayer.play("Appear")

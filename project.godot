@@ -51,8 +51,9 @@ theme/custom_font="res://Fonts/monof55.ttf"
 [physics]
 
 2d/physics_engine="GodotPhysics2D"
-3d/physics_engine="GodotPhysics3D"
+3d/physics_engine="JoltPhysics3D"
 3d/default_gravity_vector=Vector3(0, -9.8, 0)
+3d/time_before_sleep=0.25
 
 [rendering]
 

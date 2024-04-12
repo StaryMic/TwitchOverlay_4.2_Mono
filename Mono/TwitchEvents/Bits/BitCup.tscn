@@ -1,0 +1,185 @@
+[gd_scene load_steps=9 format=3 uid="uid://l0ks30t1rl7d"]
+
+[ext_resource type="PackedScene" uid="uid://pj4b1ojd4r8m" path="res://Mono/TwitchEvents/Bits/Cup.tscn" id="1_dnpyr"]
+[ext_resource type="Script" path="res://Mono/GlobalSceneSignals.cs" id="1_nqlql"]
+[ext_resource type="PackedScene" uid="uid://lfjtjy1hwlse" path="res://Mono/TwitchEvents/Bits/TwitchBit.tscn" id="2_ptrrw"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_diqv3"]
+sky_horizon_color = Color(0.618799, 0.660559, 0.694363, 1)
+ground_bottom_color = Color(0.0901961, 0.188235, 0.227451, 1)
+ground_horizon_color = Color(0.618799, 0.660559, 0.694363, 1)
+
+[sub_resource type="Sky" id="Sky_jbosv"]
+sky_material = SubResource("ProceduralSkyMaterial_diqv3")
+
+[sub_resource type="Environment" id="Environment_dc3qe"]
+background_mode = 2
+sky = SubResource("Sky_jbosv")
+tonemap_mode = 2
+ssao_enabled = true
+glow_enabled = true
+
+[sub_resource type="GDScript" id="GDScript_rw12o"]
+resource_name = "BitCupOrbitCam"
+script/source = "extends Camera3D
+
+@export
+var RadiansPerSecond : float
+@onready var CameraAim : Node3D = $\"..\"
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass
+	
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	look_at(CameraAim.position)
+	CameraAim.rotate_y(RadiansPerSecond * delta) 
+"
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_nw7lq"]
+viewport_path = NodePath("SubViewport")
+
+[node name="BitCup" type="Node3D"]
+
+[node name="GlobalSceneSignals" type="Node" parent="."]
+script = ExtResource("1_nqlql")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+audio_listener_enable_3d = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewport"]
+environment = SubResource("Environment_dc3qe")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
+transform = Transform3D(0.674303, 0.694798, -0.250143, 0, 0.338738, 0.940881, 0.738455, -0.634438, 0.228412, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Cup" parent="SubViewport" instance=ExtResource("1_dnpyr")]
+
+[node name="CameraAim" type="Node3D" parent="SubViewport/Cup"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.46634, 0)
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport/Cup/CameraAim"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.636, -30)
+doppler_tracking = 2
+current = true
+script = SubResource("GDScript_rw12o")
+RadiansPerSecond = 1.0
+
+[node name="Bits" type="Node3D" parent="SubViewport"]
+
+[node name="TwitchBit" parent="SubViewport/Bits" instance=ExtResource("2_ptrrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.3412, 0)
+_minimumPitchScale = 0.233
+_maximumPitchScale = 3.13
+
+[node name="TwitchBit2" parent="SubViewport/Bits" instance=ExtResource("2_ptrrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.3412, 0)
+_minimumPitchScale = 0.233
+_maximumPitchScale = 3.13
+
+[node name="TwitchBit3" parent="SubViewport/Bits" instance=ExtResource("2_ptrrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.3412, 0)
+_minimumPitchScale = 0.233
+_maximumPitchScale = 3.13
+
+[node name="TwitchBit4" parent="SubViewport/Bits" instance=ExtResource("2_ptrrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.3412, 0)
+_minimumPitchScale = 0.233
+_maximumPitchScale = 3.13
+
+[node name="TwitchBit5" parent="SubViewport/Bits" instance=ExtResource("2_ptrrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.3412, 0)
+_minimumPitchScale = 0.233
+_maximumPitchScale = 3.13
+
+[node name="TwitchBit6" parent="SubViewport/Bits" instance=ExtResource("2_ptrrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.5565, 0)
+_minimumPitchScale = 0.233
+_maximumPitchScale = 3.13
+
+[node name="TwitchBit7" parent="SubViewport/Bits" instance=ExtResource("2_ptrrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.5565, 0)
+_minimumPitchScale = 0.233
+_maximumPitchScale = 3.13
+
+[node name="TwitchBit8" parent="SubViewport/Bits" instance=ExtResource("2_ptrrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.5565, 0)
+_minimumPitchScale = 0.233
+_maximumPitchScale = 3.13
+
+[node name="TwitchBit9" parent="SubViewport/Bits" instance=ExtResource("2_ptrrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.5565, 0)
+_minimumPitchScale = 0.233
+_maximumPitchScale = 3.13
+
+[node name="TwitchBit10" parent="SubViewport/Bits" instance=ExtResource("2_ptrrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.5565, 0)
+_minimumPitchScale = 0.233
+_maximumPitchScale = 3.13
+
+[node name="TwitchBit11" parent="SubViewport/Bits" instance=ExtResource("2_ptrrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.0494, 0)
+_minimumPitchScale = 0.233
+_maximumPitchScale = 3.13
+
+[node name="TwitchBit12" parent="SubViewport/Bits" instance=ExtResource("2_ptrrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.0494, 0)
+_minimumPitchScale = 0.233
+_maximumPitchScale = 3.13
+
+[node name="TwitchBit13" parent="SubViewport/Bits" instance=ExtResource("2_ptrrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.0494, 0)
+_minimumPitchScale = 0.233
+_maximumPitchScale = 3.13
+
+[node name="TwitchBit14" parent="SubViewport/Bits" instance=ExtResource("2_ptrrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.0494, 0)
+_minimumPitchScale = 0.233
+_maximumPitchScale = 3.13
+
+[node name="TwitchBit15" parent="SubViewport/Bits" instance=ExtResource("2_ptrrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.0494, 0)
+_minimumPitchScale = 0.233
+_maximumPitchScale = 3.13
+
+[node name="TwitchBit16" parent="SubViewport/Bits" instance=ExtResource("2_ptrrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.3674, 0)
+_minimumPitchScale = 0.233
+_maximumPitchScale = 3.13
+
+[node name="TwitchBit17" parent="SubViewport/Bits" instance=ExtResource("2_ptrrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.3674, 0)
+_minimumPitchScale = 0.233
+_maximumPitchScale = 3.13
+
+[node name="TwitchBit18" parent="SubViewport/Bits" instance=ExtResource("2_ptrrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.3674, 0)
+_minimumPitchScale = 0.233
+_maximumPitchScale = 3.13
+
+[node name="TwitchBit19" parent="SubViewport/Bits" instance=ExtResource("2_ptrrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.3674, 0)
+_minimumPitchScale = 0.233
+_maximumPitchScale = 3.13
+
+[node name="TwitchBit20" parent="SubViewport/Bits" instance=ExtResource("2_ptrrw")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.3674, 0)
+_minimumPitchScale = 0.233
+_maximumPitchScale = 3.13
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -256.0
+offset_top = -256.0
+offset_right = 256.0
+offset_bottom = 256.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_nw7lq")

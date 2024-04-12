@@ -1,0 +1,60 @@
+[gd_scene load_steps=12 format=3 uid="uid://lfjtjy1hwlse"]
+
+[ext_resource type="Material" uid="uid://j2tvrf06m6c0" path="res://Mono/TwitchEvents/Bits/Assets/Materials/Bit.tres" id="1_315xl"]
+[ext_resource type="Script" path="res://Mono/RigidBodyPlus/RigidBodyPlus.cs" id="1_r58k8"]
+[ext_resource type="AudioStream" uid="uid://djg8nyfjkw8ps" path="res://Mono/RigidBodyPlus/Audio/Glass/glass_impact_hard1.wav" id="2_r0650"]
+[ext_resource type="AudioStream" uid="uid://cgjw6jutimoyo" path="res://Mono/RigidBodyPlus/Audio/Glass/glass_impact_hard2.wav" id="3_aw606"]
+[ext_resource type="AudioStream" uid="uid://cgpmu7f4mn5bg" path="res://Mono/RigidBodyPlus/Audio/Glass/glass_impact_hard3.wav" id="4_mi6e0"]
+[ext_resource type="AudioStream" uid="uid://dw55oxegqdq3h" path="res://Mono/RigidBodyPlus/Audio/Glass/glass_impact_soft1.wav" id="5_h2nmj"]
+[ext_resource type="AudioStream" uid="uid://1wwcu42bpsyo" path="res://Mono/RigidBodyPlus/Audio/Glass/glass_impact_soft2.wav" id="6_na23l"]
+[ext_resource type="AudioStream" uid="uid://ckgtynq8fdpnp" path="res://Mono/RigidBodyPlus/Audio/Glass/glass_impact_soft3.wav" id="7_k5r1m"]
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_dpsk3"]
+_surfaces = [{
+"aabb": AABB(-0.866025, -1.07301, -0.783074, 1.73402, 2.43805, 1.56615),
+"format": 34896613377,
+"index_count": 24,
+"index_data": PackedByteArray(0, 0, 1, 0, 3, 0, 2, 0, 0, 0, 3, 0, 0, 0, 4, 0, 1, 0, 2, 0, 4, 0, 0, 0, 5, 0, 3, 0, 1, 0, 2, 0, 3, 0, 5, 0, 5, 0, 1, 0, 4, 0, 2, 0, 5, 0, 4, 0),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 6,
+"vertex_data": PackedByteArray(218, 127, 0, 105, 0, 0, 0, 0, 255, 255, 134, 109, 177, 128, 0, 0, 0, 0, 0, 105, 255, 127, 0, 0, 218, 127, 255, 255, 255, 127, 0, 0, 218, 127, 0, 0, 255, 127, 0, 0, 218, 127, 0, 105, 255, 255, 0, 0)
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_ehb4q"]
+resource_local_to_scene = true
+resource_name = "TwitchBit_Cone"
+_surfaces = [{
+"aabb": AABB(-0.866025, -1.07301, -0.783074, 1.73402, 2.43805, 1.56615),
+"attribute_data": PackedByteArray(255, 191, 142, 130, 255, 63, 142, 130, 255, 191, 142, 130, 255, 63, 142, 130, 52, 245, 183, 222, 52, 245, 183, 222, 52, 117, 183, 222, 52, 117, 183, 222, 202, 138, 183, 222, 202, 138, 183, 222, 202, 10, 183, 222, 202, 10, 183, 222, 255, 63, 255, 191, 255, 63, 255, 191, 255, 63, 255, 191, 255, 63, 255, 191, 255, 191, 255, 191, 255, 191, 255, 191, 255, 191, 255, 191, 255, 191, 255, 191, 255, 191, 142, 130, 255, 63, 142, 130, 255, 191, 142, 130, 255, 63, 142, 130),
+"format": 34896613399,
+"index_count": 24,
+"index_data": PackedByteArray(1, 0, 7, 0, 13, 0, 11, 0, 3, 0, 15, 0, 0, 0, 17, 0, 5, 0, 9, 0, 19, 0, 2, 0, 21, 0, 12, 0, 6, 0, 10, 0, 14, 0, 23, 0, 20, 0, 4, 0, 16, 0, 8, 0, 22, 0, 18, 0),
+"material": ExtResource("1_315xl"),
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 24,
+"vertex_data": PackedByteArray(218, 127, 0, 105, 0, 0, 111, 34, 218, 127, 0, 105, 0, 0, 228, 225, 218, 127, 0, 105, 0, 0, 31, 34, 218, 127, 0, 105, 0, 0, 161, 225, 255, 255, 134, 109, 177, 128, 38, 186, 255, 255, 134, 109, 177, 128, 111, 34, 255, 255, 134, 109, 177, 128, 175, 68, 255, 255, 134, 109, 177, 128, 228, 225, 0, 0, 0, 105, 255, 127, 146, 185, 0, 0, 0, 105, 255, 127, 31, 34, 0, 0, 0, 105, 255, 127, 44, 68, 0, 0, 0, 105, 255, 127, 161, 225, 218, 127, 255, 255, 255, 127, 175, 68, 218, 127, 255, 255, 255, 127, 228, 225, 218, 127, 255, 255, 255, 127, 44, 68, 218, 127, 255, 255, 255, 127, 161, 225, 218, 127, 0, 0, 255, 127, 38, 186, 218, 127, 0, 0, 255, 127, 111, 34, 218, 127, 0, 0, 255, 127, 146, 185, 218, 127, 0, 0, 255, 127, 31, 34, 218, 127, 0, 105, 255, 255, 38, 186, 218, 127, 0, 105, 255, 255, 175, 68, 218, 127, 0, 105, 255, 255, 146, 185, 218, 127, 0, 105, 255, 255, 44, 68, 243, 45, 64, 70, 153, 194, 227, 79, 251, 56, 242, 173, 204, 207, 221, 189, 110, 15, 241, 50, 243, 45, 64, 70, 16, 172, 29, 110, 153, 194, 227, 79, 208, 76, 222, 142, 251, 56, 242, 173, 112, 237, 249, 211, 204, 207, 221, 189, 16, 172, 29, 110, 153, 194, 227, 79, 112, 237, 249, 211, 204, 207, 221, 189, 110, 15, 241, 50, 243, 45, 64, 70, 208, 76, 222, 142, 251, 56, 242, 173, 110, 15, 241, 50, 16, 172, 29, 110, 208, 76, 222, 142, 112, 237, 249, 211)
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_dpsk3")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_igf1v"]
+points = PackedVector3Array(-0.866025, -0.0730648, -0.000153303, -3.15309e-05, -1.07301, -0.000153303, -3.15309e-05, -0.0730648, 0.783074, -3.15309e-05, 1.36504, -0.000153303, -3.15309e-05, -0.0730648, -0.783074, 0.867999, -0.0301079, 0.00413924)
+
+[node name="TwitchBit" type="RigidBody3D"]
+max_contacts_reported = 3
+contact_monitor = true
+script = ExtResource("1_r58k8")
+_ImpactSounds = Array[AudioStream]([ExtResource("2_r0650"), ExtResource("3_aw606"), ExtResource("4_mi6e0"), ExtResource("5_h2nmj"), ExtResource("6_na23l"), ExtResource("7_k5r1m")])
+_minimumPitchScale = 0.15
+_maximumPitchScale = 3.233
+
+[node name="Cone" type="MeshInstance3D" parent="."]
+cast_shadow = 0
+mesh = SubResource("ArrayMesh_ehb4q")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_igf1v")
