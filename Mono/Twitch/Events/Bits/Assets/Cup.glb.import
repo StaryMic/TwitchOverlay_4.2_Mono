@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dfelapnrhf4k3"
-path="res://.godot/imported/Cup.glb-0d74dd5feaf8a57a1a5af104306341a5.scn"
+path="res://.godot/imported/Cup.glb-1c20e8308279b276b3b584db6b9d5660.scn"
 
 [deps]
 
-source_file="res://Mono/TwitchEvents/Bits/Assets/Cup.glb"
-dest_files=["res://.godot/imported/Cup.glb-0d74dd5feaf8a57a1a5af104306341a5.scn"]
+source_file="res://Mono/Twitch/Events/Bits/Assets/Cup.glb"
+dest_files=["res://.godot/imported/Cup.glb-1c20e8308279b276b3b584db6b9d5660.scn"]
 
 [params]
 

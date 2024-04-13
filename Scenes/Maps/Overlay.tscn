@@ -90,12 +90,6 @@ script = ExtResource("5_0y51c")
 wait_time = 2.0
 autostart = true
 
-[node name="GoalHandler" type="Node" parent="GlobalSceneScripts/EventHandler"]
-
-[node name="HypeHandler" type="Node" parent="GlobalSceneScripts/EventHandler"]
-
-[node name="PollHandler" type="Node" parent="GlobalSceneScripts/EventHandler"]
-
 [node name="PointRedeemHandler" type="Node" parent="GlobalSceneScripts/EventHandler"]
 script = ExtResource("12_fgmep")
 
@@ -299,7 +293,7 @@ AreaBounds = PackedVector2Array(120, 1000, 1780, 1080)
 [node name="ChatboxBase" parent="." instance=ExtResource("24_yr45a")]
 
 [node name="4x3WebcamMonitor" parent="." instance=ExtResource("25_xsmbu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.748439, 1.03067, -4.8824)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.748439, 13.192, -4.8824)
 
 [connection signal="send_notification_to_event_handler" from="GlobalSceneScripts/WebsocketClient" to="GlobalSceneScripts/EventHandler" method="_on_websocket_client_send_notification_to_event_handler"]
 [connection signal="send_sub_session_id" from="GlobalSceneScripts/WebsocketClient" to="GlobalSceneScripts/APICaller" method="_on_websocket_client_send_sub_session_id"]

@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://b4surxy7au5xy"
-path="res://.godot/imported/TwitchBit.glb-94da111f18e24d0aee7741af32e691bc.scn"
+path="res://.godot/imported/TwitchBit.glb-1ce64e020921b4140996258292cb7b5a.scn"
 
 [deps]
 
-source_file="res://Mono/TwitchEvents/Bits/Assets/TwitchBit.glb"
-dest_files=["res://.godot/imported/TwitchBit.glb-94da111f18e24d0aee7741af32e691bc.scn"]
+source_file="res://Mono/Twitch/Events/Bits/Assets/TwitchBit.glb"
+dest_files=["res://.godot/imported/TwitchBit.glb-1ce64e020921b4140996258292cb7b5a.scn"]
 
 [params]
 

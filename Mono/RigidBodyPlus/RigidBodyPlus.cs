@@ -1,5 +1,6 @@
 using Godot;
 using Godot.Collections;
+using AstroRaider2.Utility.Timers;
 
 namespace TwitchOverlay.Mono.RigidBodyPlus;
 
@@ -18,8 +19,6 @@ public partial class RigidBodyPlus : RigidBody3D
 	// Impact sounds
 	[ExportCategory("Physics Sounds")] [Export]
 	public Array<AudioStream> _ImpactSounds;
-	
-	private AudioStreamPlayer3D newAudioStreamPlayer;
 	
 	[ExportCategory("Sound Settings")]
 	[Export]
@@ -54,6 +53,8 @@ public partial class RigidBodyPlus : RigidBody3D
 	private Vector3 _startingGlobalRotation;
 	private Tween _tween;
 
+	private CooldownTimer _soundCooldown;
+
 	
 	public override void _Ready()
 	{
@@ -68,6 +69,9 @@ public partial class RigidBodyPlus : RigidBody3D
 		// Store starting position
 		_startingGlobalPosition = this.GlobalPosition;
 		_startingGlobalRotation = this.GlobalRotation;
+
+		_soundCooldown = new CooldownTimer(0.15);
+		_soundCooldown.ResetCooldown();
 	}
 
 	public override void _Process(double delta)
@@ -89,7 +93,7 @@ public partial class RigidBodyPlus : RigidBody3D
 			QueueFree();
 		}
 
-		if (this.Position.Y < -500 && _importantObject)
+		if (this.Position.Y < -500 && _importantObject) // If we are out of bounds and important AF
 		{
 			GD.Print("Out of bounds. Freezing important object");
 			this.Position += Vector3.Up * 75;
@@ -125,14 +129,25 @@ public partial class RigidBodyPlus : RigidBody3D
 		// Get velocity on impact and store it.
 		// This uses the previous frame's velocity to get the impact speed to work around some collision stuff in Godot.
 		float impactVelocity = Mathf.Abs(((_linearVelocityHistory[1].X + _linearVelocityHistory[1].Y + _linearVelocityHistory[1].Z) / 3) * Mass);
-		GD.Print(impactVelocity);
-
-		if (impactVelocity >= 1) // in Meters per second???
+		if (DebugMode == 1)
 		{
+			GD.Print(impactVelocity);
+		}
+
+		if (impactVelocity >= 1 && _soundCooldown.HasCooldownElapsed()) // in Meters per second. Checks if cooldown has passed.
+		{
+			AudioStreamPlayer3D newAudioStreamPlayer;
+			
+			GD.Print(GetContactCount());
+			GD.Print("Cooldown elapsed? : ",_soundCooldown.HasCooldownElapsed());
+			
+			// Reset Cooldown
+			_soundCooldown.ResetCooldown();
+			
 			// Create and store template audio stream player.
 			newAudioStreamPlayer = new AudioStreamPlayer3D();
 			newAudioStreamPlayer.Bus = _bus;
-			newAudioStreamPlayer.Autoplay = true;
+			newAudioStreamPlayer.Autoplay = false;
 			newAudioStreamPlayer.VolumeDb = 0;
 			newAudioStreamPlayer.AttenuationModel = _soundAttenuationModel;
 			newAudioStreamPlayer.MaxDb = _maxDB;
@@ -153,21 +168,27 @@ public partial class RigidBodyPlus : RigidBody3D
 			soundsPlayed++; //increment sounds played.
 			
 			// Map audio to sound volume
-			// Select the lower value so we don't go over our volume limit
+			// Select the lower value, so we don't go over our volume limit
 			newAudioStreamPlayer.VolumeDb = Mathf.Min(MinimumVolume + (impactVelocity / 2), MaximumVolume);
 			GD.Print("Volume: ",newAudioStreamPlayer.VolumeDb);
 			
 			// Change name so it doesn't complain.
 			newAudioStreamPlayer.Name = "ImpactNoise" + soundsPlayed;
 			
+			// Add Autokill script
+			newAudioStreamPlayer.SetScript("res://Mono/RigidBodyPlus/AudioAutoKill.gd");
+			
 			// Spawn audio player in scene.
 			AddSibling(newAudioStreamPlayer);
 			
+			// Connect Finished to QueueFree
+			newAudioStreamPlayer.Finished += newAudioStreamPlayer.QueueFree;
+			
+			// Play audio
+			newAudioStreamPlayer.Play();
+			
 			// Set player position in world space.
 			newAudioStreamPlayer.GlobalPosition = this.GlobalPosition;
-			
-			// Set Finished signal to QueueFree
-			newAudioStreamPlayer.Finished += () => newAudioStreamPlayer.QueueFree();
 		}
 	}
 	//Object Resetting code

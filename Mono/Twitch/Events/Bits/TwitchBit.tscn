@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=3 uid="uid://lfjtjy1hwlse"]
 
-[ext_resource type="Material" uid="uid://j2tvrf06m6c0" path="res://Mono/TwitchEvents/Bits/Assets/Materials/Bit.tres" id="1_315xl"]
+[ext_resource type="Material" uid="uid://j2tvrf06m6c0" path="res://Mono/Twitch/Events/Bits/Assets/Materials/Bit.tres" id="1_315xl"]
 [ext_resource type="Script" path="res://Mono/RigidBodyPlus/RigidBodyPlus.cs" id="1_r58k8"]
 [ext_resource type="AudioStream" uid="uid://djg8nyfjkw8ps" path="res://Mono/RigidBodyPlus/Audio/Glass/glass_impact_hard1.wav" id="2_r0650"]
 [ext_resource type="AudioStream" uid="uid://cgjw6jutimoyo" path="res://Mono/RigidBodyPlus/Audio/Glass/glass_impact_hard2.wav" id="3_aw606"]
@@ -44,7 +44,7 @@ shadow_mesh = SubResource("ArrayMesh_dpsk3")
 points = PackedVector3Array(-0.866025, -0.0730648, -0.000153303, -3.15309e-05, -1.07301, -0.000153303, -3.15309e-05, -0.0730648, 0.783074, -3.15309e-05, 1.36504, -0.000153303, -3.15309e-05, -0.0730648, -0.783074, 0.867999, -0.0301079, 0.00413924)
 
 [node name="TwitchBit" type="RigidBody3D"]
-max_contacts_reported = 3
+max_contacts_reported = 1
 contact_monitor = true
 script = ExtResource("1_r58k8")
 _ImpactSounds = Array[AudioStream]([ExtResource("2_r0650"), ExtResource("3_aw606"), ExtResource("4_mi6e0"), ExtResource("5_h2nmj"), ExtResource("6_na23l"), ExtResource("7_k5r1m")])
