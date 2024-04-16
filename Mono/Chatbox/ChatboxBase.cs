@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using AstroRaider2.Utility.NodeTree;
+using Godot.Collections;
 using TwitchOverlay.Mono;
 
 public partial class ChatboxBase : Control
@@ -9,6 +10,9 @@ public partial class ChatboxBase : Control
 
 	private PackedScene _chatMessagePackedScene;
 	private NodeRef<VBoxContainer> _messageStorage;
+	private NodeRef<AudioStreamPlayer> _chatSound;
+
+	[Export] private Array<AudioStream> _sounds;
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
@@ -17,6 +21,8 @@ public partial class ChatboxBase : Control
 		
 		_globalSceneSignals = GetTree().Root.GetChild<Node3D>(0).GetNode<GlobalSceneSignals>("./GlobalSceneSignals");
 		_globalSceneSignals.ChatMessage += MessageSent;
+
+		_chatSound = new NodeRef<AudioStreamPlayer>(this, "@ChatSound");
 
 		_chatMessagePackedScene = ResourceLoader.Load<PackedScene>("res://Mono/Chatbox/ChatMessage.tscn");
 		
@@ -29,6 +35,8 @@ public partial class ChatboxBase : Control
 		_chatMessageInstance.Set("Message",Message);
 		_chatMessageInstance.Name = messageId;
 		_messageStorage.Node.AddChild(_chatMessageInstance);
-		//Fix this later make it work pls
+
+		_chatSound.Node.Stream = _sounds.PickRandom();
+		_chatSound.Node.Play();
 	}
 }

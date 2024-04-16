@@ -1,30 +1,15 @@
-[gd_scene load_steps=33 format=3 uid="uid://dfh3v2a1vt4cu"]
+[gd_scene load_steps=18 format=3 uid="uid://dfh3v2a1vt4cu"]
 
 [ext_resource type="Script" path="res://Mono/GlobalSceneSignals.cs" id="1_2e12k"]
 [ext_resource type="Script" path="res://Mono/WebcamServer/WebcamServer.cs" id="1_42u1a"]
-[ext_resource type="Script" path="res://Scripts/Utility/OptionsWindow.gd" id="1_cfpg0"]
 [ext_resource type="PackedScene" uid="uid://bcpx57c6escym" path="res://Scenes/Objects/2D/PredictionSlider.tscn" id="1_et36m"]
 [ext_resource type="Script" path="res://Scripts/Utility/GlobalActions.gd" id="2_wg44c"]
-[ext_resource type="Script" path="res://Scripts/Networking/WebsocketClient.gd" id="3_qm8ys"]
-[ext_resource type="Script" path="res://Scripts/EventScripts/EventHandler.gd" id="5_0y51c"]
-[ext_resource type="Script" path="res://Scripts/Networking/APICaller.gd" id="5_x3v8q"]
-[ext_resource type="Script" path="res://Scripts/EventScripts/Events/AudienceManager.gd" id="7_2h1j1"]
 [ext_resource type="Script" path="res://Scripts/Utility/DatabaseManager.gd" id="8_x8y87"]
+[ext_resource type="PackedScene" uid="uid://chstpnsed4gwo" path="res://Mono/WebcamServer/SimpleWebcam.tscn" id="10_4tndm"]
 [ext_resource type="PackedScene" uid="uid://b7axn3oiav56e" path="res://Scenes/Objects/3D/NotificationDisplay.tscn" id="10_tcghh"]
-[ext_resource type="Script" path="res://Scripts/EventScripts/Events/PointRedeemHandler.gd" id="12_fgmep"]
-[ext_resource type="Script" path="res://Scripts/EventScripts/Events/ChatHandler.gd" id="14_asvyl"]
-[ext_resource type="Script" path="res://Scripts/EventScripts/Events/ChatCommandHandler.gd" id="15_eerj3"]
-[ext_resource type="AudioStream" uid="uid://dpitmp6s87gqe" path="res://Audio/SFX/Pops/pop1.wav" id="16_5ttc7"]
-[ext_resource type="AudioStream" uid="uid://cix1pka854wbv" path="res://Audio/SFX/Pops/pop2.wav" id="17_ilp2n"]
-[ext_resource type="AudioStream" uid="uid://bwaigkxrl6utn" path="res://Audio/SFX/396316__morganpurkis__meaty-gunshot.wav" id="17_yp4ob"]
-[ext_resource type="AudioStream" uid="uid://uctcithjxj22" path="res://Audio/SFX/Pops/pop3.wav" id="18_gnspf"]
-[ext_resource type="AudioStream" uid="uid://cogscadt31ek" path="res://Audio/SFX/Pops/pop4.wav" id="19_4ihgv"]
-[ext_resource type="AudioStream" uid="uid://cp38ekvis2t2i" path="res://Audio/SFX/Pops/pop5.wav" id="20_7uc2h"]
-[ext_resource type="AudioStream" uid="uid://0ppxxxp0m1pk" path="res://Audio/SFX/Pops/pop6.wav" id="21_6v7va"]
-[ext_resource type="AudioStream" uid="uid://wtuup8rkfjdx" path="res://Audio/SFX/Pops/pop7.wav" id="22_10cml"]
-[ext_resource type="AudioStream" uid="uid://d3fmpl5pv5aib" path="res://Audio/SFX/Pops/pop8.wav" id="23_grddk"]
 [ext_resource type="PackedScene" uid="uid://ceyre6owebw3s" path="res://Mono/Chatbox/ChatboxBase.tscn" id="24_yr45a"]
-[ext_resource type="PackedScene" uid="uid://csstqqxgmhfgx" path="res://Mono/Webcam3DMonitor/4x3WebcamMonitor.tscn" id="25_xsmbu"]
+[ext_resource type="PackedScene" uid="uid://csstqqxgmhfgx" path="res://Mono/Webcam3DMonitor/4x3WebcamMonitor.tscn" id="25_yyoxy"]
+[ext_resource type="Script" path="res://Mono/Twitch/TwitchAPI.cs" id="27_a7pjf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pr7u8"]
 sun_angle_max = 79.93
@@ -64,46 +49,17 @@ script = ExtResource("1_2e12k")
 script = ExtResource("1_42u1a")
 _cvEffects = []
 
+[node name="TwitchAPI" type="Node" parent="."]
+script = ExtResource("27_a7pjf")
+
 [node name="GlobalSceneScripts" type="Node" parent="."]
 
 [node name="Database" type="Node" parent="GlobalSceneScripts"]
 unique_name_in_owner = true
 script = ExtResource("8_x8y87")
 
-[node name="OptionsWindow" type="Node" parent="GlobalSceneScripts"]
-script = ExtResource("1_cfpg0")
-
 [node name="GlobalActions" type="Node" parent="GlobalSceneScripts"]
 script = ExtResource("2_wg44c")
-
-[node name="WebsocketClient" type="Node" parent="GlobalSceneScripts"]
-script = ExtResource("3_qm8ys")
-
-[node name="APICaller" type="Node" parent="GlobalSceneScripts"]
-process_mode = 4
-script = ExtResource("5_x3v8q")
-
-[node name="EventHandler" type="Node" parent="GlobalSceneScripts"]
-script = ExtResource("5_0y51c")
-
-[node name="NotificationTimer" type="Timer" parent="GlobalSceneScripts/EventHandler"]
-wait_time = 2.0
-autostart = true
-
-[node name="PointRedeemHandler" type="Node" parent="GlobalSceneScripts/EventHandler"]
-script = ExtResource("12_fgmep")
-
-[node name="ChatHandler" type="Node" parent="GlobalSceneScripts/EventHandler"]
-unique_name_in_owner = true
-script = ExtResource("14_asvyl")
-ChatSounds = Array[AudioStream]([ExtResource("16_5ttc7"), ExtResource("17_ilp2n"), ExtResource("18_gnspf"), ExtResource("19_4ihgv"), ExtResource("20_7uc2h"), ExtResource("21_6v7va"), ExtResource("22_10cml"), ExtResource("23_grddk")])
-
-[node name="ChatCommandHandler" type="Node" parent="GlobalSceneScripts/EventHandler/ChatHandler"]
-script = ExtResource("15_eerj3")
-
-[node name="ChatSound" type="AudioStreamPlayer" parent="GlobalSceneScripts/EventHandler/ChatHandler"]
-stream = ExtResource("17_yp4ob")
-max_polyphony = 10
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_l2438")
@@ -166,117 +122,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.31874, 2.419)
 doppler_tracking = 2
 current = true
 
-[node name="OptionsWindow" type="Window" parent="."]
-unique_name_in_owner = true
-position = Vector2i(35, 36)
-size = Vector2i(500, 500)
-visible = false
-always_on_top = true
-
-[node name="Control" type="Control" parent="OptionsWindow"]
-layout_mode = 3
-anchors_preset = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="OptionsWindow/Control"]
-layout_mode = 0
-offset_right = 96.0
-offset_bottom = 40.0
-
-[node name="HBoxContainer" type="HBoxContainer" parent="OptionsWindow/Control/VBoxContainer"]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="Auth" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "Authorize App"
-
-[node name="CloseButton" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "Close App"
-
-[node name="HidePanelButton" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "Hide This Panel"
-
-[node name="Reconnect" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "Reconnect"
-
-[node name="VSeparator" type="VSeparator" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="VBoxContainer3" type="VBoxContainer" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(215, 0)
-layout_mode = 2
-
-[node name="Label" type="Label" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer3"]
-layout_mode = 2
-text = "Output Device"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="AudioDeviceList" type="ItemList" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer3"]
-layout_mode = 2
-allow_search = false
-auto_height = true
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="OptionsWindow/Control/VBoxContainer"]
-layout_mode = 2
-
-[node name="WSEventTests" type="ScrollContainer" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(117.6, 200)
-layout_mode = 2
-size_flags_horizontal = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests"]
-custom_minimum_size = Vector2(100, 100)
-layout_mode = 2
-
-[node name="Follow" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer"]
-layout_mode = 2
-text = "Follow"
-
-[node name="Subscribe" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer"]
-layout_mode = 2
-text = "Subscribe"
-
-[node name="Giftsub" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer"]
-layout_mode = 2
-text = "Giftsub"
-
-[node name="Submessage" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer"]
-layout_mode = 2
-text = "Submessage"
-
-[node name="Cheer" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer"]
-layout_mode = 2
-text = "Cheer"
-
-[node name="Raid" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer"]
-layout_mode = 2
-text = "Raid"
-
-[node name="Ban" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer"]
-layout_mode = 2
-text = "Ban"
-
-[node name="RedeemTests" type="VBoxContainer" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2"]
-layout_mode = 2
-
-[node name="ToggleCamera" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/RedeemTests"]
-layout_mode = 2
-text = "Toggle Webcam"
-
-[node name="ResetPhysicsObjects" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/RedeemTests"]
-layout_mode = 2
-text = "ResetPhysicsObjects"
-
-[node name="GlitchTV" type="Button" parent="OptionsWindow/Control/VBoxContainer/HBoxContainer2/RedeemTests"]
-layout_mode = 2
-text = "Test TV Glitch"
-
 [node name="EventObjects" type="Node" parent="."]
 editor_description = "penis"
 
@@ -285,44 +130,12 @@ scale = Vector2(0.362008, 0.362008)
 
 [node name="PredictionSlider" parent="EventObjects" instance=ExtResource("1_et36m")]
 
-[node name="AudienceManager" type="Node2D" parent="EventObjects"]
-unique_name_in_owner = true
-script = ExtResource("7_2h1j1")
-AreaBounds = PackedVector2Array(120, 1000, 1780, 1080)
-
 [node name="ChatboxBase" parent="." instance=ExtResource("24_yr45a")]
 
-[node name="4x3WebcamMonitor" parent="." instance=ExtResource("25_xsmbu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.748439, 13.192, -4.8824)
+[node name="4x3WebcamMonitor" parent="." instance=ExtResource("25_yyoxy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.23205, 7.56624, -4.2939)
 
-[connection signal="send_notification_to_event_handler" from="GlobalSceneScripts/WebsocketClient" to="GlobalSceneScripts/EventHandler" method="_on_websocket_client_send_notification_to_event_handler"]
-[connection signal="send_sub_session_id" from="GlobalSceneScripts/WebsocketClient" to="GlobalSceneScripts/APICaller" method="_on_websocket_client_send_sub_session_id"]
-[connection signal="chatmessage" from="GlobalSceneScripts/EventHandler" to="GlobalSceneScripts/EventHandler/ChatHandler" method="_on_event_handler_chatmessage"]
-[connection signal="chatmessage" from="GlobalSceneScripts/EventHandler" to="ChatboxBase" method="_on_event_handler_chatmessage"]
-[connection signal="cheer" from="GlobalSceneScripts/EventHandler" to="EventObjects/NotificationDisplay" method="_on_event_handler_cheer"]
-[connection signal="follow" from="GlobalSceneScripts/EventHandler" to="EventObjects/NotificationDisplay" method="_on_follow"]
-[connection signal="giftsub" from="GlobalSceneScripts/EventHandler" to="EventObjects/NotificationDisplay" method="_on_giftsub"]
-[connection signal="pointredeem" from="GlobalSceneScripts/EventHandler" to="GlobalSceneScripts/EventHandler/PointRedeemHandler" method="_on_event_handler_pointredeem"]
-[connection signal="prediction" from="GlobalSceneScripts/EventHandler" to="EventObjects/PredictionSlider" method="_on_event_handler_prediction"]
-[connection signal="raid" from="GlobalSceneScripts/EventHandler" to="EventObjects/NotificationDisplay" method="_on_event_handler_raid"]
-[connection signal="submessage" from="GlobalSceneScripts/EventHandler" to="EventObjects/NotificationDisplay" method="_on_event_handler_submessage"]
-[connection signal="subscribe" from="GlobalSceneScripts/EventHandler" to="EventObjects/NotificationDisplay" method="_on_event_handler_subscribe"]
-[connection signal="timeout" from="GlobalSceneScripts/EventHandler/NotificationTimer" to="GlobalSceneScripts/EventHandler" method="_on_timer_timeout"]
-[connection signal="AvatarCommand" from="GlobalSceneScripts/EventHandler/ChatHandler" to="GlobalSceneScripts/EventHandler/ChatHandler/ChatCommandHandler" method="_on_chat_handler_avatar_command"]
-[connection signal="SendChatMessage" from="GlobalSceneScripts/EventHandler/ChatHandler" to="GlobalSceneScripts/EventHandler/ChatHandler" method="_on_send_chat_message"]
-[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer/Auth" to="GlobalSceneScripts/OptionsWindow" method="_on_auth_pressed"]
-[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer/CloseButton" to="GlobalSceneScripts/OptionsWindow" method="_on_close_button_pressed"]
-[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer/HidePanelButton" to="GlobalSceneScripts/OptionsWindow" method="_on_hide_panel_button_pressed"]
-[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer/Reconnect" to="GlobalSceneScripts/APICaller" method="_on_reconnect_pressed"]
-[connection signal="item_selected" from="OptionsWindow/Control/VBoxContainer/HBoxContainer/VBoxContainer3/AudioDeviceList" to="GlobalSceneScripts/OptionsWindow" method="_on_audio_device_list_item_selected"]
-[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer/Follow" to="GlobalSceneScripts/OptionsWindow" method="_on_follow_pressed"]
-[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer/Subscribe" to="GlobalSceneScripts/OptionsWindow" method="_on_subscribe_pressed"]
-[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer/Giftsub" to="GlobalSceneScripts/OptionsWindow" method="_on_giftsub_pressed"]
-[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer/Submessage" to="GlobalSceneScripts/OptionsWindow" method="_on_submessage_pressed"]
-[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer/Cheer" to="GlobalSceneScripts/OptionsWindow" method="_on_cheer_pressed"]
-[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer/Raid" to="GlobalSceneScripts/OptionsWindow" method="_on_raid_pressed"]
-[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/WSEventTests/VBoxContainer/Ban" to="GlobalSceneScripts/OptionsWindow" method="_on_ban_pressed"]
-[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/RedeemTests/ToggleCamera" to="GlobalSceneScripts/OptionsWindow" method="_on_toggle_camera_pressed"]
-[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/RedeemTests/ResetPhysicsObjects" to="GlobalSceneScripts/OptionsWindow" method="_on_reset_physics_objects_pressed"]
-[connection signal="pressed" from="OptionsWindow/Control/VBoxContainer/HBoxContainer2/RedeemTests/GlitchTV" to="GlobalSceneScripts/OptionsWindow" method="_on_glitch_tv_pressed"]
-[connection signal="SummonAvatar" from="EventObjects/AudienceManager" to="EventObjects/AudienceManager" method="_on_summon_avatar"]
+[node name="SimpleWebcam" parent="." instance=ExtResource("10_4tndm")]
+scale = Vector2(0.241517, 0.241517)
+
+[connection signal="ChannelPrediction" from="GlobalSceneSignals" to="EventObjects/PredictionSlider" method="_on_global_scene_signals_channel_prediction"]

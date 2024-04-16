@@ -1,6 +1,23 @@
-[gd_scene load_steps=3 format=3 uid="uid://chstpnsed4gwo"]
+[gd_scene load_steps=4 format=3 uid="uid://chstpnsed4gwo"]
 
 [ext_resource type="Texture2D" uid="uid://c8injc51ry6mr" path="res://Images/StreamReferences/WIN_20240331_07_57_26_Pro.jpg" id="1_v0a65"]
+
+[sub_resource type="GDScript" id="GDScript_qmsx5"]
+resource_name = "SimpleWebcamHook"
+script/source = "extends Control
+
+var CameraServerRef : WebcamServer
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	CameraServerRef = get_tree().root.get_child(0).get_node(\"WebcamServer\")
+	
+	get_node(\"PanelContainer/TextureRect\").texture = CameraServerRef.CamTexture
+	
+	CameraServerRef.connect(\"WebcamConnectionStatusChange\", onCameraStatusChange)
+
+func onCameraStatusChange(status : bool):
+	visible = status
+"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ddamn"]
 bg_color = Color(1, 1, 1, 1)
@@ -13,14 +30,20 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = SubResource("GDScript_qmsx5")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 clip_children = 1
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_ddamn")
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer"]
+texture_filter = 2
+texture_repeat = 1
 layout_mode = 2
 texture = ExtResource("1_v0a65")

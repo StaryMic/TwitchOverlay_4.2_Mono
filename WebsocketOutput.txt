@@ -1,1 +1,1 @@
-{ "metadata": { "message_id": "337a1b54-1c2a-417c-90c8-6eea2a4cc5dc", "message_type": "session_welcome", "message_timestamp": "2024-04-12T23:01:58.982357952Z" }, "payload": { "session": { "id": "AgoQyUqKgZkHR3KXkEJEVzRlHxIGY2VsbC1i", "status": "connected", "connected_at": "2024-04-12T23:01:58.973277003Z", "keepalive_timeout_seconds": 10, "reconnect_url": <null>, "recovery_url": <null> } } }
+{ "metadata": { "message_id": "1f33e5f2-955a-45bb-bdc1-11a90437b7e4", "message_type": "session_keepalive", "message_timestamp": "2024-04-13T17:21:42.259439045Z" }, "payload": {  } }

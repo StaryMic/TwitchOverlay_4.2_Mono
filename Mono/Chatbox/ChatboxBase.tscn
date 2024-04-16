@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://ceyre6owebw3s"]
+[gd_scene load_steps=10 format=3 uid="uid://ceyre6owebw3s"]
 
 [ext_resource type="Script" path="res://Mono/Chatbox/ChatboxBase.cs" id="1_1h25d"]
-[ext_resource type="PackedScene" uid="uid://c5l3qmjnq8xwc" path="res://Mono/Chatbox/ChatMessage.tscn" id="2_88n34"]
+[ext_resource type="AudioStream" uid="uid://dpitmp6s87gqe" path="res://Audio/SFX/Pops/pop1.wav" id="2_ogbxh"]
+[ext_resource type="AudioStream" uid="uid://cix1pka854wbv" path="res://Audio/SFX/Pops/pop2.wav" id="3_kre4g"]
+[ext_resource type="AudioStream" uid="uid://uctcithjxj22" path="res://Audio/SFX/Pops/pop3.wav" id="4_3v5kl"]
+[ext_resource type="AudioStream" uid="uid://cogscadt31ek" path="res://Audio/SFX/Pops/pop4.wav" id="5_i7bie"]
+[ext_resource type="AudioStream" uid="uid://cp38ekvis2t2i" path="res://Audio/SFX/Pops/pop5.wav" id="6_ua1tj"]
+[ext_resource type="AudioStream" uid="uid://0ppxxxp0m1pk" path="res://Audio/SFX/Pops/pop6.wav" id="7_cp5u0"]
+[ext_resource type="AudioStream" uid="uid://wtuup8rkfjdx" path="res://Audio/SFX/Pops/pop7.wav" id="8_nxy26"]
+[ext_resource type="AudioStream" uid="uid://d3fmpl5pv5aib" path="res://Audio/SFX/Pops/pop8.wav" id="9_pblhk"]
 
 [node name="ChatboxBase" type="Control"]
 layout_mode = 3
@@ -11,6 +18,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_1h25d")
+_sounds = Array[AudioStream]([ExtResource("2_ogbxh"), ExtResource("3_kre4g"), ExtResource("4_3v5kl"), ExtResource("5_i7bie"), ExtResource("6_ua1tj"), ExtResource("7_cp5u0"), ExtResource("8_nxy26"), ExtResource("9_pblhk")])
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -27,8 +35,7 @@ layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 10
 
-[node name="ChatMessage" parent="MarginContainer/Messages" instance=ExtResource("2_88n34")]
-layout_mode = 2
-
-[node name="ChatMessage2" parent="MarginContainer/Messages" instance=ExtResource("2_88n34")]
-layout_mode = 2
+[node name="ChatSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ogbxh")
+volume_db = -5.0
+max_polyphony = 5

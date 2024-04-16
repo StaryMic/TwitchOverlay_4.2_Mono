@@ -12,13 +12,13 @@ public partial class GlobalSceneSignals : Node
     public delegate void ChatMessageEventHandler(string Username, string Message, string UserID, string MessageId);
 
     [Signal]
-    public delegate void SubscriptionEventHandler(string Username, int Tier, bool Gifted);
+    public delegate void SubscriptionEventHandler(string Username, string Tier, bool Gifted);
 
     [Signal]
-    public delegate void GiftSubscriptionEventHandler(string Username, int Tier, int TotalGifts);
+    public delegate void GiftSubscriptionEventHandler(string Username, string Tier, int TotalGifts);
 
     [Signal]
-    public delegate void MessageSubscriptionEventHandler(string Username, int Tier, string Message, int TotalSubMonths,
+    public delegate void MessageSubscriptionEventHandler(string Username, string Tier, string Message, int TotalSubMonths,
         int DurationMonths);
     
     [Signal]
@@ -41,9 +41,12 @@ public partial class GlobalSceneSignals : Node
         string PredictionStatus, int WinningOutcomeID);
 
     [Signal]
-    public delegate void HypeTrainEventHandler(int TotalPoints, int CurrentLevel, int PointGoal, Dictionary LatestContributer);
+    public delegate void HypeTrainEventHandler(int TotalPoints, int CurrentLevel, int PointGoal, bool Expired);
 
     [Signal]
     public delegate void GoalEventHandler(string Type, string Description, int CurrentAmount, int TargetAmount,
         bool IsAchieved); // https://dev.twitch.tv/docs/eventsub/eventsub-reference/#goals-event
+
+    [Signal]
+    public delegate void FollowEventHandler(string Username);
 }
