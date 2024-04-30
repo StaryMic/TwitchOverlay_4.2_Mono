@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AstroRaider2.Utility.NodeTree;
 using Godot;
@@ -11,13 +10,12 @@ using TwitchLib.EventSub.Websockets;
 using TwitchLib.EventSub.Websockets.Core.EventArgs;
 using TwitchLib.EventSub.Websockets.Core.EventArgs.Channel;
 using TwitchOverlay.Mono;
-using Array = Godot.Collections.Array;
 
 [GlobalClass]
 public partial class TwitchAPI : Node
 {
-	private TwitchLib.Api.TwitchAPI twitchApi;
-	private EventSubWebsocketClient _websocketClient;
+	public TwitchLib.Api.TwitchAPI twitchApi;
+	public EventSubWebsocketClient _websocketClient;
 
 	private string _channelId;
 
@@ -40,6 +38,7 @@ public partial class TwitchAPI : Node
 		// Make twitchApi and _websocketClient real
 		twitchApi = new TwitchLib.Api.TwitchAPI();
 		_websocketClient = new EventSubWebsocketClient();
+		
 		
 		// Set settings
 		twitchApi.Settings.Secret = (string)_jsonAuthFile["Client_Secret"];
@@ -82,12 +81,6 @@ public partial class TwitchAPI : Node
 			{ "moderator_user_id", _channelId }
 		};
 		
-		// Testing if signal is sending
-		_globalSceneSignals.Node.ChannelPrediction += (title, outcomes, status, id) =>
-		{
-			GD.Print("Got the Prediction signal");
-		};
-		
 		// Connect Signals from Websocket to GlobalSceneSignals
 		_websocketClient.WebsocketConnected += WebsocketClientOnWebsocketConnected;
 		_websocketClient.ChannelChatMessage += WebsocketClientOnChannelChatMessage;
@@ -116,7 +109,6 @@ public partial class TwitchAPI : Node
 		_websocketClient.ConnectAsync();
 		
 	}
-	
 
 	// Helper Functions
 	private static Array<Dictionary> _TransformPredictionOutcomes(PredictionOutcomes[] outcomes)
@@ -182,6 +174,8 @@ public partial class TwitchAPI : Node
 			GD.Print("TwitchAPI.cs: Subscribing to ",_event.Type);
 			twitchApi.Helix.EventSub.CreateEventSubSubscriptionAsync(_event.Type, _event.Version,_conditionTemplate,EventSubTransportMethod.Websocket,_websocketClient.SessionId);
 		}
+		
+		GD.Print("Sub total: ", twitchApi.Helix.EventSub.GetEventSubSubscriptionsAsync().Result.Total);
 		
 		return Task.CompletedTask;
 	}

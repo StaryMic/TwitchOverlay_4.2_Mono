@@ -13,7 +13,7 @@ var tween : Tween
 const templateWinText = "[Rainbow][center]"
 
 func _on_global_scene_signals_channel_prediction(Title, Outcomes, PredictionStatus, WinningOutcomeID):
-	print("I hav received the signal")
+	print("PredictionHandler.gd: Received Prediction Signal")
 	match PredictionStatus:
 		"begin":
 			print("PredictionHandler.gd: Prediction has begun")
@@ -93,3 +93,13 @@ func _on_global_scene_signals_channel_prediction(Title, Outcomes, PredictionStat
 			tween.set_trans(Tween.TRANS_EXPO)
 			tween.tween_property(slidermat,"shader_parameter/Progress",predictionpercent,0.5)
 			tween.play()
+
+
+func _on_global_scene_signals_force_end_prediction():
+	tween = create_tween()
+	tween.set_trans(Tween.TRANS_CIRC)
+	tween.set_ease(Tween.EASE_IN)
+	tween.tween_property(self,"position",Vector2(0,-500),.5)
+	tween.tween_property(locksprite,"modulate:a",0,1)
+	tween.play()
+	print("Please just rewrite the prediction slider later, dipshit")

@@ -8,6 +8,7 @@ namespace TwitchOverlay.Mono.WebcamServer;
 [GlobalClass]
 public partial class WebcamServer : Node
 {
+    public int CameraIndex = 1;
     
     public VideoCapture _capture = VideoCapture.FromCamera(1);
     private static Mat _image = new Mat();
@@ -20,7 +21,7 @@ public partial class WebcamServer : Node
     public override void _Ready()
     {
         _capture.ConvertRgb = true;
-        _capture.Open(1,VideoCaptureAPIs.DSHOW); //Opens camera at index 0... whatever that index is is unknown.
+        _capture.Open(CameraIndex,VideoCaptureAPIs.DSHOW); //Opens camera at index 0... whatever that index is is unknown.
         CamTexture = new ImageTexture();
     }
 
@@ -37,7 +38,7 @@ public partial class WebcamServer : Node
         }
         else
         {
-            _capture.Open(1, VideoCaptureAPIs.DSHOW);
+            _capture.Open(CameraIndex, VideoCaptureAPIs.DSHOW);
         }
     }
 

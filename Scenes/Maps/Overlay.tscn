@@ -1,14 +1,15 @@
-[gd_scene load_steps=18 format=3 uid="uid://dfh3v2a1vt4cu"]
+[gd_scene load_steps=19 format=3 uid="uid://dfh3v2a1vt4cu"]
 
 [ext_resource type="Script" path="res://Mono/GlobalSceneSignals.cs" id="1_2e12k"]
 [ext_resource type="Script" path="res://Mono/WebcamServer/WebcamServer.cs" id="1_42u1a"]
 [ext_resource type="PackedScene" uid="uid://bcpx57c6escym" path="res://Scenes/Objects/2D/PredictionSlider.tscn" id="1_et36m"]
 [ext_resource type="Script" path="res://Scripts/Utility/GlobalActions.gd" id="2_wg44c"]
+[ext_resource type="Script" path="res://Mono/Twitch/EventQueue.cs" id="4_r8asu"]
+[ext_resource type="PackedScene" uid="uid://2u3kxn8tjt3s" path="res://Mono/ClientWindows/Settings/OptionsWindow.tscn" id="6_4pnpu"]
 [ext_resource type="Script" path="res://Scripts/Utility/DatabaseManager.gd" id="8_x8y87"]
 [ext_resource type="PackedScene" uid="uid://chstpnsed4gwo" path="res://Mono/WebcamServer/SimpleWebcam.tscn" id="10_4tndm"]
 [ext_resource type="PackedScene" uid="uid://b7axn3oiav56e" path="res://Scenes/Objects/3D/NotificationDisplay.tscn" id="10_tcghh"]
 [ext_resource type="PackedScene" uid="uid://ceyre6owebw3s" path="res://Mono/Chatbox/ChatboxBase.tscn" id="24_yr45a"]
-[ext_resource type="PackedScene" uid="uid://csstqqxgmhfgx" path="res://Mono/Webcam3DMonitor/4x3WebcamMonitor.tscn" id="25_yyoxy"]
 [ext_resource type="Script" path="res://Mono/Twitch/TwitchAPI.cs" id="27_a7pjf"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_pr7u8"]
@@ -45,12 +46,15 @@ size = Vector2(532, 4012)
 [node name="GlobalSceneSignals" type="Node" parent="."]
 script = ExtResource("1_2e12k")
 
+[node name="TwitchAPI" type="Node" parent="."]
+script = ExtResource("27_a7pjf")
+
 [node name="WebcamServer" type="Node" parent="." node_paths=PackedStringArray("_cvEffects")]
 script = ExtResource("1_42u1a")
 _cvEffects = []
 
-[node name="TwitchAPI" type="Node" parent="."]
-script = ExtResource("27_a7pjf")
+[node name="EventQueue" type="Node" parent="."]
+script = ExtResource("4_r8asu")
 
 [node name="GlobalSceneScripts" type="Node" parent="."]
 
@@ -63,6 +67,9 @@ script = ExtResource("2_wg44c")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_l2438")
+
+[node name="OptionsWindow" parent="." instance=ExtResource("6_4pnpu")]
+position = Vector2i(35, 36)
 
 [node name="3DBoundaries" type="Node3D" parent="."]
 
@@ -132,10 +139,8 @@ scale = Vector2(0.362008, 0.362008)
 
 [node name="ChatboxBase" parent="." instance=ExtResource("24_yr45a")]
 
-[node name="4x3WebcamMonitor" parent="." instance=ExtResource("25_yyoxy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.23205, 7.56624, -4.2939)
-
 [node name="SimpleWebcam" parent="." instance=ExtResource("10_4tndm")]
 scale = Vector2(0.241517, 0.241517)
 
 [connection signal="ChannelPrediction" from="GlobalSceneSignals" to="EventObjects/PredictionSlider" method="_on_global_scene_signals_channel_prediction"]
+[connection signal="ForceEndPrediction" from="GlobalSceneSignals" to="EventObjects/PredictionSlider" method="_on_global_scene_signals_force_end_prediction"]

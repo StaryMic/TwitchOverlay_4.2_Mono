@@ -8,6 +8,9 @@ public partial class GlobalSceneSignals : Node
     [Signal] // Reset Physics Objects to Initial Position.
     public delegate void ResetPhysicsObjectsToInitialPositionEventHandler();
 
+    [Signal] // Emergency Reset for PredictionSlider
+    public delegate void ForceEndPredictionEventHandler();
+
     [Signal]
     public delegate void ChatMessageEventHandler(string Username, string Message, string UserID, string MessageId);
 

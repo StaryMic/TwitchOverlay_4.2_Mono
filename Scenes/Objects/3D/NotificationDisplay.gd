@@ -1,31 +1,10 @@
 extends Control
 @onready var TopLabel = $NotificationPanel/VBoxContainer/TopLabel
 @onready var BottomLabel = $NotificationPanel/VBoxContainer/VBoxContainer/BottomLabel
-@onready var ImagePanel = $ImagePanel
-@onready var NotificationPanel = $NotificationPanel
 @onready var AnimPlayer = $AnimationPlayer
-
-@export var ImagePanelPositions : PackedVector2Array
 
 func _ready():
 	AnimPlayer.play("Appear")
-
-#Tween Functions
-var tween : Tween
-
-func ResetPosition():
-	if tween.is_valid() and tween.is_running():
-		tween.stop()
-		tween.kill()
-	ImagePanel.position = Vector2(1547.81,0)
-	NotificationPanel.position = Vector2(2059.81,0)
-
-func PlayTweenAnimation():
-	tween = create_tween()
-	tween.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-
-
-# TODO: STRIP OUT BBCODE FROM INITIAL MESSAGE
 
 func RandomizeTopMessage():
 	var ChosenMessage = ""

@@ -1,0 +1,147 @@
+[gd_scene load_steps=3 format=3 uid="uid://2u3kxn8tjt3s"]
+
+[ext_resource type="Script" path="res://Mono/ClientWindows/Settings/OptionsWindow.cs" id="1_fffgd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8vtx7"]
+bg_color = Color(0.772549, 0.494118, 0.690196, 1)
+
+[node name="OptionsWindow" type="Window"]
+title = "Options"
+position = Vector2i(35, 61)
+size = Vector2i(300, 400)
+script = ExtResource("1_fffgd")
+
+[node name="Panel" type="Panel" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_8vtx7")
+
+[node name="SettingsTabs" type="TabContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+tab_alignment = 1
+current_tab = 3
+
+[node name="Debug" type="VBoxContainer" parent="SettingsTabs"]
+visible = false
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SettingsTabs/Debug"]
+layout_mode = 2
+bbcode_enabled = true
+text = "Websockets"
+fit_content = true
+autowrap_mode = 0
+metadata/_edit_use_anchors_ = true
+
+[node name="Connect" type="Button" parent="SettingsTabs/Debug"]
+layout_mode = 2
+text = "Connect API"
+
+[node name="Disconnect" type="Button" parent="SettingsTabs/Debug"]
+layout_mode = 2
+text = "Disconnect API"
+
+[node name="Devices" type="TabContainer" parent="SettingsTabs"]
+visible = false
+layout_mode = 2
+tab_alignment = 1
+
+[node name="Audio" type="VBoxContainer" parent="SettingsTabs/Devices"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SettingsTabs/Devices/Audio"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Audio Input"
+fit_content = true
+
+[node name="InputOptions" type="OptionButton" parent="SettingsTabs/Devices/Audio"]
+layout_mode = 2
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="SettingsTabs/Devices/Audio"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Audio Output"
+fit_content = true
+
+[node name="OutputOptions" type="OptionButton" parent="SettingsTabs/Devices/Audio"]
+layout_mode = 2
+
+[node name="Video" type="VBoxContainer" parent="SettingsTabs/Devices"]
+visible = false
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="SettingsTabs/Devices/Video"]
+layout_mode = 2
+size_flags_vertical = 4
+text = "Camera Index"
+fit_content = true
+
+[node name="CamIndexSpinner" type="SpinBox" parent="SettingsTabs/Devices/Video"]
+layout_mode = 2
+max_value = 10.0
+
+[node name="ResetCam" type="Button" parent="SettingsTabs/Devices/Video"]
+layout_mode = 2
+text = "Toggle Camera
+(Needed to update camera)"
+text_overrun_behavior = 1
+
+[node name="Signals" type="TabContainer" parent="SettingsTabs"]
+visible = false
+layout_mode = 2
+tab_alignment = 1
+current_tab = 1
+
+[node name="Global" type="VBoxContainer" parent="SettingsTabs/Signals"]
+visible = false
+layout_mode = 2
+
+[node name="RBPReset" type="Button" parent="SettingsTabs/Signals/Global"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 6
+text = "Reset RigidBodyPlus Objects"
+
+[node name="Fixes" type="VBoxContainer" parent="SettingsTabs/Signals"]
+layout_mode = 2
+
+[node name="ForceEndPrediction" type="Button" parent="SettingsTabs/Signals/Fixes"]
+layout_mode = 2
+text = "Force End Prediction
+(Only affects overlay)"
+
+[node name="Toggles" type="VBoxContainer" parent="SettingsTabs"]
+layout_mode = 2
+
+[node name="ToggleCamera" type="Button" parent="SettingsTabs/Toggles"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Toggle Camera"
+
+[node name="ToggleBitCup" type="Button" parent="SettingsTabs/Toggles"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Toggle Bit Cup"
+
+[node name="ToggleChatbox" type="Button" parent="SettingsTabs/Toggles"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Toggle Chatbox"
+
+[node name="ToggleNotifications" type="Button" parent="SettingsTabs/Toggles"]
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Toggle Notifications
+(Pauses Queue)"
