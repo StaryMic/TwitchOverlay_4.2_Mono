@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AstroRaider2.Utility.NodeTree;
 using Godot;
 using Godot.Collections;
+using TwitchLib.Api.Auth;
 using TwitchLib.Api.Core.Enums;
 using TwitchLib.EventSub.Core.Models.Predictions;
 using TwitchLib.EventSub.Websockets;
@@ -69,7 +70,9 @@ public partial class TwitchAPI : Node
 			AuthScopes.User_Read_Subscriptions,
 			AuthScopes.Channel_Read_Hype_Train,
 			AuthScopes.Moderator_Manage_Chat_Messages,
-			AuthScopes.Moderator_Read_Chat_Settings
+			AuthScopes.Moderator_Read_Chat_Settings,
+			AuthScopes.Channel_Manage_Ads,
+			AuthScopes.Channel_Read_Ads
 		};
 		
 		// Set up condition and transport dictionary for subscriptions.
@@ -131,6 +134,14 @@ public partial class TwitchAPI : Node
 		}
 
 		return translatedOutcomes;
+	}
+	
+	// Regen token function
+	public void GenerateNewToken()
+	{
+		string authUrl = twitchApi.Auth.GetAuthorizationCodeUrl("http://localhost:3000", twitchApi.Settings.Scopes, true, "bleebeldorp4i37962",
+			twitchApi.Settings.ClientId);
+		DisplayServer.ClipboardSet(authUrl);
 	}
 	
 	

@@ -10,6 +10,7 @@ public partial class OptionsWindow : Window
 	//  - Debug
 	private Button _connectButton;
 	private Button _disconnectButton;
+	private Button _authKeyButton;
 	//  - Devices
 	//		- Audio
 	private OptionButton _inputOptions;
@@ -48,6 +49,9 @@ public partial class OptionsWindow : Window
 		_chatboxBaseRef = GetTree().Root.GetChild(0).GetNode<ChatboxBase>("ChatboxBase");
 		_eventQueueRef = GetTree().Root.GetChild(0).GetNode<EventQueue>("EventQueue");
 
+		this.Unfocusable = false;
+		
+
 
 		// Options Menu references
 		//  - Debug
@@ -55,6 +59,8 @@ public partial class OptionsWindow : Window
 		_connectButton.Pressed += () => _twitchApiRef._websocketClient.DisconnectAsync().Start();
 		_disconnectButton = this.GetNode<Button>("SettingsTabs/Debug/Disconnect");
 		_disconnectButton.Pressed += () => _twitchApiRef._websocketClient.ConnectAsync().Start();
+		_authKeyButton = this.GetNode<Button>("SettingsTabs/Debug/TokenGen");
+		_authKeyButton.Pressed += () => _twitchApiRef.GenerateNewToken();
 		//  - Devices
 		//		- Audio
 		_inputOptions = this.GetNode<OptionButton>("SettingsTabs/Devices/Audio/InputOptions");

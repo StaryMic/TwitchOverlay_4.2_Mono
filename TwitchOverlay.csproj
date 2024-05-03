@@ -15,4 +15,7 @@
   <ItemGroup>
     <Content Include="Mono\WebcamServer\OpenCVEffect\haarcascade_frontalface_default.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Scenes\Maps\" />
+  </ItemGroup>
 </Project>

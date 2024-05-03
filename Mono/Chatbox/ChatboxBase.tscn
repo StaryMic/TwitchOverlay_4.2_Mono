@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ceyre6owebw3s"]
+[gd_scene load_steps=11 format=3 uid="uid://ceyre6owebw3s"]
 
 [ext_resource type="Script" path="res://Mono/Chatbox/ChatboxBase.cs" id="1_1h25d"]
 [ext_resource type="AudioStream" uid="uid://dpitmp6s87gqe" path="res://Audio/SFX/Pops/pop1.wav" id="2_ogbxh"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://0ppxxxp0m1pk" path="res://Audio/SFX/Pops/pop6.wav" id="7_cp5u0"]
 [ext_resource type="AudioStream" uid="uid://wtuup8rkfjdx" path="res://Audio/SFX/Pops/pop7.wav" id="8_nxy26"]
 [ext_resource type="AudioStream" uid="uid://d3fmpl5pv5aib" path="res://Audio/SFX/Pops/pop8.wav" id="9_pblhk"]
+[ext_resource type="PackedScene" uid="uid://c5l3qmjnq8xwc" path="res://Mono/Chatbox/ChatMessage.tscn" id="10_nto0t"]
 
 [node name="ChatboxBase" type="Control"]
 layout_mode = 3
@@ -34,6 +35,15 @@ theme_override_constants/margin_left = 10
 layout_mode = 2
 size_flags_vertical = 8
 theme_override_constants/separation = 10
+
+[node name="ChatMessage" parent="MarginContainer/Messages" instance=ExtResource("10_nto0t")]
+layout_mode = 2
+
+[node name="ChatMessage2" parent="MarginContainer/Messages" instance=ExtResource("10_nto0t")]
+layout_mode = 2
+
+[node name="ChatMessage3" parent="MarginContainer/Messages" instance=ExtResource("10_nto0t")]
+layout_mode = 2
 
 [node name="ChatSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_ogbxh")

@@ -1,1 +1,0 @@
-{ "metadata": { "message_id": "1f33e5f2-955a-45bb-bdc1-11a90437b7e4", "message_type": "session_keepalive", "message_timestamp": "2024-04-13T17:21:42.259439045Z" }, "payload": {  } }

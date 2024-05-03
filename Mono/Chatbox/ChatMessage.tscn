@@ -23,7 +23,7 @@ grow_begin = 0.0
 grow_end = 0.0
 
 [node name="ChatMessage" type="PanelContainer"]
-custom_minimum_size = Vector2(250, 50)
+custom_minimum_size = Vector2(350, 50)
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -52,7 +52,7 @@ theme_override_styles/separator = SubResource("StyleBoxLine_gvskj")
 [node name="Message" type="RichTextLabel" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("2_g3ixp")
-theme_override_font_sizes/normal_font_size = 18
+theme_override_font_sizes/normal_font_size = 25
 bbcode_enabled = true
 text = "Something something, a bee should not be able to fly blah blah blah bee movie bleh bleh bleh what shirt do I want blank and yellow? ooh yellow and black!"
 fit_content = true

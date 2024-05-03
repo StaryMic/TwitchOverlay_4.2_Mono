@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://cmwkfeue0hd8r"]
+
+[ext_resource type="Script" path="res://Mono/Twitch/Events/Bits/Bit2D.cs" id="1_7ebw6"]
+[ext_resource type="Texture2D" uid="uid://cak5jhut868j1" path="res://Images/Emotes/puby.png" id="2_rq1ut"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_uhct8"]
+friction = 0.69
+bounce = 0.26
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ixusj"]
+radius = 24.0
+height = 54.0
+
+[node name="Bit2D" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_uhct8")
+script = ExtResource("1_7ebw6")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.075, 0.075)
+texture = ExtResource("2_rq1ut")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_ixusj")

@@ -1,3 +1,22 @@
-[gd_scene format=3 uid="uid://cc35v7kalw3gt"]
+[gd_scene load_steps=3 format=3 uid="uid://cc35v7kalw3gt"]
 
-[node name="BitCup2d" type="Node2D"]
+[ext_resource type="Script" path="res://Mono/Twitch/Events/Bits/BitCup2D.cs" id="1_28jvb"]
+[ext_resource type="Texture2D" uid="uid://bgd8wnt1t82rj" path="res://Scenes/Objects/2D/Audience/Items/EggShell.png" id="2_4cvu6"]
+
+[node name="BitCup2D" type="Node2D"]
+position = Vector2(897, 619)
+script = ExtResource("1_28jvb")
+
+[node name="Cup" type="Node2D" parent="."]
+scale = Vector2(3, 3)
+
+[node name="Sprite2D" type="Sprite2D" parent="Cup"]
+texture = ExtResource("2_4cvu6")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Cup"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Cup/StaticBody2D"]
+polygon = PackedVector2Array(-104, -88, -107, 7, -89, 61, -51, 99, 13, 110, 66, 80, 105, 30, 130, -75, 116, -76, 94, 22, 63, 69, 13, 99, -47, 90, -86, 41, -93, -83)
+
+[node name="Bits" type="Node2D" parent="."]
+position = Vector2(0, -967)

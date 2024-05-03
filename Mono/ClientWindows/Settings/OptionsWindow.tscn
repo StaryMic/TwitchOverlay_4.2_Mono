@@ -7,8 +7,10 @@ bg_color = Color(0.772549, 0.494118, 0.690196, 1)
 
 [node name="OptionsWindow" type="Window"]
 title = "Options"
-position = Vector2i(35, 61)
+initial_position = 3
 size = Vector2i(300, 400)
+current_screen = 1
+extend_to_title = true
 script = ExtResource("1_fffgd")
 
 [node name="Panel" type="Panel" parent="."]
@@ -30,10 +32,8 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 tab_alignment = 1
-current_tab = 3
 
 [node name="Debug" type="VBoxContainer" parent="SettingsTabs"]
-visible = false
 layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="SettingsTabs/Debug"]
@@ -51,6 +51,18 @@ text = "Connect API"
 [node name="Disconnect" type="Button" parent="SettingsTabs/Debug"]
 layout_mode = 2
 text = "Disconnect API"
+
+[node name="Oauth" type="RichTextLabel" parent="SettingsTabs/Debug"]
+layout_mode = 2
+text = "API Authorization"
+fit_content = true
+
+[node name="TokenGen" type="Button" parent="SettingsTabs/Debug"]
+layout_mode = 2
+text = "Generate a new Token
+(Goes to your clipboard)
+(REPLACE \"CODE\" WITH \"TOKEN\")
+(DO NOT SHOW ON STREAM)"
 
 [node name="Devices" type="TabContainer" parent="SettingsTabs"]
 visible = false
@@ -123,6 +135,7 @@ text = "Force End Prediction
 (Only affects overlay)"
 
 [node name="Toggles" type="VBoxContainer" parent="SettingsTabs"]
+visible = false
 layout_mode = 2
 
 [node name="ToggleCamera" type="Button" parent="SettingsTabs/Toggles"]

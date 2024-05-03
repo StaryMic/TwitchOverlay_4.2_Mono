@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dptjrgm7boewr"]
+
+[ext_resource type="Texture2D" uid="uid://n5ev3mbrx2cu" path="res://Mono/Twitch/Events/ChannelPoints/Benadryl/TheHatMan.png" id="1_2pjfa"]
+[ext_resource type="Script" path="res://Mono/Twitch/Events/ChannelPoints/Benadryl/TheHatMan.cs" id="2_oie5e"]
+
+[node name="TheHatMan" type="Sprite2D"]
+self_modulate = Color(1, 1, 1, 0)
+texture = ExtResource("1_2pjfa")
+script = ExtResource("2_oie5e")
