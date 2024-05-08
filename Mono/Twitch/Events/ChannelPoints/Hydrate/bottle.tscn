@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dfssxu81acrqt"]
+[gd_scene load_steps=21 format=3 uid="uid://dfssxu81acrqt"]
 
 [ext_resource type="Script" path="res://Mono/RigidBodyPlus/RigidBodyPlus.cs" id="1_ukby1"]
 [ext_resource type="AudioStream" uid="uid://cavl1vo2ny4u1" path="res://Mono/RigidBodyPlus/Audio/Ceiling Tile/ceiling_tile_impact_hard1.wav" id="2_xa1g3"]
@@ -9,6 +9,13 @@
 [ext_resource type="AudioStream" uid="uid://1l87md8rmpei" path="res://Mono/RigidBodyPlus/Audio/Ceiling Tile/ceiling_tile_impact_soft3.wav" id="7_mgott"]
 [ext_resource type="Texture2D" uid="uid://boqdeg0bgfdkc" path="res://Mono/Twitch/Events/ChannelPoints/Hydrate/Assets/Bottle_Bottle.png" id="8_7jtsg"]
 [ext_resource type="Material" uid="uid://fsibmlf60wxv" path="res://Mono/Twitch/Events/ChannelPoints/Hydrate/Assets/WaterPointMat.tres" id="9_ly1ct"]
+[ext_resource type="Script" path="res://Mono/RigidBodyPlus/Components/RBPlusThruster.cs" id="10_yltnk"]
+[ext_resource type="AudioStream" uid="uid://c4vwkqplx4x75" path="res://Mono/Twitch/Events/ChannelPoints/Hydrate/Assets/WhiteNoiseLoop.wav" id="11_dbaef"]
+[ext_resource type="Script" path="res://Mono/Twitch/Events/ChannelPoints/Hydrate/BottleManager.cs" id="12_bdr73"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_175rj"]
+friction = 0.3
+bounce = 0.57
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vodqu"]
 resource_name = "Material"
@@ -39,16 +46,23 @@ blend_shape_mode = 0
 radius = 1.43593
 height = 5.19742
 
+[sub_resource type="Curve" id="Curve_p0en1"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.260204, 0.868132), -2.25175, -2.25175, 0, 0, Vector2(0.734694, 0), -1.26838, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_qcevl"]
+curve = SubResource("Curve_p0en1")
+
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_dnnbi"]
-lifetime_randomness = 0.15
-particle_flag_rotate_y = true
+lifetime_randomness = 1.0
 inherit_velocity_ratio = 0.347
 direction = Vector3(0, 1, 0)
 spread = 41.728
-initial_velocity_min = 1.0
-initial_velocity_max = 5.0
+initial_velocity_min = 3.0
+initial_velocity_max = 10.0
 scale_min = 0.15
-scale_max = 0.35
+scale_max = 0.2
+scale_curve = SubResource("CurveTexture_qcevl")
 
 [sub_resource type="SphereMesh" id="SphereMesh_fj20r"]
 material = ExtResource("9_ly1ct")
@@ -56,25 +70,53 @@ radial_segments = 5
 rings = 6
 
 [node name="Bottle" type="RigidBody3D"]
+mass = 0.21
+physics_material_override = SubResource("PhysicsMaterial_175rj")
+gravity_scale = 0.5
+continuous_cd = true
+max_contacts_reported = 1
+contact_monitor = true
 script = ExtResource("1_ukby1")
 _ImpactSounds = Array[AudioStream]([ExtResource("2_xa1g3"), ExtResource("3_2dxqe"), ExtResource("4_tpyhw"), ExtResource("5_lbkux"), ExtResource("6_itv1n"), ExtResource("7_mgott")])
+_bus = "RigidBodyImpacts"
 _dopplerTracking = 2
 _randomizePitch = true
 _minimumPitchScale = 0.879
 _maximumPitchScale = 1.151
 
 [node name="Cube" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.379488, 0, 0, 0, 0.379488, 0, 0, 0, 0.379488, 0.087954, 0.723818, 0)
 mesh = SubResource("ArrayMesh_oi7yq")
 skeleton = NodePath("")
 blend_shapes/Deflate = 0.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(0.379488, 0, 0, 0, 0.379488, 0, 0, 0, 0.379488, 0.087954, 0.723818, 0)
 shape = SubResource("CapsuleShape3D_py1pf")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.262784, 2.38858, 0)
-amount = 150
-lifetime = 2.5
-draw_order = 3
+transform = Transform3D(0.379488, 0, 0, 0, 0.379488, 0, 0, 0, 0.379488, 0.187677, 1.63026, 0)
+emitting = false
+amount = 300
+lifetime = 5.0
+one_shot = true
+randomness = 0.68
 process_material = SubResource("ParticleProcessMaterial_dnnbi")
 draw_pass_1 = SubResource("SphereMesh_fj20r")
+
+[node name="RBPlusThruster" type="Node3D" parent="."]
+transform = Transform3D(0.379488, 0, 0, 0, 0.379488, 0, 0, 0, 0.379488, 0.203392, 1.58805, 0)
+script = ExtResource("10_yltnk")
+_thrustMagnitude = 50.0
+
+[node name="Sodarushing" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("11_dbaef")
+volume_db = -80.0
+unit_size = 5.0
+max_db = -3.0
+autoplay = true
+bus = &"RigidBodyImpacts"
+doppler_tracking = 2
+
+[node name="BottleManager" type="Node" parent="."]
+script = ExtResource("12_bdr73")

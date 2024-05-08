@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="PNGTuberAvatarResource" load_steps=7 format=3 uid="uid://uekifraksmka"]
+
+[ext_resource type="Texture2D" uid="uid://d0ls7ol0qdidf" path="res://Mono/PNGTuber/Avatars/StarryHeadOnly/closedclosed.png" id="1_314m2"]
+[ext_resource type="Script" path="res://Mono/PNGTuber/Avatars/PNGTuberAvatarResource.cs" id="1_rltul"]
+[ext_resource type="Texture2D" uid="uid://cq0qwjl0ou4uf" path="res://Mono/PNGTuber/Avatars/StarryHeadOnly/openclosed.png" id="2_wv5i7"]
+[ext_resource type="Texture2D" uid="uid://dk36traeikig1" path="res://Mono/PNGTuber/Avatars/StarryHeadOnly/closeopen.png" id="3_7vq7g"]
+[ext_resource type="Texture2D" uid="uid://bf3220m7ialg8" path="res://Mono/PNGTuber/Avatars/BasicTestingAvatar/Sprite-0005.png" id="3_sscfg"]
+[ext_resource type="Texture2D" uid="uid://0xl735r3npyd" path="res://Mono/PNGTuber/Avatars/StarryHeadOnly/openopen.png" id="4_fy3bh"]
+
+[resource]
+script = ExtResource("1_rltul")
+QuietImage = ExtResource("2_wv5i7")
+TalkingImage = ExtResource("4_fy3bh")
+QuietBlinkImage = ExtResource("1_314m2")
+TalkingBlinkImage = ExtResource("3_7vq7g")
+ScreamImage = ExtResource("3_sscfg")
+BlinkInterval = 2.0
+BlinkIntervalRandomization = 4.0

@@ -1,0 +1,46 @@
+[gd_scene load_steps=5 format=3 uid="uid://c153nwr0gkppw"]
+
+[ext_resource type="Script" path="res://Mono/PNGTuber/PNGTuber.cs" id="1_s5ao2"]
+[ext_resource type="Resource" uid="uid://uekifraksmka" path="res://Mono/PNGTuber/Avatars/StarryHeadOnly.tres" id="2_bsdqv"]
+[ext_resource type="Texture2D" uid="uid://c1u13wysv28ft" path="res://icon.svg" id="2_psexo"]
+
+[sub_resource type="AudioStreamMicrophone" id="AudioStreamMicrophone_wodii"]
+
+[node name="PNGTuber" type="Window"]
+disable_3d = true
+size = Vector2i(500, 500)
+script = ExtResource("1_s5ao2")
+_Avatar = ExtResource("2_bsdqv")
+_talkThreshold = -30.0
+_screamThreshold = -9.0
+
+[node name="Microphone" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamMicrophone_wodii")
+autoplay = true
+bus = &"MICROPHONE"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RawLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Raw Mic"
+
+[node name="FilteredLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Filtered"
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="CenterContainer"]
+layout_mode = 2
+texture = ExtResource("2_psexo")
+stretch_mode = 5

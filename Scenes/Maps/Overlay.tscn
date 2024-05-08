@@ -127,11 +127,6 @@ shape = SubResource("RectangleShape2D_e540e")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.351837, -0.888586, -0.294322, 0.838242, -0.439029, 0.323423, -0.416605, -0.132921, 0.899318, 1.99344, 2.20506, 0)
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.31874, 2.419)
-doppler_tracking = 2
-current = true
-
 [node name="EventObjects" type="Node" parent="."]
 editor_description = "penis"
 
@@ -144,6 +139,11 @@ scale = Vector2(0.362008, 0.362008)
 
 [node name="SimpleWebcam" parent="." instance=ExtResource("10_4tndm")]
 scale = Vector2(0.241517, 0.241517)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.41867, 3.84267)
+doppler_tracking = 2
+current = true
 
 [connection signal="ChannelPrediction" from="GlobalSceneSignals" to="EventObjects/PredictionSlider" method="_on_global_scene_signals_channel_prediction"]
 [connection signal="ForceEndPrediction" from="GlobalSceneSignals" to="EventObjects/PredictionSlider" method="_on_global_scene_signals_force_end_prediction"]
