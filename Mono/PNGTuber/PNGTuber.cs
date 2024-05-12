@@ -9,32 +9,40 @@ public partial class PNGTuber : Window
 {
 	// ==================================================================================
 	// SETTINGS
-	[Export] public PNGTuberAvatarResource _Avatar;
+	[Export] public PNGTuberAvatarResource Avatar;
 	[Export] public int MicrophoneSmoothingSamples = 25;
 
 	[ExportCategory("Thresholds")]
 	[Export] private float _talkThreshold = 0f;
 	[Export] private float _screamThreshold = 0f;
-	[Export] private float _mouthCloseDelaySeconds = 0.5f;
+	[Export] private float _mouthCloseDelaySeconds = 0.25f;
 	private CooldownTimer _mouthCloseDelayTimer;
 	private CooldownTimer _blinkTimer;
 	
+	// State Effects
+	[ExportCategory("State Effects")] 
+	[Export] private PNGTuberEffectBase _quietEffect;
+	[Export] private PNGTuberEffectBase _talkingEffect;
+	[Export] private PNGTuberEffectBase _quietBlinkEffect;
+	[Export] private PNGTuberEffectBase _talkingBlinkEffect;
+	[Export] private PNGTuberEffectBase _screamEffect;
+	
 	// Preloaded Images
-	private CompressedTexture2D QuietImage;
-	private CompressedTexture2D TalkingImage;
-	private CompressedTexture2D QuietBlinkImage;
-	private CompressedTexture2D TalkingBlinkImage;
-	private CompressedTexture2D ScreamingImage;
+	private CompressedTexture2D _quietImage;
+	private CompressedTexture2D _talkingImage;
+	private CompressedTexture2D _quietBlinkImage;
+	private CompressedTexture2D _talkingBlinkImage;
+	private CompressedTexture2D _screamingImage;
 	
 	// Mic Monitoring
 	private float _micLevel;
 	private float _filteredMicLevel;
 	
 	// Simple Mic Filtering (Average this array)
-	private Array<float> AudioLevelHistory = new Array<float>();
+	private Array<float> _audioLevelHistory = new Array<float>();
 	
 	// Node References
-	private TextureRect _avatarDisplay;
+	private Sprite2D _avatarDisplay;
 	
 	// RNG
 	private RandomNumberGenerator _rng = new RandomNumberGenerator();
@@ -45,8 +53,9 @@ public partial class PNGTuber : Window
 	
 	// Current state (Default to quiet)
 	public PngTuberEnum MicState = PngTuberEnum.Quiet;
-	private bool stateLocked = false;
-	private int stateLockFrameTimer = 0;
+	private bool _stateLocked = false;
+	private int _stateLockFrameTimer = 0;
+	private int _stateLockFrameDuration = 15;
 	
 	// ==================================================================================
 	
@@ -54,16 +63,16 @@ public partial class PNGTuber : Window
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		if (_Avatar is null)
+		if (Avatar is null)
 		{
 			GD.Print("PNGTuber.cs: Failed to load basic avatar. Make sure you set an avatar in the Export properties.");
 			QueueFree();
 		}
-		SetupAvatar(_Avatar);
+		SetupAvatar(Avatar);
 		AudioServer.InputDevice = "Wave Link MicrophoneFX (Elgato Wave:3)";
 		_rawLabel = GetNode<Label>("VBoxContainer/RawLabel");
 		_filteredLabel = GetNode<Label>("VBoxContainer/FilteredLabel");
-		_avatarDisplay = GetNode<TextureRect>("CenterContainer/TextureRect");
+		_avatarDisplay = GetNode<Sprite2D>("Sprite2D");
 		_mouthCloseDelayTimer = new CooldownTimer(_mouthCloseDelaySeconds);
 		_mouthCloseDelayTimer.ResetCooldown();
 		_blinkTimer = new CooldownTimer(1);
@@ -72,11 +81,11 @@ public partial class PNGTuber : Window
 
 	public void SetupAvatar(PNGTuberAvatarResource _avatar)
 	{
-		QuietImage = _avatar.QuietImage;
-		TalkingImage = _avatar.TalkingImage;
-		QuietBlinkImage = _avatar.QuietBlinkImage;
-		TalkingBlinkImage = _avatar.TalkingBlinkImage;
-		ScreamingImage = _avatar.ScreamImage;
+		_quietImage = _avatar.QuietImage;
+		_talkingImage = _avatar.TalkingImage;
+		_quietBlinkImage = _avatar.QuietBlinkImage;
+		_talkingBlinkImage = _avatar.TalkingBlinkImage;
+		_screamingImage = _avatar.ScreamImage;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -87,34 +96,38 @@ public partial class PNGTuber : Window
 		if (_micLevel >= -40) // Mute threshold.
 		{
 			// Filter audio in case this is needed.
-			if (AudioLevelHistory.Count > MicrophoneSmoothingSamples)
+			if (_audioLevelHistory.Count > MicrophoneSmoothingSamples)
 			{
-				AudioLevelHistory.Resize(MicrophoneSmoothingSamples);
+				_audioLevelHistory.Resize(MicrophoneSmoothingSamples);
 			}
-			AudioLevelHistory.Add(_micLevel);
-			_filteredMicLevel = AudioLevelHistory.Average();
+			_audioLevelHistory.Add(_micLevel);
+			_filteredMicLevel = _audioLevelHistory.Average();
 			
 		}
 		// Clear history if we go silent, so we aren't filtering weird data.
 		if (_micLevel < _talkThreshold)
 		{
-			AudioLevelHistory.Clear();
+			_audioLevelHistory.Clear();
 			_filteredMicLevel = -1000;
 		}
 		
 		// State lock check
-		if (stateLocked)
+		if (_stateLocked)
 		{
-			stateLockFrameTimer++;
-			if (stateLockFrameTimer >= 10)
+			_stateLockFrameTimer++;
+			if (_stateLockFrameTimer >= _stateLockFrameDuration)
 			{
-				stateLockFrameTimer = 0;
-				stateLocked = false;
+				_stateLockFrameTimer = 0;
+				_stateLocked = false;
 			}
 		}
 		
+		// Center Sprite every frame so it auto resets kinda.
+		_avatarDisplay.Position = _avatarDisplay.GetParent<Window>().Size / 2;
+		
 		// State Machine Stuff.
 		MicrophoneStateMachine();
+		ProcessAvatarEffects();
 		
 		// Debug Label Text
 		_filteredLabel.Text = "FilteredDB: " + _filteredMicLevel;
@@ -163,34 +176,66 @@ public partial class PNGTuber : Window
 
 	private void ChangeState(PngTuberEnum state)
 	{
-		if (!stateLocked)
+		if (!_stateLocked)
 		{
 			switch (state)
 			{
 				case PngTuberEnum.Quiet:
-					_avatarDisplay.Texture = QuietImage;
+					_avatarDisplay.Texture = _quietImage;
+					MicState = PngTuberEnum.Quiet;
 					break;
 				case PngTuberEnum.Speaking:
-					_avatarDisplay.Texture = TalkingImage;
+					_avatarDisplay.Texture = _talkingImage;
+					MicState = PngTuberEnum.Speaking;
 					break;
 				case PngTuberEnum.QuietBlink:
-					_avatarDisplay.Texture = QuietBlinkImage;
-					stateLocked = true;
+					_avatarDisplay.Texture = _quietBlinkImage;
+					_stateLockFrameDuration = 7;
+					_stateLocked = true;
+					MicState = PngTuberEnum.QuietBlink;
 					break;
 				case PngTuberEnum.SpeakingBlink:
-					_avatarDisplay.Texture = TalkingBlinkImage;
-					stateLocked = true;
+					_avatarDisplay.Texture = _talkingBlinkImage;
+					_stateLockFrameDuration = 7;
+					_stateLocked = true;
+					MicState = PngTuberEnum.SpeakingBlink;
 					break;
 				case PngTuberEnum.Screaming:
-					_avatarDisplay.Texture = ScreamingImage;
+					_avatarDisplay.Texture = _screamingImage;
+					_stateLockFrameDuration = 15;
+					_stateLocked = true;
+					MicState = PngTuberEnum.Screaming;
 					break;
 			}
 		}
 	}
 
+	private void ProcessAvatarEffects()
+	{
+		switch(MicState)
+		{
+			case PngTuberEnum.Quiet:
+				if (_quietEffect != null) _quietEffect.ProcessEffect(_avatarDisplay);
+				break;
+			case PngTuberEnum.QuietBlink:
+				if (_quietBlinkEffect != null) _quietBlinkEffect.ProcessEffect(_avatarDisplay);
+				break;
+			case PngTuberEnum.Speaking:
+				if (_talkingEffect != null) _talkingEffect.ProcessEffect(_avatarDisplay);
+				break;
+			case PngTuberEnum.SpeakingBlink:
+				if (_talkingBlinkEffect != null) _talkingBlinkEffect.ProcessEffect(_avatarDisplay);
+				break;
+			case PngTuberEnum.Screaming:
+				if (_screamEffect != null) _screamEffect.ProcessEffect(_avatarDisplay);
+				break;
+			default:
+				throw new ArgumentOutOfRangeException();
+		}
+	}
 	private float RandomizeBlinkTime()
 	{
-		float value = _Avatar.BlinkInterval + (_Avatar.BlinkIntervalRandomization * _rng.RandfRange(-1, 1));
+		float value = Avatar.BlinkInterval + (Avatar.BlinkIntervalRandomization * _rng.RandfRange(-1, 1));
 		GD.Print(value);
 		return value;
 	}

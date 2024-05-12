@@ -30,11 +30,12 @@ glow_strength = 2.0
 volumetric_fog_anisotropy = -0.9
 volumetric_fog_length = 0.01
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_7pl8u"]
-size = Vector3(16.1416, 1, 17.189)
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_m0w6y"]
+data = PackedVector3Array(9, 12.5, 10, -9, 12.5, 10, -9, -12.5, 10, 9, -12.5, 10, 9, 12.5, 10, -9, -12.5, 10, -9, 12.5, -10, 9, 12.5, -10, 9, -12.5, -10, -9, -12.5, -10, -9, 12.5, -10, 9, -12.5, -10, 9, 12.5, -10, 9, 12.5, 10, 9, -12.5, 10, 9, -12.5, -10, 9, 12.5, -10, 9, -12.5, 10, -9, 12.5, 10, -9, 12.5, -10, -9, -12.5, -10, -9, -12.5, 10, -9, 12.5, 10, -9, -12.5, -10, -9, 12.5, 10, 9, 12.5, 10, 9, 12.5, -10, -9, 12.5, -10, -9, 12.5, 10, 9, 12.5, -10, 9, -12.5, 10, -9, -12.5, 10, -9, -12.5, -10, 9, -12.5, -10, 9, -12.5, 10, -9, -12.5, -10)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_1ygrn"]
-size = Vector3(1, 17.6097, 17.2966)
+[sub_resource type="BoxMesh" id="BoxMesh_lc0li"]
+flip_faces = true
+size = Vector3(18, 25, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6t6ft"]
 size = Vector2(1044, 2186)
@@ -78,29 +79,14 @@ environment = SubResource("Environment_l2438")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="3DBoundaries"]
 
-[node name="CollisionShape3D2" type="CollisionShape3D" parent="3DBoundaries/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.6856, -8)
-shape = SubResource("BoxShape3D_7pl8u")
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="3DBoundaries/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, -8)
-shape = SubResource("BoxShape3D_7pl8u")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, -10)
+shape = SubResource("ConcavePolygonShape3D_m0w6y")
 
-[node name="CollisionShape3D3" type="CollisionShape3D" parent="3DBoundaries/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 2.34997, -8)
-shape = SubResource("BoxShape3D_1ygrn")
-
-[node name="CollisionShape3D4" type="CollisionShape3D" parent="3DBoundaries/StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 2.4529, -8)
-shape = SubResource("BoxShape3D_1ygrn")
-
-[node name="CollisionShape3D5" type="CollisionShape3D" parent="3DBoundaries/StaticBody3D"]
-transform = Transform3D(-3.07709e-06, 0, -1, 0, 1, 0, 1, 0, -3.07709e-06, 0, 2, -16)
-shape = SubResource("BoxShape3D_1ygrn")
-
-[node name="CollisionShape3D6" type="CollisionShape3D" parent="3DBoundaries/StaticBody3D"]
-transform = Transform3D(-3.07709e-06, 0, -1, 0, 1, 0, 1, 0, -3.07709e-06, 0, 2, -1.58745)
-shape = SubResource("BoxShape3D_1ygrn")
+[node name="MeshInstance3D" type="MeshInstance3D" parent="3DBoundaries"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, -10)
+visible = false
+mesh = SubResource("BoxMesh_lc0li")
 
 [node name="2DScreenBoundaries" type="Node2D" parent="."]
 
@@ -135,13 +121,16 @@ scale = Vector2(0.362008, 0.362008)
 
 [node name="PredictionSlider" parent="EventObjects" instance=ExtResource("1_et36m")]
 
+[node name="3DPhysicsObjects" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22.15, -10.46)
+
 [node name="ChatboxBase" parent="." instance=ExtResource("24_yr45a")]
 
 [node name="SimpleWebcam" parent="." instance=ExtResource("10_4tndm")]
 scale = Vector2(0.241517, 0.241517)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.41867, 3.84267)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.37867, 3.84267)
 doppler_tracking = 2
 current = true
 

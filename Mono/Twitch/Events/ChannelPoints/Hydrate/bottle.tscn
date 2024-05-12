@@ -78,6 +78,9 @@ max_contacts_reported = 1
 contact_monitor = true
 script = ExtResource("1_ukby1")
 _ImpactSounds = Array[AudioStream]([ExtResource("2_xa1g3"), ExtResource("3_2dxqe"), ExtResource("4_tpyhw"), ExtResource("5_lbkux"), ExtResource("6_itv1n"), ExtResource("7_mgott")])
+MinimumVolume = -15.0
+MaximumVolume = -7.0
+_unitSize = 30.0
 _bus = "RigidBodyImpacts"
 _dopplerTracking = 2
 _randomizePitch = true
@@ -111,9 +114,10 @@ _thrustMagnitude = 50.0
 
 [node name="Sodarushing" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("11_dbaef")
-volume_db = -80.0
-unit_size = 5.0
+volume_db = -10.0
+unit_size = 30.0
 max_db = -3.0
+pitch_scale = 2.0
 autoplay = true
 bus = &"RigidBodyImpacts"
 doppler_tracking = 2

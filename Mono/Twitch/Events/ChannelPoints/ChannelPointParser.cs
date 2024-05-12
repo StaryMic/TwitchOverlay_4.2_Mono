@@ -3,6 +3,7 @@ using System;
 using OpenCvSharp;
 using TwitchLib.Api.Helix.Models.Ads;
 using TwitchOverlay.Mono;
+using TwitchOverlay.Mono.RigidBodyPlus;
 using Window = Godot.Window;
 
 [GlobalClass]
@@ -53,7 +54,7 @@ public partial class ChannelPointParser : Node
 			case "Benadryl":
 				// Roll a random number to determine if he appears.
 				// Make sure he doesn't already exist
-				if (_rng.RandiRange(0,25) == 14 && DoesNodeExistInSceneTree("EventObjects/TheHatMan") == false)
+				if (_rng.RandiRange(1,25) == 14 && !DoesNodeExistInSceneTree("EventObjects/TheHatMan"))
 				{
 					//Summon the Hat Man
 					var TheHatMan = ResourceLoader.Load<PackedScene>("res://Mono/Twitch/Events/ChannelPoints/Benadryl/TheHatMan.tscn");
@@ -68,6 +69,15 @@ public partial class ChannelPointParser : Node
 				break;
 			
 			case "Hydrate!":
+				var WaterBottle =
+					ResourceLoader.Load<PackedScene>("res://Mono/Twitch/Events/ChannelPoints/Hydrate/bottle.tscn");
+				RigidBodyPlus WaterBottleInstance = WaterBottle.Instantiate<RigidBodyPlus>();
+				GetTree().Root.GetChild(0).GetNode("3DPhysicsObjects").AddChild(WaterBottleInstance);
+				WaterBottleInstance.GlobalPosition =
+					GetTree().Root.GetChild(0).GetNode<Node3D>("3DPhysicsObjects").GlobalPosition;
+				WaterBottleInstance.GlobalPosition += new Vector3(_rng.RandfRange(-5, 5), 0, _rng.RandfRange(-5, 5));
+				WaterBottleInstance.Rotation =
+					new Vector3(_rng.RandfRange(-6, 6), _rng.RandfRange(-6, 6), _rng.RandfRange(-6, 6));
 				break;
 		}
 	}

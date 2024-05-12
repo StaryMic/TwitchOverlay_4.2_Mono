@@ -74,6 +74,9 @@ public partial class TwitchAPI : Node
 			AuthScopes.Channel_Manage_Ads,
 			AuthScopes.Channel_Read_Ads
 		};
+		// Refresh the auth key (please fucking work)
+		// twitchApi.Auth.RefreshAuthTokenAsync((string)_jsonAuthFile["Access_Token"], (string)_jsonAuthFile["Client_Secret"],
+			// (string)_jsonAuthFile["Client_ID"]);
 		
 		// Set up condition and transport dictionary for subscriptions.
 		_conditionTemplate = new System.Collections.Generic.Dictionary<string, string>()
@@ -82,6 +85,13 @@ public partial class TwitchAPI : Node
 			{ "broadcaster_user_id", _channelId },
 			{ "user_id", _channelId },
 			{ "moderator_user_id", _channelId }
+		};
+		
+		// Setup error handling
+		_websocketClient.ErrorOccurred += (sender, args) =>
+		{
+			GD.Print(args.Exception.Message);
+			return Task.CompletedTask;
 		};
 		
 		// Connect Signals from Websocket to GlobalSceneSignals
@@ -110,7 +120,6 @@ public partial class TwitchAPI : Node
 		_websocketClient.ChannelPointsCustomRewardRedemptionAdd += WebsocketClientOnChannelPointsCustomRewardRedemptionAdd;
 		
 		_websocketClient.ConnectAsync();
-		
 	}
 
 	// Helper Functions
@@ -357,6 +366,7 @@ public partial class TwitchAPI : Node
 		Callable.From(() =>
 			_globalSceneSignals.Node.EmitSignal(GlobalSceneSignals.SignalName.Follow,
 				args.Notification.Payload.Event.UserName)).CallDeferred();
+		GD.Print("Received a follow!");
 
 		return Task.CompletedTask;
 	}
@@ -366,11 +376,13 @@ public partial class TwitchAPI : Node
 		Callable.From(() => _globalSceneSignals.Node.EmitSignal(GlobalSceneSignals.SignalName.Cheer,
 			args.Notification.Payload.Event.UserName, args.Notification.Payload.Event.Message,
 			args.Notification.Payload.Event.Bits)).CallDeferred();
+		GD.Print("Received a cheer!");
 		return Task.CompletedTask;
 	}
 
 	private Task WebsocketClientOnChannelBan(object sender, ChannelBanArgs args)
 	{
+		GD.Print("oooooh someone got BANNED.");
 		Callable.From(() => _globalSceneSignals.Node.EmitSignal(GlobalSceneSignals.SignalName.Ban)).CallDeferred();
 		return Task.CompletedTask;
 	}

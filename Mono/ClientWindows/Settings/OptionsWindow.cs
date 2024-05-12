@@ -11,6 +11,7 @@ public partial class OptionsWindow : Window
 	private Button _connectButton;
 	private Button _disconnectButton;
 	private Button _authKeyButton;
+	private Button _testFollowButton;
 	//  - Devices
 	//		- Audio
 	private OptionButton _inputOptions;
@@ -61,6 +62,7 @@ public partial class OptionsWindow : Window
 		_disconnectButton.Pressed += () => _twitchApiRef._websocketClient.ConnectAsync().Start();
 		_authKeyButton = this.GetNode<Button>("SettingsTabs/Debug/TokenGen");
 		_authKeyButton.Pressed += () => _twitchApiRef.GenerateNewToken();
+		
 		//  - Devices
 		//		- Audio
 		_inputOptions = this.GetNode<OptionButton>("SettingsTabs/Devices/Audio/InputOptions");
