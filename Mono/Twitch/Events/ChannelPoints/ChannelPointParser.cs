@@ -69,15 +69,18 @@ public partial class ChannelPointParser : Node
 				break;
 			
 			case "Hydrate!":
-				var WaterBottle =
-					ResourceLoader.Load<PackedScene>("res://Mono/Twitch/Events/ChannelPoints/Hydrate/bottle.tscn");
-				RigidBodyPlus WaterBottleInstance = WaterBottle.Instantiate<RigidBodyPlus>();
-				GetTree().Root.GetChild(0).GetNode("3DPhysicsObjects").AddChild(WaterBottleInstance);
-				WaterBottleInstance.GlobalPosition =
-					GetTree().Root.GetChild(0).GetNode<Node3D>("3DPhysicsObjects").GlobalPosition;
-				WaterBottleInstance.GlobalPosition += new Vector3(_rng.RandfRange(-5, 5), 0, _rng.RandfRange(-5, 5));
-				WaterBottleInstance.Rotation =
-					new Vector3(_rng.RandfRange(-6, 6), _rng.RandfRange(-6, 6), _rng.RandfRange(-6, 6));
+				for (int i = 0; i < 5; i++)
+				{
+					var WaterBottle =
+						ResourceLoader.Load<PackedScene>("res://Mono/Twitch/Events/ChannelPoints/Hydrate/bottle.tscn");
+					RigidBodyPlus WaterBottleInstance = WaterBottle.Instantiate<RigidBodyPlus>();
+					GetTree().Root.GetChild(0).GetNode("3DPhysicsObjects").AddChild(WaterBottleInstance);
+					WaterBottleInstance.GlobalPosition =
+						GetTree().Root.GetChild(0).GetNode<Node3D>("3DPhysicsObjects").GlobalPosition;
+					WaterBottleInstance.GlobalPosition += new Vector3(_rng.RandfRange(-5, 5), 0, _rng.RandfRange(-5, 5));
+					WaterBottleInstance.Rotation =
+						new Vector3(_rng.RandfRange(-6, 6), _rng.RandfRange(-6, 6), _rng.RandfRange(-6, 6));	
+				}
 				break;
 		}
 	}

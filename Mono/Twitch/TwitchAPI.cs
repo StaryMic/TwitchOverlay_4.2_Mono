@@ -6,6 +6,7 @@ using Godot;
 using Godot.Collections;
 using TwitchLib.Api.Auth;
 using TwitchLib.Api.Core.Enums;
+using TwitchLib.Api.Helix.Models.Chat.Emotes.GetChannelEmotes;
 using TwitchLib.EventSub.Core.Models.Predictions;
 using TwitchLib.EventSub.Websockets;
 using TwitchLib.EventSub.Websockets.Core.EventArgs;
@@ -72,11 +73,13 @@ public partial class TwitchAPI : Node
 			AuthScopes.Moderator_Manage_Chat_Messages,
 			AuthScopes.Moderator_Read_Chat_Settings,
 			AuthScopes.Channel_Manage_Ads,
-			AuthScopes.Channel_Read_Ads
+			AuthScopes.Channel_Read_Ads,
+			AuthScopes.Moderator_Read_Followers,
+			AuthScopes.Moderator_Manage_Banned_Users
 		};
 		// Refresh the auth key (please fucking work)
-		// twitchApi.Auth.RefreshAuthTokenAsync((string)_jsonAuthFile["Access_Token"], (string)_jsonAuthFile["Client_Secret"],
-			// (string)_jsonAuthFile["Client_ID"]);
+		twitchApi.Auth.RefreshAuthTokenAsync((string)_jsonAuthFile["Access_Token"], (string)_jsonAuthFile["Client_Secret"],
+			(string)_jsonAuthFile["Client_ID"]);
 		
 		// Set up condition and transport dictionary for subscriptions.
 		_conditionTemplate = new System.Collections.Generic.Dictionary<string, string>()
@@ -95,8 +98,8 @@ public partial class TwitchAPI : Node
 		};
 		
 		// Connect Signals from Websocket to GlobalSceneSignals
+		// NOTE: Chat messages are handled by ChatHandler
 		_websocketClient.WebsocketConnected += WebsocketClientOnWebsocketConnected;
-		_websocketClient.ChannelChatMessage += WebsocketClientOnChannelChatMessage;
 		_websocketClient.ChannelBan += WebsocketClientOnChannelBan;
 		_websocketClient.ChannelCheer += WebsocketClientOnChannelCheer;
 		_websocketClient.ChannelFollow += WebsocketClientOnChannelFollow;
@@ -143,6 +146,11 @@ public partial class TwitchAPI : Node
 		}
 
 		return translatedOutcomes;
+	}
+
+	public void SendChatMessage(String message, String replyMessageId = "")
+	{
+		twitchApi.Helix.Chat.SendChatMessage(_channelId, _channelId, message, replyMessageId);
 	}
 	
 	// Regen token function
@@ -196,6 +204,8 @@ public partial class TwitchAPI : Node
 		}
 		
 		GD.Print("Sub total: ", twitchApi.Helix.EventSub.GetEventSubSubscriptionsAsync().Result.Total);
+
+		twitchApi.Helix.Chat.SendChatMessage(_channelId, _channelId, "[BOT]: Connected to Twitch Chat!");
 		
 		return Task.CompletedTask;
 	}
@@ -382,7 +392,6 @@ public partial class TwitchAPI : Node
 
 	private Task WebsocketClientOnChannelBan(object sender, ChannelBanArgs args)
 	{
-		GD.Print("oooooh someone got BANNED.");
 		Callable.From(() => _globalSceneSignals.Node.EmitSignal(GlobalSceneSignals.SignalName.Ban)).CallDeferred();
 		return Task.CompletedTask;
 	}

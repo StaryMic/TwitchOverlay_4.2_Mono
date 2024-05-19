@@ -1,11 +1,25 @@
-[gd_scene load_steps=7 format=3 uid="uid://c153nwr0gkppw"]
+[gd_scene load_steps=11 format=3 uid="uid://c153nwr0gkppw"]
 
 [ext_resource type="Script" path="res://Mono/PNGTuber/PNGTuber.cs" id="1_s5ao2"]
 [ext_resource type="Resource" uid="uid://uekifraksmka" path="res://Mono/PNGTuber/Avatars/StarryHeadOnly.tres" id="2_bsdqv"]
 [ext_resource type="Script" path="res://Mono/PNGTuber/Effects/MoveInCircle.cs" id="2_espky"]
+[ext_resource type="Script" path="res://Mono/PNGTuber/Effects/DimAvatar.cs" id="3_sgcm4"]
 [ext_resource type="Texture2D" uid="uid://d0ls7ol0qdidf" path="res://Mono/PNGTuber/Avatars/StarryHeadOnly/closedclosed.png" id="4_dvdm3"]
 
-[sub_resource type="Resource" id="Resource_uunj0"]
+[sub_resource type="Resource" id="Resource_8lybb"]
+script = ExtResource("3_sgcm4")
+Value = 0.3
+
+[sub_resource type="Resource" id="Resource_v8sbt"]
+script = ExtResource("2_espky")
+AmplitudeInPixels = 25.0
+Speed = 1000.0
+
+[sub_resource type="Resource" id="Resource_ixwry"]
+script = ExtResource("3_sgcm4")
+Value = 0.3
+
+[sub_resource type="Resource" id="Resource_dm20s"]
 script = ExtResource("2_espky")
 AmplitudeInPixels = 25.0
 Speed = 1000.0
@@ -22,12 +36,18 @@ Avatar = ExtResource("2_bsdqv")
 _talkThreshold = -28.0
 _screamThreshold = -4.0
 _mouthCloseDelaySeconds = 0.1
-_talkingEffect = SubResource("Resource_uunj0")
+_quietEffect = SubResource("Resource_8lybb")
+_speakingEffect = SubResource("Resource_v8sbt")
+_quietBlinkEffect = SubResource("Resource_ixwry")
+_speakingBlinkEffect = SubResource("Resource_dm20s")
 
 [node name="Microphone" type="AudioStreamPlayer" parent="."]
 stream = SubResource("AudioStreamMicrophone_wodii")
 autoplay = true
 bus = &"MICROPHONE"
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("4_dvdm3")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 offset_right = 40.0
@@ -43,5 +63,5 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Filtered"
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("4_dvdm3")
+[node name="StateLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2

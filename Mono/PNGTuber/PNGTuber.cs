@@ -22,9 +22,9 @@ public partial class PNGTuber : Window
 	// State Effects
 	[ExportCategory("State Effects")] 
 	[Export] private PNGTuberEffectBase _quietEffect;
-	[Export] private PNGTuberEffectBase _talkingEffect;
+	[Export] private PNGTuberEffectBase _speakingEffect;
 	[Export] private PNGTuberEffectBase _quietBlinkEffect;
-	[Export] private PNGTuberEffectBase _talkingBlinkEffect;
+	[Export] private PNGTuberEffectBase _speakingBlinkEffect;
 	[Export] private PNGTuberEffectBase _screamEffect;
 	
 	// Preloaded Images
@@ -53,6 +53,7 @@ public partial class PNGTuber : Window
 	
 	// Current state (Default to quiet)
 	public PngTuberEnum MicState = PngTuberEnum.Quiet;
+	private PngTuberEnum _prevState = PngTuberEnum.Quiet;
 	private bool _stateLocked = false;
 	private int _stateLockFrameTimer = 0;
 	private int _stateLockFrameDuration = 15;
@@ -77,6 +78,9 @@ public partial class PNGTuber : Window
 		_mouthCloseDelayTimer.ResetCooldown();
 		_blinkTimer = new CooldownTimer(1);
 		_blinkTimer.ResetCooldown();
+		
+		// Center image
+		_avatarDisplay.Position = _avatarDisplay.GetParent<Window>().Size / 2;
 	}
 
 	public void SetupAvatar(PNGTuberAvatarResource _avatar)
@@ -121,9 +125,6 @@ public partial class PNGTuber : Window
 				_stateLocked = false;
 			}
 		}
-		
-		// Center Sprite every frame so it auto resets kinda.
-		_avatarDisplay.Position = _avatarDisplay.GetParent<Window>().Size / 2;
 		
 		// State Machine Stuff.
 		MicrophoneStateMachine();
@@ -212,22 +213,50 @@ public partial class PNGTuber : Window
 
 	private void ProcessAvatarEffects()
 	{
-		switch(MicState)
+		if (MicState != _prevState) // If we are going to change states
+		{
+			GD.Print("Changing PNGTuber State");
+			switch (_prevState) // Reset effects
+			{
+				case PngTuberEnum.Quiet:
+					if (_quietEffect != null) _quietEffect.ResetEffect(_avatarDisplay);
+					break;
+				case PngTuberEnum.QuietBlink:
+					if (_quietBlinkEffect != null) _quietBlinkEffect.ResetEffect(_avatarDisplay);
+					break;
+				case PngTuberEnum.Speaking:
+					if (_speakingEffect != null) _speakingEffect.ResetEffect(_avatarDisplay);
+					break;
+				case PngTuberEnum.SpeakingBlink:
+					if (_speakingBlinkEffect != null) _speakingBlinkEffect.ResetEffect(_avatarDisplay);
+					break;
+				case PngTuberEnum.Screaming:
+					if (_screamEffect != null) _screamEffect.ResetEffect(_avatarDisplay);
+					break;
+			}
+		}
+		switch(MicState) // Apply new effects (or keep applying them)
+		// Then set the previous state to the current state.
 		{
 			case PngTuberEnum.Quiet:
 				if (_quietEffect != null) _quietEffect.ProcessEffect(_avatarDisplay);
+				_prevState = MicState;
 				break;
 			case PngTuberEnum.QuietBlink:
 				if (_quietBlinkEffect != null) _quietBlinkEffect.ProcessEffect(_avatarDisplay);
+				_prevState = MicState;
 				break;
 			case PngTuberEnum.Speaking:
-				if (_talkingEffect != null) _talkingEffect.ProcessEffect(_avatarDisplay);
+				if (_speakingEffect != null) _speakingEffect.ProcessEffect(_avatarDisplay);
+				_prevState = MicState;
 				break;
 			case PngTuberEnum.SpeakingBlink:
-				if (_talkingBlinkEffect != null) _talkingBlinkEffect.ProcessEffect(_avatarDisplay);
+				if (_speakingBlinkEffect != null) _speakingBlinkEffect.ProcessEffect(_avatarDisplay);
+				_prevState = MicState;
 				break;
 			case PngTuberEnum.Screaming:
 				if (_screamEffect != null) _screamEffect.ProcessEffect(_avatarDisplay);
+				_prevState = MicState;
 				break;
 			default:
 				throw new ArgumentOutOfRangeException();

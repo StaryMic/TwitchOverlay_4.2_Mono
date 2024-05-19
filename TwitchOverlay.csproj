@@ -6,6 +6,7 @@
     <EnableDynamicLoading>true</EnableDynamicLoading>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="GoveeCSharpConnector" Version="1.1.2" />
     <PackageReference Include="OpenCvSharp4" Version="4.9.0.20240103" />
     <PackageReference Include="OpenCvSharp4.runtime.win.cuda" Version="4.5.0.20201013" />
     <PackageReference Include="OpenCvSharp4.Windows" Version="4.9.0.20240103" />

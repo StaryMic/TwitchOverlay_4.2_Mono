@@ -52,4 +52,10 @@ public partial class GlobalSceneSignals : Node
 
     [Signal]
     public delegate void FollowEventHandler(string Username);
+
+    [Signal]
+    public delegate void BotMessageEventHandler(string Username, string Message, string UserID, string MessageId);
+
+    [Signal]
+    public delegate void CommandMessageEventHandler(string Username, string Message, string UserID, string MessageId);
 }
