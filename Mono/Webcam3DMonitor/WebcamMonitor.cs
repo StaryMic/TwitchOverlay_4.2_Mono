@@ -114,7 +114,7 @@ public partial class WebcamMonitor : Control
 	{
 		float currentRng = _rng.RandfRange(0.1f,0.20f);
 		
-		if (Start && _webcam._capture.IsOpened()) // If we are being told to start a new glitch sequence and the camera is ON
+		if (Start && _webcam.Capture.IsOpened()) // If we are being told to start a new glitch sequence and the camera is ON
 		{
 			GD.Print("Glitch Start");
 			glitchTime = new CooldownTimer(_rng.RandfRange(2,4));

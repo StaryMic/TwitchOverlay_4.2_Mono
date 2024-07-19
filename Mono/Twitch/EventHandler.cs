@@ -1,7 +1,4 @@
 using Godot;
-using AstroRaider2.Utility.NodeTree;
-using Godot.Collections;
-using Godot.NativeInterop;
 
 public partial class EventHandler : Node
 {

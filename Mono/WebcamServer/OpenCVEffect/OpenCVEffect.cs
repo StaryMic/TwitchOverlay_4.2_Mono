@@ -1,6 +1,5 @@
 using Godot;
 using OpenCvSharp;
-using System;
 
 namespace TwitchOverlay.Mono.WebcamServer.OpenCVEffect;
 [GlobalClass]

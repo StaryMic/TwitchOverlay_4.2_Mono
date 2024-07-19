@@ -13,8 +13,8 @@ public partial class PNGTuber : Window
 	[Export] public int MicrophoneSmoothingSamples = 25;
 
 	[ExportCategory("Thresholds")]
-	[Export] private float _talkThreshold = 0f;
-	[Export] private float _screamThreshold = 0f;
+	[Export] public float TalkThreshold = 0f;
+	[Export] public float ScreamThreshold = 0f;
 	[Export] private float _mouthCloseDelaySeconds = 0.25f;
 	private CooldownTimer _mouthCloseDelayTimer;
 	private CooldownTimer _blinkTimer;
@@ -50,6 +50,7 @@ public partial class PNGTuber : Window
 	// Debug labels. Move to OptionsWindow later.
 	private Label _rawLabel;
 	private Label _filteredLabel;
+	private Label _fpsLabel;
 	
 	// Current state (Default to quiet)
 	public PngTuberEnum MicState = PngTuberEnum.Quiet;
@@ -73,6 +74,7 @@ public partial class PNGTuber : Window
 		AudioServer.InputDevice = "Wave Link MicrophoneFX (Elgato Wave:3)";
 		_rawLabel = GetNode<Label>("VBoxContainer/RawLabel");
 		_filteredLabel = GetNode<Label>("VBoxContainer/FilteredLabel");
+		_fpsLabel = GetNode<Label>("VBoxContainer/FPSLabel");
 		_avatarDisplay = GetNode<Sprite2D>("Sprite2D");
 		_mouthCloseDelayTimer = new CooldownTimer(_mouthCloseDelaySeconds);
 		_mouthCloseDelayTimer.ResetCooldown();
@@ -109,7 +111,7 @@ public partial class PNGTuber : Window
 			
 		}
 		// Clear history if we go silent, so we aren't filtering weird data.
-		if (_micLevel < _talkThreshold)
+		if (_micLevel < TalkThreshold)
 		{
 			_audioLevelHistory.Clear();
 			_filteredMicLevel = -1000;
@@ -133,16 +135,17 @@ public partial class PNGTuber : Window
 		// Debug Label Text
 		_filteredLabel.Text = "FilteredDB: " + _filteredMicLevel;
 		_rawLabel.Text = "RawMic: " + _micLevel;
+		_fpsLabel.Text = "FPS: " + Performance.GetMonitor(Performance.Monitor.TimeFps);
 	}
 
 	private void MicrophoneStateMachine()
 	{
-		if (_filteredMicLevel >= _talkThreshold)
+		if (_micLevel >= TalkThreshold)
 		{
 			_mouthCloseDelayTimer.ResetCooldown();
 			// Reset because we are talking.
 			
-			if (_filteredMicLevel >= _screamThreshold)
+			if (_filteredMicLevel >= ScreamThreshold)
 			{
 				// SCREAM
 				_blinkTimer.ResetCooldown(); // No blinking. Constantly reset while yelling.
@@ -162,7 +165,7 @@ public partial class PNGTuber : Window
 		}
 
 		// If we have stopped talking, and we can close our mouth.
-		if (_filteredMicLevel < _talkThreshold && _mouthCloseDelayTimer.HasCooldownElapsed())
+		if (_micLevel < TalkThreshold && _mouthCloseDelayTimer.HasCooldownElapsed())
 		{
 			if (_blinkTimer.HasCooldownElapsed())
 			{

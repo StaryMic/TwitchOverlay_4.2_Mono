@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using TwitchOverlay.Mono.WebcamServer;
 
 public partial class Sprite2D_TextureGrabTest : Sprite2D

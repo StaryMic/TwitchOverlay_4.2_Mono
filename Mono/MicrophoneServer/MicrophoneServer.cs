@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using AstroRaider2.Utility;
 using AstroRaider2.Utility.NodeTree;
 
 [GlobalClass]

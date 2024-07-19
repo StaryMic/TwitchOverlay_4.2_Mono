@@ -1,10 +1,7 @@
 using Godot;
-using System;
-using OpenCvSharp;
 using TwitchLib.Api.Helix.Models.Ads;
 using TwitchOverlay.Mono;
 using TwitchOverlay.Mono.RigidBodyPlus;
-using Window = Godot.Window;
 
 [GlobalClass]
 public partial class ChannelPointParser : Node
@@ -69,7 +66,7 @@ public partial class ChannelPointParser : Node
 				break;
 			
 			case "Hydrate!":
-				for (int i = 0; i < 5; i++)
+				for (int i = 0; i < 10; i++)
 				{
 					var WaterBottle =
 						ResourceLoader.Load<PackedScene>("res://Mono/Twitch/Events/ChannelPoints/Hydrate/bottle.tscn");

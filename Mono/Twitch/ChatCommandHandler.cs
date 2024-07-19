@@ -49,11 +49,11 @@ public partial class ChatCommandHandler : Node
 					_twitchApi.SendChatMessage("[BOT]: Incorrect arguments. Check your parameters and try again.", messageid);
 				}
 				break;
+			
+			case "!Flashbang":
+				GD.Print("Flashbang going out!");
+				_goveeLightHandler.Flashbang();
+				break;
 		}
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
 	}
 }

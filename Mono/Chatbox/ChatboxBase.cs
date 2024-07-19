@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using AstroRaider2.Utility.NodeTree;
 using Godot.Collections;
 using TwitchOverlay.Mono;

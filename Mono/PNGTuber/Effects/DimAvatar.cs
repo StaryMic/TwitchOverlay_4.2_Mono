@@ -1,5 +1,4 @@
 using Godot;
-using OpenCvSharp.Dnn;
 
 namespace TwitchOverlay.Mono.PNGTuber.Effects;
 

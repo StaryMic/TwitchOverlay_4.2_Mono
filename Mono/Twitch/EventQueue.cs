@@ -1,6 +1,5 @@
-using Godot;
 using System;
-using System.Collections.Generic;
+using Godot;
 using AstroRaider2.Utility.Timers;
 using Godot.Collections;
 using TwitchOverlay.Mono;
@@ -32,6 +31,8 @@ public partial class EventQueue : Node
 		{"Bits", "0"},
 		{"RaidViewers", "0"}
 	};
+
+	private Array<String> _processedUsernames;
 	
 	// SIGNALS
 	[Signal]
@@ -88,7 +89,11 @@ public partial class EventQueue : Node
 
 	private void GlobalSceneSignalsRefOnFollow(string username)
 	{
-		AddNotificationToQueue(EventAttributes.NotificationTypeFollow, username, "", false, 0, "", 0, 0, 0);
+		if (!_processedUsernames.Contains(username))
+		{
+			AddNotificationToQueue(EventAttributes.NotificationTypeFollow, username, "", false, 0, "", 0, 0, 0);
+			_processedUsernames.Add(username);
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.

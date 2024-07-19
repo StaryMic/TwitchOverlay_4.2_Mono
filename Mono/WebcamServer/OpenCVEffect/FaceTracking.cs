@@ -1,9 +1,5 @@
 using Godot;
-using System;
-using System.Media;
 using OpenCvSharp;
-using OpenCvSharp.Face;
-using OpenCvSharp.Tracking;
 using TwitchOverlay.Mono.WebcamServer.OpenCVEffect;
 
 // https://dev.to/azure/opencv-detect-and-blur-faces-using-haar-cascades-in-c-1ao5

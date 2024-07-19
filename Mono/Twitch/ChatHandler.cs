@@ -3,9 +3,7 @@ using System.Threading.Tasks;
 using AstroRaider2.Utility.Timers;
 using Godot;
 using Godot.Collections;
-using TwitchLib.Api.Helix.Models.Chat.ChatSettings;
 using TwitchLib.EventSub.Websockets.Core.EventArgs.Channel;
-using TwitchLib.EventSub.Websockets.Core.EventArgs.User;
 
 namespace TwitchOverlay.Mono.Twitch;
 
@@ -66,7 +64,7 @@ public partial class ChatHandler : Node
             return Task.CompletedTask;
         }
 
-        if (message.Contains("[BOT]"))
+        if (message.Contains("[BOT]") && username == "starry_mic")
         {
             GD.Print("ChatHandler.CS: Bot has sent a message. Handle this later.");
             

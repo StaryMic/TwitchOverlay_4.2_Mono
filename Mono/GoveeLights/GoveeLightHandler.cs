@@ -1,5 +1,5 @@
-using Godot;
 using System;
+using Godot;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using GoveeCSharpConnector.Objects;
@@ -19,11 +19,6 @@ public partial class GoveeLightHandler : Node
 	public override void _Ready()
 	{
 		DiscoverAndConnectDevices();
-	}
-
-	// Called every frame. 'delta' is the elapsed time since the previous frame.
-	public override void _Process(double delta)
-	{
 	}
 
 	public async void DiscoverAndConnectDevices()
@@ -53,6 +48,21 @@ public partial class GoveeLightHandler : Node
 		foreach (var device in _udpDevices)
 		{
 			_goveeUdpService.SetColor(device.ip, new RgbColor(R, G, B));
+		}
+	}
+
+	public async void Flashbang()
+	{
+		foreach (var device in _udpDevices)
+		{
+			await _goveeUdpService.SetColor(device.ip, new RgbColor(255, 255, 255));
+			await _goveeUdpService.SetBrightness(device.ip, 100);
+			await Task.Delay(250);
+			await _goveeUdpService.SetBrightness(device.ip, 0);
+
+			await Task.Delay(1000);
+
+			await _goveeUdpService.SetColor(device.ip, new RgbColor(255, 0, 255));
 		}
 	}
 }

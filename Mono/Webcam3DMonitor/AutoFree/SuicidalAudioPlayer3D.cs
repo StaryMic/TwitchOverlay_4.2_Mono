@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 namespace AstroRaider2.Utility.Autokill;
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://dfh3v2a1vt4cu"]
+[gd_scene load_steps=22 format=3 uid="uid://dfh3v2a1vt4cu"]
 
 [ext_resource type="Script" path="res://Mono/GlobalSceneSignals.cs" id="1_2e12k"]
 [ext_resource type="Script" path="res://Mono/WebcamServer/WebcamServer.cs" id="1_42u1a"]
@@ -11,11 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://2u3kxn8tjt3s" path="res://Mono/ClientWindows/Settings/OptionsWindow.tscn" id="6_4pnpu"]
 [ext_resource type="Script" path="res://Mono/GoveeLights/GoveeLightHandler.cs" id="8_l7omj"]
 [ext_resource type="Script" path="res://Scripts/Utility/DatabaseManager.gd" id="8_x8y87"]
-[ext_resource type="PackedScene" uid="uid://chstpnsed4gwo" path="res://Mono/WebcamServer/SimpleWebcam.tscn" id="10_4tndm"]
 [ext_resource type="PackedScene" uid="uid://b7axn3oiav56e" path="res://Scenes/Objects/3D/NotificationDisplay.tscn" id="10_tcghh"]
-[ext_resource type="PackedScene" uid="uid://c153nwr0gkppw" path="res://Mono/PNGTuber/png_tuber.tscn" id="16_kh672"]
-[ext_resource type="Script" path="res://Mono/PNGTuber/Effects/DimAvatar.cs" id="17_7cgi6"]
-[ext_resource type="Script" path="res://Mono/PNGTuber/Effects/MoveInCircle.cs" id="18_alcuv"]
 [ext_resource type="PackedScene" uid="uid://ceyre6owebw3s" path="res://Mono/Chatbox/ChatboxBase.tscn" id="24_yr45a"]
 [ext_resource type="Script" path="res://Mono/Twitch/TwitchAPI.cs" id="27_a7pjf"]
 
@@ -48,24 +44,6 @@ size = Vector2(1044, 2186)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_e540e"]
 size = Vector2(532, 4012)
-
-[sub_resource type="Resource" id="Resource_s51mh"]
-script = ExtResource("17_7cgi6")
-Value = 1.0
-
-[sub_resource type="Resource" id="Resource_i5vul"]
-script = ExtResource("18_alcuv")
-AmplitudeInPixels = 25.0
-Speed = 1000.0
-
-[sub_resource type="Resource" id="Resource_nowkj"]
-script = ExtResource("17_7cgi6")
-Value = 1.0
-
-[sub_resource type="Resource" id="Resource_i3ta5"]
-script = ExtResource("18_alcuv")
-AmplitudeInPixels = 25.0
-Speed = 1000.0
 
 [node name="Overlay" type="Node3D"]
 
@@ -163,15 +141,6 @@ scale = Vector2(0.362008, 0.362008)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 22.15, -10.46)
 
 [node name="ChatboxBase" parent="." instance=ExtResource("24_yr45a")]
-
-[node name="SimpleWebcam" parent="." instance=ExtResource("10_4tndm")]
-scale = Vector2(0.241517, 0.241517)
-
-[node name="PNGTuber" parent="." instance=ExtResource("16_kh672")]
-_quietEffect = SubResource("Resource_s51mh")
-_speakingEffect = SubResource("Resource_i5vul")
-_quietBlinkEffect = SubResource("Resource_nowkj")
-_speakingBlinkEffect = SubResource("Resource_i3ta5")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.37867, 3.84267)

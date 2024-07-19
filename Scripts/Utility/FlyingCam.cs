@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using AstroRaider2.Utility.NodeTree;
 
 public partial class FlyingCam : Camera3D

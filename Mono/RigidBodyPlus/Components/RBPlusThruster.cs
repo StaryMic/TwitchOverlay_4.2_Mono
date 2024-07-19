@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 [GlobalClass]
 [Icon("res://Images/ScriptIcons/Bootstrap-Bootstrap-Bootstrap-rocket.svg")]

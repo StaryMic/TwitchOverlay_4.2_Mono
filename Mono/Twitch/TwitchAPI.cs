@@ -4,9 +4,7 @@ using System.Threading.Tasks;
 using AstroRaider2.Utility.NodeTree;
 using Godot;
 using Godot.Collections;
-using TwitchLib.Api.Auth;
 using TwitchLib.Api.Core.Enums;
-using TwitchLib.Api.Helix.Models.Chat.Emotes.GetChannelEmotes;
 using TwitchLib.EventSub.Core.Models.Predictions;
 using TwitchLib.EventSub.Websockets;
 using TwitchLib.EventSub.Websockets.Core.EventArgs;
@@ -100,6 +98,7 @@ public partial class TwitchAPI : Node
 		// Connect Signals from Websocket to GlobalSceneSignals
 		// NOTE: Chat messages are handled by ChatHandler
 		_websocketClient.WebsocketConnected += WebsocketClientOnWebsocketConnected;
+		_websocketClient.WebsocketDisconnected += WebsocketClientOnWebsocketDisconnected;
 		_websocketClient.ChannelBan += WebsocketClientOnChannelBan;
 		_websocketClient.ChannelCheer += WebsocketClientOnChannelCheer;
 		_websocketClient.ChannelFollow += WebsocketClientOnChannelFollow;
@@ -123,6 +122,12 @@ public partial class TwitchAPI : Node
 		_websocketClient.ChannelPointsCustomRewardRedemptionAdd += WebsocketClientOnChannelPointsCustomRewardRedemptionAdd;
 		
 		_websocketClient.ConnectAsync();
+	}
+
+	private Task WebsocketClientOnWebsocketDisconnected(object sender, EventArgs args)
+	{
+		OS.Alert("The overlay has been disconnected. Please reconnect.");
+		return Task.CompletedTask;
 	}
 
 	// Helper Functions

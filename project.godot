@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="TwitchOverlay"
-config/tags=PackedStringArray("4.2", "mono")
+config/tags=PackedStringArray("4.2.2", "mono")
 run/main_scene="res://Scenes/Maps/Overlay.tscn"
 config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 run/max_fps=60
@@ -94,3 +94,4 @@ MoveDown={
 
 textures/canvas_textures/default_texture_filter=0
 viewport/transparent_background=true
+2d/snap/snap_2d_transforms_to_pixel=true

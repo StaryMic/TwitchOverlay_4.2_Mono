@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using TwitchOverlay.Mono;
 using TwitchOverlay.Mono.WebcamServer;
 
@@ -57,9 +56,9 @@ public partial class OptionsWindow : Window
 		// Options Menu references
 		//  - Debug
 		_connectButton = this.GetNode<Button>("SettingsTabs/Debug/Connect");
-		_connectButton.Pressed += () => _twitchApiRef._websocketClient.DisconnectAsync().Start();
+		_connectButton.Pressed += () => _twitchApiRef._websocketClient.ConnectAsync().Start();
 		_disconnectButton = this.GetNode<Button>("SettingsTabs/Debug/Disconnect");
-		_disconnectButton.Pressed += () => _twitchApiRef._websocketClient.ConnectAsync().Start();
+		_disconnectButton.Pressed += () => _twitchApiRef._websocketClient.DisconnectAsync().Start();
 		_authKeyButton = this.GetNode<Button>("SettingsTabs/Debug/TokenGen");
 		_authKeyButton.Pressed += () => _twitchApiRef.GenerateNewToken();
 		

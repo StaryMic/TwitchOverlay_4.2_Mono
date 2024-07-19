@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using Godot.Collections;
 using TwitchOverlay.Mono;
 using AstroRaider2.Utility.Timers;

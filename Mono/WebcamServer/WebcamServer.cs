@@ -1,4 +1,3 @@
-using System;
 using System.Runtime.InteropServices;
 using Godot;
 using Godot.Collections;
@@ -10,62 +9,62 @@ public partial class WebcamServer : Node
 {
     public int CameraIndex = 1;
     
-    public VideoCapture _capture = VideoCapture.FromCamera(1);
+    public VideoCapture Capture = VideoCapture.FromCamera(1);
     private static Mat _image = new Mat();
 
-    private byte[] ByteData;
+    private byte[] _byteData;
     public Image CameraImage = new Image();
     public ImageTexture CamTexture;
 
-    private bool statustracker;
+    private bool _statustracker;
     public override void _Ready()
     {
-        _capture.ConvertRgb = true;
-        _capture.Open(CameraIndex,VideoCaptureAPIs.DSHOW); //Opens camera at index 0... whatever that index is is unknown.
+        Capture.ConvertRgb = true;
+        Capture.Open(CameraIndex,VideoCaptureAPIs.DSHOW); //Opens camera at index 0... whatever that index is is unknown.
         CamTexture = new ImageTexture();
     }
 
     public override void _ExitTree()
     {
-        _capture.Release();
+        Capture.Release();
     }
 
     public void ToggleCamera()
     {
-        if (_capture.IsOpened())
+        if (Capture.IsOpened())
         {
-            _capture.Release();
+            Capture.Release();
         }
         else
         {
-            _capture.Open(CameraIndex, VideoCaptureAPIs.DSHOW);
+            Capture.Open(CameraIndex, VideoCaptureAPIs.DSHOW);
         }
     }
 
     public override void _Process(double delta)
     {
-        if (_capture.IsOpened())
+        if (Capture.IsOpened())
         {
             // Send signals to appropriate places.
             ChangeWebcamStatus(true);
             
             if (_image != null)
             {
-                if (_capture.Read(_image))
+                if (Capture.Read(_image))
                 {
                     Mat appliedEffectsMat = ProcessEffectList(_image); //Apply effects
                     
-                    ByteData = new byte[appliedEffectsMat.Width * appliedEffectsMat.Height * appliedEffectsMat.Channels()];
+                    _byteData = new byte[appliedEffectsMat.Width * appliedEffectsMat.Height * appliedEffectsMat.Channels()];
                     // GD.Print(_image.Width,"X",_image.Height);
-                    Marshal.Copy(appliedEffectsMat.CvtColor(ColorConversionCodes.BGR2RGB).Data, ByteData, 0, ByteData.Length);
-                    CameraImage.SetData(_capture.FrameWidth, _capture.FrameHeight, false, Image.Format.Rgb8, ByteData);
+                    Marshal.Copy(appliedEffectsMat.CvtColor(ColorConversionCodes.BGR2RGB).Data, _byteData, 0, _byteData.Length);
+                    CameraImage.SetData(Capture.FrameWidth, Capture.FrameHeight, false, Image.Format.Rgb8, _byteData);
                     
                     CamTexture.SetImage(CameraImage);
                 }
             }
         }
 
-        if (!_capture.IsOpened())
+        if (!Capture.IsOpened())
         {
             ChangeWebcamStatus(false);
         }
@@ -78,10 +77,10 @@ public partial class WebcamServer : Node
 
     private void ChangeWebcamStatus(bool Status)
     {
-        if (statustracker != Status)
+        if (_statustracker != Status)
         {
             EmitSignal(SignalName.WebcamConnectionStatusChange, Status);
-            statustracker = Status;
+            _statustracker = Status;
         }
     }
 
@@ -94,15 +93,15 @@ public partial class WebcamServer : Node
 
     [Export] private Array<OpenCVEffect.OpenCVEffect> _cvEffects;
     
-    private Mat ProcessEffectList(Mat _inputMat)
+    private Mat ProcessEffectList(Mat inputMat)
     {
-        Mat _storedMat = _inputMat; //Store the input Mat.
+        Mat storedMat = inputMat; //Store the input Mat.
         // _storedMat is used for every effect, acting as the output of the effect, passing it onto the next effect that needs it
         foreach (OpenCVEffect.OpenCVEffect effect in _cvEffects)
         {
-            _storedMat = effect.ProcessEffect(_storedMat);
+            storedMat = effect.ProcessEffect(storedMat);
         }
 
-        return _storedMat; //This will be the culmination of every effect put into one Mat.
+        return storedMat; //This will be the culmination of every effect put into one Mat.
     }
 }

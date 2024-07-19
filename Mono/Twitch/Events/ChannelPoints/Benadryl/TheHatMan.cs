@@ -1,6 +1,4 @@
 using Godot;
-using System;
-using System.Collections.Generic;
 using AstroRaider2.Utility.Timers;
 
 public partial class TheHatMan : Sprite2D
